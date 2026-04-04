@@ -11,7 +11,7 @@
     {
       "href": "slam_notebook",
       "label": "Slam Notebooks",
-      "custom_href": null,
+      "custom_href": "/slam_notebook/",
       "id": "notebook"
     },
     {
@@ -21,7 +21,7 @@
       "id": "devotionals"
     },
     {
-      "custom_href": "",
+      "custom_href": "/bundle/",
       "href": "bundle",
       "id": "bundle",
       "label": "Bundles"

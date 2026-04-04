@@ -1,35 +1,30 @@
 {% set nav = settings.nav_items or [
-  { href: "shop/", label: "Shop", id: "shop" },
-  { href: "devotionals/", label: "Devotionals", id: "devotionals" },
-  { href: "journaling-tips/", label: "Club Hub", id: "journal" },
-  { href: "our-story/", label: "Our Story", id: "story" },
-  { href: "contact/", label: "Contact", id: "contact" }
+  { href: "/shop/", label: "Shop", id: "shop" },
+  { href: "/devotionals/", label: "Devotionals", id: "devotionals" },
+  { href: "/journaling-tips/", label: "Club Hub", id: "journal" },
+  { href: "/our-story/", label: "Our Story", id: "story" },
+  { href: "/contact/", label: "Contact", id: "contact" }
 ] %}
 <header class="fixed top-0 z-50 w-full bg-[#fcf6e3]/80 backdrop-blur-xl shadow-[0_10px_30px_rgba(49,47,35,0.06)]">
   <nav class="flex justify-between items-center w-full px-6 py-2 max-w-7xl mx-auto" aria-label="Primary">
     <div class="flex items-center gap-4">
       <a
         class="logo-link logo-link--header group inline-flex shrink-0 items-center justify-center overflow-visible outline-none transition-transform duration-300 focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#fcf6e3]"
-        href=""
+        href="{{ '/' | url }}"
       >
         {% logo settings.logo_url, (settings.site_name | default('Yaaazz Creative Co.')) + " Logo", 200, "logo-mark h-20 md:h-24 w-auto max-w-[200px] md:max-w-[240px] shadow-none object-contain object-center transition-all duration-300 ease-out" %}
       </a>
     </div>
     <div class="hidden md:flex items-center gap-8 font-headline font-bold text-lg tracking-tight">
         {% for item in nav %}
-          {% if item.custom_href %}
-            {% set link = item.custom_href %}
-          {% else %}
-            {% set link = item.href %}
-          {% endif %}
           <a
             class="text-[#7d4d5f]{% if activeNav and activeNav == item.id %} border-b-4 border-[#b2f2bb] pb-1 rotate-3{% else %}/70 hover:text-[#7d4d5f]{% endif %} transition-all hover:scale-105 hover:rotate-3"
-            href="{{ link }}"
+            href="{{ (item.custom_href or item.href) | sitePath | url }}"
           >{{ item.label }}</a>
         {% endfor %}
     </div>
     <div class="flex items-center gap-3">
-      <a href="checkout/" class="relative p-2 text-[#7d4d5f] hover:scale-110 transition-transform active:scale-95" aria-label="Cart and checkout">
+      <a href="{{ '/checkout/' | url }}" class="relative p-2 text-[#7d4d5f] hover:scale-110 transition-transform active:scale-95" aria-label="Cart and checkout">
         <span class="material-symbols-outlined text-2xl">shopping_bag</span>
         <span id="cart-badge" class="absolute -top-0.5 -right-0.5 min-w-[1.25rem] h-5 px-1 rounded-full bg-secondary text-on-secondary text-[10px] font-bold flex items-center justify-center hidden" aria-hidden="true">0</span>
       </a>
@@ -43,12 +38,7 @@
   <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[#fcf6e3]/95 backdrop-blur-xl border-t border-[#e3ddc5] shadow-lg origin-top transition-all duration-300">
     <nav class="flex flex-col px-6 py-4 font-headline font-bold text-lg" aria-label="Mobile">
       {% for item in nav %}
-        {% if item.custom_href %}
-          {% set link = item.custom_href %}
-        {% else %}
-          {% set link = item.href %}
-        {% endif %}
-        <a class="py-3 border-b border-[#e3ddc5]/50 text-[#7d4d5f] hover:pl-2 transition-all{% if activeNav and activeNav == item.id %} text-[#2c673c] bg-secondary-container/20{% endif %}" href="{{ link }}">
+        <a class="py-3 border-b border-[#e3ddc5]/50 text-[#7d4d5f] hover:pl-2 transition-all{% if activeNav and activeNav == item.id %} text-[#2c673c] bg-secondary-container/20{% endif %}" href="{{ (item.custom_href or item.href) | sitePath | url }}">
           {{ item.label }}
         </a>
       {% endfor %}

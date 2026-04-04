@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+# Use Node 24 for JS-based actions (avoids Node 20 runner deprecation warnings).
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: read
   pages: write
@@ -20,21 +24,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
 
       - name: Install dependencies
         run: npm install
 
+      # Default: project Pages URL https://<user>.github.io/<repo>/
+      # For a custom domain at the site root, set repo variable PATH_PREFIX to /
       - name: Build Eleventy
         run: npx @11ty/eleventy
         env:
-          PATH_PREFIX: /${{ github.event.repository.name }}/
+          PATH_PREFIX: ${{ vars.PATH_PREFIX || format('/{0}/', github.event.repository.name) }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -176,12 +176,7 @@ module.exports = function (eleventyConfig) {
       decoding: "async",
     };
 
-    let html = Image.generateHTML(metadata, imageAttributes);
-    if (pathPrefix && pathPrefix !== '/') {
-      const cleanPrefix = pathPrefix.replace(/\/$/, '');
-      html = html.replace(/="(\/img\/optimized\/)/g, `="${cleanPrefix}$1`);
-    }
-    return html;
+    return Image.generateHTML(metadata, imageAttributes);
   });
   
   eleventyConfig.addNunjucksAsyncShortcode("logo", async (src, alt, width = 180, className = "") => {
@@ -225,15 +220,20 @@ module.exports = function (eleventyConfig) {
       decoding: "async",
     };
 
-    let html = Image.generateHTML(metadata, imageAttributes);
-    // Inject pathPrefix into src/srcset URLs
-    if (pathPrefix && pathPrefix !== '/') {
-      const cleanPrefix = pathPrefix.replace(/\/$/, '');
-      html = html.replace(/="(\/img\/logo\/)/g, `="${cleanPrefix}$1`);
-    }
-    return html;
+    return Image.generateHTML(metadata, imageAttributes);
   });
 
+
+  eleventyConfig.addFilter("sitePath", (p) => {
+    if (p == null || p === "") return "/";
+    const s = String(p).trim();
+    if (/^https?:\/\//i.test(s) || s.startsWith("//") || s.startsWith("#") || s.startsWith("mailto:")) {
+      return s;
+    }
+    let o = s.startsWith("/") ? s : `/${s}`;
+    if (!o.includes("?") && !o.endsWith("/")) o += "/";
+    return o;
+  });
 
   eleventyConfig.addFilter("moneyPHP", (value) => {
     const n = Number(value);
@@ -319,17 +319,51 @@ module.exports = function (eleventyConfig) {
     return content;
   });
 
-  // Rewrite root-relative paths for GitHub Pages subdirectory deploys
+  // Rewrite root-relative paths for GitHub Pages subdirectory deploys (idempotent; also fixes srcset, CSS url(), data-image)
   eleventyConfig.addTransform("pathPrefixRewrite", function (content, outputPath) {
-    if (outputPath && outputPath.endsWith(".html") && pathPrefix && pathPrefix !== '/') {
-      const cleanPrefix = pathPrefix.replace(/\/$/, '');
-      // Rewrite href="/..." but NOT href="https://..." or href="#"
-      content = content.replace(/(href|src)="\/(?!\/)/g, `$1="${cleanPrefix}/`);
-      // Fix double slashes
-      content = content.replace(/\/\//g, '/');
-      // Restore https://
-      content = content.replace(/https:\//g, 'https://');
+    if (!outputPath || !outputPath.endsWith(".html") || !pathPrefix || pathPrefix === "/") {
+      return content;
     }
+    const cleanPrefix = pathPrefix.replace(/\/$/, "");
+
+    function shouldSkip(p) {
+      if (!p || p === "#") return true;
+      if (p.startsWith("//")) return true;
+      if (/^https?:/i.test(p)) return true;
+      if (p.startsWith("data:") || p.startsWith("mailto:")) return true;
+      if (p.startsWith(cleanPrefix + "/")) return true;
+      return false;
+    }
+
+    function prefixPath(p) {
+      if (!p.startsWith("/")) return p;
+      if (shouldSkip(p)) return p;
+      return cleanPrefix + p;
+    }
+
+    content = content.replace(/\b(href|src|data-image)="([^"]*)"/g, (full, attr, val) => {
+      if (val === "" || val === "#") return full;
+      return `${attr}="${prefixPath(val)}"`;
+    });
+
+    content = content.replace(/\bsrcset="([^"]*)"/g, (full, val) => {
+      const trimmed = val.trim();
+      if (!trimmed) return full;
+      const parts = trimmed.split(",").map((chunk) => {
+        const t = chunk.trim();
+        const sp = t.indexOf(" ");
+        if (sp === -1) return prefixPath(t);
+        return prefixPath(t.slice(0, sp)) + t.slice(sp);
+      });
+      return `srcset="${parts.join(", ")}"`;
+    });
+
+    content = content.replace(/url\(\s*(\/[^)\s"']+)\s*\)/gi, (full, pathPart) => {
+      if (pathPart.startsWith("//")) return full;
+      if (shouldSkip(pathPart)) return full;
+      return `url(${prefixPath(pathPart)})`;
+    });
+
     return content;
   });
 

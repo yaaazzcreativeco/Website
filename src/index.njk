@@ -25,11 +25,11 @@ permalink: /
         {{ homepageSettings.subtitle | default("Slam notebooks for the dreamers, the collectors, and the memory-keepers. Hand-crafted layouts that turn your chaotic thoughts into curated art.") }}
       </p>
       <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
-        <a class="inline-flex px-8 py-4 bg-gradient-to-br from-primary to-primary-dim text-on-primary rounded-full font-bold text-lg shadow-lg hover:scale-105 transition-all active:scale-95 group" href="{{ homepageSettings.cta_link | default('/shop/') }}">
+        <a class="inline-flex px-8 py-4 bg-gradient-to-br from-primary to-primary-dim text-on-primary rounded-full font-bold text-lg shadow-lg hover:scale-105 transition-all active:scale-95 group" href="{{ (homepageSettings.cta_link | default('/shop/')) | sitePath | url }}">
           {{ homepageSettings.cta_text | default("Shop notebooks") }}
           <span class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
         </a>
-        <a class="px-8 py-4 bg-surface-container-highest text-primary rounded-full font-bold text-lg hover:bg-surface-variant transition-all active:scale-95 rotate-1" href="{{ homepageSettings.secondary_cta_link | default('/our-story/') }}">{{ homepageSettings.secondary_cta_text | default("Our story") }}</a>
+        <a class="px-8 py-4 bg-surface-container-highest text-primary rounded-full font-bold text-lg hover:bg-surface-variant transition-all active:scale-95 rotate-1" href="{{ (homepageSettings.secondary_cta_link | default('/our-story/')) | sitePath | url }}">{{ homepageSettings.secondary_cta_text | default("Our story") }}</a>
       </div>
     </div>
     <div class="flex-1 relative w-full aspect-square md:aspect-video lg:aspect-square">
@@ -106,7 +106,7 @@ permalink: /
         <h2 class="font-headline text-4xl font-extrabold text-primary mb-2">The Curator's Picks</h2>
         <p class="text-on-surface-variant font-medium">Grab 'em before they're gone! (Stocks are limited, bestie.)</p>
       </div>
-      <a class="font-headline font-bold text-primary flex items-center gap-2 hover:underline" href="/shop/">
+      <a class="font-headline font-bold text-primary flex items-center gap-2 hover:underline" href="{{ '/shop/' | url }}">
         Explore All Collections
         <span class="material-symbols-outlined">chevron_right</span>
       </a>
@@ -119,7 +119,7 @@ permalink: /
       {% for p in picks %}
         {% set idx = loop.index0 %}
         {% set even = (idx % 2 == 0) %}
-        <a href="/product/{{ p.slug }}/" class="block">
+        <a href="{{ ('/product/' ~ p.slug ~ '/') | url }}" class="block">
         <div
           class="home-pick-slot{% if not even %} home-pick-slot-rev{% endif %}{% if not even %} lg:mt-16{% endif %}"
           style="--home-drift-delay: {{ idx * 0.18 }}s"
@@ -186,7 +186,7 @@ permalink: /
         {% endfor %}
       </div>
     </div>
-    <a class="mt-12 px-10 py-5 bg-secondary-container text-on-secondary-container rounded-full font-bold text-xl shadow-md hover:scale-105 transition-all rotate-[-1deg]" href="/journaling-tips/">
+    <a class="mt-12 px-10 py-5 bg-secondary-container text-on-secondary-container rounded-full font-bold text-xl shadow-md hover:scale-105 transition-all rotate-[-1deg]" href="{{ '/journaling-tips/' | url }}">
       Join the Community
     </a>
   </div>

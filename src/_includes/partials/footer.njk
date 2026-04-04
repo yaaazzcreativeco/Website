@@ -2,16 +2,16 @@
   <div class="flex flex-col items-center">
     <a
       class="logo-link logo-link--footer group inline-flex items-center justify-center overflow-visible outline-none transition-transform duration-300 mb-4 focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f1dc]"
-      href=""
+      href="{{ '/' | url }}"
     >
       {% logo settings.logo_url, (settings.site_name | default('Yaaazz Creative Co.')) + " Logo", 260, "logo-mark h-32 md:h-40 w-auto max-w-[280px] object-contain object-center transition-all duration-300 ease-out" %}
     </a>
   </div>
   <div class="flex flex-wrap justify-center gap-6 font-body text-sm tracking-wide text-[#7d4d5f]">
-    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="privacy/">Privacy</a>
-    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="shipping/">Shipping &amp; Returns</a>
-    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="contact/">Contact</a>
-    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="admin/">Store admin</a>
+    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="{{ '/privacy/' | url }}">Privacy</a>
+    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="{{ '/shipping/' | url }}">Shipping &amp; Returns</a>
+    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="{{ '/contact/' | url }}">Contact</a>
+    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="{{ '/admin/' | url }}">Store admin</a>
   </div>
   {% set hasSocial = settings.instagram_url or settings.tiktok_url or settings.pinterest_url or settings.facebook_url or settings.youtube_url %}
   {% if hasSocial %}
