@@ -3,6 +3,27 @@ const path = require("path");
 const matter = require("gray-matter");
 const Image = require("@11ty/eleventy-img");
 
+// Detect pathPrefix from CLI args or env
+function detectPathPrefix() {
+  // Check environment variable first
+  if (process.env.PATH_PREFIX && process.env.PATH_PREFIX !== '/') {
+    return process.env.PATH_PREFIX;
+  }
+  // Check CLI argument
+  for (let i = 0; i < process.argv.length; i++) {
+    const arg = process.argv[i];
+    if (arg.startsWith('--pathprefix=') || arg.startsWith('--pathPrefix=')) {
+      const val = arg.split('=')[1];
+      // Ensure it starts with / and ends with /
+      if (val && val !== '/') {
+        return val.startsWith('/') ? val : '/' + val;
+      }
+    }
+  }
+  return '/';
+}
+const pathPrefix = detectPathPrefix();
+
 async function imageShortcode(src, alt, className = "", sizes = "100vw", widths = [400, 800, 1200]) {
   if (!src) return "";
   
@@ -128,7 +149,40 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addGlobalData("privacySettings", () => readSettings("privacy.json"));
   eleventyConfig.addGlobalData("products", () => readProducts());
 
-  eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
+  eleventyConfig.addNunjucksAsyncShortcode("image", async (src, alt, className = "", sizes = "100vw", widths = [400, 800, 1200]) => {
+    if (!src) return "";
+    
+    let fullSrc = src.startsWith('/') ? `.${src}` : src;
+    
+    if (src.startsWith('http')) {
+       return `<img src="${src}" alt="${alt}" class="${className}" loading="lazy" decoding="async">`;
+    }
+
+    let metadata = await Image(fullSrc, {
+      widths: widths,
+      formats: ["webp", "auto"],
+      outputDir: "./_site/img/optimized/",
+      urlPath: "/img/optimized/",
+      sharpOptions: {
+        trim: true,
+      }
+    });
+
+    let imageAttributes = {
+      alt,
+      class: className,
+      sizes,
+      loading: "lazy",
+      decoding: "async",
+    };
+
+    let html = Image.generateHTML(metadata, imageAttributes);
+    if (pathPrefix && pathPrefix !== '/') {
+      const cleanPrefix = pathPrefix.replace(/\/$/, '');
+      html = html.replace(/="(\/img\/optimized\/)/g, `="${cleanPrefix}$1`);
+    }
+    return html;
+  });
   
   eleventyConfig.addNunjucksAsyncShortcode("logo", async (src, alt, width = 180, className = "") => {
     if (!src) return "";
@@ -171,7 +225,13 @@ module.exports = function (eleventyConfig) {
       decoding: "async",
     };
 
-    return Image.generateHTML(metadata, imageAttributes);
+    let html = Image.generateHTML(metadata, imageAttributes);
+    // Inject pathPrefix into src/srcset URLs
+    if (pathPrefix && pathPrefix !== '/') {
+      const cleanPrefix = pathPrefix.replace(/\/$/, '');
+      html = html.replace(/="(\/img\/logo\/)/g, `="${cleanPrefix}$1`);
+    }
+    return html;
   });
 
 
