@@ -1,4 +1,6 @@
-# Yaaazz Creative Co. — static shop (Eleventy + GitHub Pages + Decap CMS)
+# Yaaazz Creative Co.
+
+Static shop website built with Eleventy, deployed on GitHub Pages.
 
 ## Local preview
 
