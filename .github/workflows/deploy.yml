@@ -3,8 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # This tells GitHub to build your site every time you push code to this branch
-  workflow_dispatch: # Allows you to manually trigger the build if needed
+      - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -31,13 +31,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Eleventy 🏗️
+      - name: Build Eleventy
         run: npx @11ty/eleventy --pathprefix=/${{ github.event.repository.name }}/
 
-      - name: Upload Artifact
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "_site/"
+          path: _site
 
   deploy:
     needs: build
@@ -46,6 +46,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages 🚀
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
