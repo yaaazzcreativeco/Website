@@ -1,0 +1,18 @@
+{
+  "local_timeline": "2 – 4 business days",
+  "local_label": "Local deliveries",
+  "local_sublabel": "Within the city & metro areas",
+  "intl_timeline": "7 – 15 business days",
+  "intl_label": "International",
+  "intl_sublabel": "Worldwide shipping to your studio",
+  "processing_note": "Orders are usually processed within 24–48 hours. You'll get tracking by email when your package ships. Flat local rate is set in /admin site settings.",
+  "return_policy_items": [
+    "30-day window for unopened journals and unused stickers.",
+    "Refund to original payment or store credit — message us on Messenger with photos.",
+    "Digital products are non-refundable once downloaded."
+  ],
+  "custom_order_note": "Personalized notebooks may need an extra 3–5 days.",
+  "lost_parcel_note": "We help track stalled shipments — reach out with your order ref.",
+  "bulk_shipping_note": "Events & workshops — special rates for 20+ items.",
+  "shipping_flatlay_image": "/static/img/pages/shipping-flatlay.webp"
+}

@@ -1,0 +1,84 @@
+---
+layout: base.njk
+title: Shop
+permalink: /shop/index.html
+activeNav: shop
+---
+{% import "macros.njk" as macros %}
+<section class="max-w-7xl mx-auto px-6 pt-8 pb-20">
+  <header class="relative mb-14 text-center md:text-left">
+    <h1 class="font-headline text-5xl md:text-6xl font-black text-primary tracking-tighter leading-none mb-4">
+      Shop<br/><span class="text-primary-dim opacity-80">All Products</span>
+    </h1>
+    <p class="mt-4 max-w-xl text-on-surface-variant font-medium leading-relaxed mx-auto md:mx-0">
+      Add to cart, then checkout with GCash. Send your order on Messenger after you copy the summary.
+    </p>
+  </header>
+
+  <div class="flex flex-wrap gap-3 mb-10" id="category-filters">
+    {% for cat in shopCategories.categories %}
+      <button class="category-btn{% if loop.first %} active{% endif %} px-5 py-2 rounded-full font-headline font-bold text-sm transition-all{% if not loop.first %} bg-surface-container-highest text-on-surface-variant hover:bg-primary-container{% endif %}" data-category="{{ cat.slug }}">{{ cat.name }}</button>
+    {% endfor %}
+  </div>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4" id="shop-grid">
+    {% for p in products | shopProducts %}
+      {% set idx = loop.index0 %}
+      {% set hoverRotations = [
+        "hover:rotate-[1.5deg]",
+        "hover:rotate-[-1.5deg]",
+        "hover:rotate-[1deg]",
+        "hover:rotate-[-1deg]"
+      ] %}
+      <a href="/product/{{ p.slug }}/" class="shop-product-card block group" data-category="{{ p.category }}">
+        <article class="bg-surface-container-low p-3 pb-6 shadow-[0_4px_12px_rgba(49,47,35,0.08)] rounded-xl ring-1 ring-outline-variant/10 relative transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_8px_24px_rgba(49,47,35,0.12)] hover:z-10 hover:-translate-y-0.5 {{ hoverRotations[idx % 4] }}">
+          {{ macros.smartBadge(p) }}
+          <div class="aspect-[3/4] bg-surface-container overflow-hidden rounded-lg">
+            {% image p.image, p.title, "w-full h-full object-cover", "300px" %}
+          </div>
+          <div class="p-3">
+            <h2 class="font-headline text-sm font-bold text-on-surface leading-tight">{{ p.title }}</h2>
+            <p class="text-on-surface-variant text-xs mt-0.5">{{ p.subtitle }}</p>
+            <div class="flex items-center justify-between mt-3 w-full gap-2">
+              {{ macros.priceDisplay(p, "text-base") }}
+              <span class="js-add-cart w-9 h-9 bg-[#fbcfe8] text-[#7d4d5f] rounded-full flex items-center justify-center hover:bg-primary hover:text-white shadow-sm transition-all active:scale-90 shrink-0{% if p.stock_status == 'out_of_stock' %} opacity-50 pointer-events-none{% endif %}" data-slug="{{ p.slug }}" data-title="{{ p.title | escape }}" data-price="{{ p.sale_price or p.price }}" data-image="{{ p.image | escape }}" data-subtitle="{{ p.subtitle | escape }}" data-preorder="{% if p.stock_status == 'pre_order' %}true{% else %}false{% endif %}">
+                <span class="material-symbols-outlined text-xl">shopping_cart</span>
+              </span>
+            </div>
+          </div>
+        </article>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+  (function () {
+    var btns = document.querySelectorAll('.category-btn');
+    var cards = document.querySelectorAll('.shop-product-card');
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        btns.forEach(function (b) {
+          b.classList.remove('active', 'bg-primary', 'text-on-primary');
+          b.classList.add('bg-surface-container-highest', 'text-on-surface-variant');
+        });
+        btn.classList.add('active', 'bg-primary', 'text-on-primary');
+        btn.classList.remove('bg-surface-container-highest', 'text-on-surface-variant');
+        
+        var cat = btn.getAttribute('data-category');
+        cards.forEach(function (card) {
+          if (cat === 'all' || card.getAttribute('data-category') === cat) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+    var activeBtn = document.querySelector('.category-btn.active');
+    if (activeBtn) {
+      activeBtn.classList.add('bg-primary', 'text-on-primary');
+      activeBtn.classList.remove('bg-surface-container-highest', 'text-on-surface-variant');
+    }
+  })();
+</script>

@@ -1,0 +1,194 @@
+---
+layout: base.njk
+title: Home
+permalink: /
+---
+{% import "macros.njk" as macros %}
+<section class="relative pt-8 pb-16 overflow-hidden px-6 max-w-7xl mx-auto">
+  <div class="flex flex-col lg:flex-row items-center gap-16">
+    <div class="flex-1 text-center lg:text-left z-10">
+      {% if homepageSettings.banner_text %}
+      <div class="inline-block px-4 py-1 bg-secondary-container text-on-secondary-container rounded-full rotate-[-2deg] mb-6 washi-tape shadow-sm">
+        <span class="font-handwritten text-xl">{{ homepageSettings.banner_text }}</span>
+      </div>
+      {% endif %}
+      <h1 class="font-headline text-5xl md:text-7xl font-extrabold text-primary leading-[1.1] mb-8 relative">
+        {{ homepageSettings.headline_line1 | default("Your Life,") }} <br/>
+        <span class="relative">
+          {{ homepageSettings.headline_line2 | default("Pasted Together.") }}
+          <svg class="absolute -bottom-2 left-0 w-full h-4 text-primary-container -z-10" preserveAspectRatio="none" viewBox="0 0 300 20" aria-hidden="true">
+            <path d="M0 15 Q150 0 300 15" fill="transparent" stroke="currentColor" stroke-linecap="round" stroke-width="8"/>
+          </svg>
+        </span>
+      </h1>
+      <p class="text-xl text-on-surface-variant max-w-lg mb-10 leading-relaxed mx-auto lg:mx-0">
+        {{ homepageSettings.subtitle | default("Slam notebooks for the dreamers, the collectors, and the memory-keepers. Hand-crafted layouts that turn your chaotic thoughts into curated art.") }}
+      </p>
+      <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4">
+        <a class="inline-flex px-8 py-4 bg-gradient-to-br from-primary to-primary-dim text-on-primary rounded-full font-bold text-lg shadow-lg hover:scale-105 transition-all active:scale-95 group" href="{{ homepageSettings.cta_link | default('/shop/') }}">
+          {{ homepageSettings.cta_text | default("Shop notebooks") }}
+          <span class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+        <a class="px-8 py-4 bg-surface-container-highest text-primary rounded-full font-bold text-lg hover:bg-surface-variant transition-all active:scale-95 rotate-1" href="{{ homepageSettings.secondary_cta_link | default('/our-story/') }}">{{ homepageSettings.secondary_cta_text | default("Our story") }}</a>
+      </div>
+    </div>
+    <div class="flex-1 relative w-full aspect-square md:aspect-video lg:aspect-square">
+      <div class="absolute inset-0 bg-tertiary-container/30 rounded-xl rotate-3 -z-10"></div>
+      <div class="relative w-full h-full flex items-center justify-center">
+        <div class="absolute top-0 right-0 w-1/2 rotate-12 hover:rotate-6 transition-all duration-500 z-20">
+          <img alt="Slam notebook" class="rounded-lg shadow-xl border-8 border-white" src="{{ homepageSettings.hero_image_1 | default('/static/img/pages/hero-slam-notebook.webp') }}" width="600" height="720" loading="lazy" decoding="async"/>
+        </div>
+        <div class="absolute bottom-10 left-0 w-1/2 -rotate-6 hover:rotate-0 transition-all duration-500 z-10">
+          <img alt="Journal layout" class="rounded-lg shadow-lg border-8 border-white" src="{{ homepageSettings.hero_image_2 | default('/static/img/pages/hero-journal-layout.webp') }}" width="600" height="720" loading="lazy" decoding="async"/>
+          <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-24 h-8 bg-secondary-container/80 washi-tape rotate-[-5deg]" aria-hidden="true"></div>
+        </div>
+        {% if homepageSettings.floating_text %}
+        <div class="absolute top-10 left-10 z-30 rotate-[-10deg] hidden sm:block">
+          <p class="font-handwritten text-3xl text-primary transform scale-125">{{ homepageSettings.floating_text }}</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if homepageSettings.why_collection_heading %}
+<section class="py-24 px-6 bg-surface-container-low rounded-t-[4rem]">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16 text-center lg:text-left">
+      <h2 class="font-headline text-4xl font-extrabold text-primary mb-4">{{ homepageSettings.why_collection_heading }}</h2>
+      <p class="text-on-surface-variant font-medium">{{ homepageSettings.why_collection_subtitle }}</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      {% for feature in homepageSettings.why_collection_features %}
+        {% if feature.size == "large" %}
+        <div class="md:col-span-2 md:row-span-2 bg-surface p-8 rounded-xl shadow-sm border-outline-variant/10 relative overflow-hidden group hover:rotate-1 transition-transform">
+          <div class="relative z-10">
+            <span class="material-symbols-outlined text-4xl text-primary mb-4" data-icon="{{ feature.icon }}">{{ feature.icon }}</span>
+            <h3 class="font-headline text-2xl font-bold mb-4">{{ feature.title }}</h3>
+            <p class="text-on-surface-variant leading-relaxed">{{ feature.description }}</p>
+          </div>
+          <div class="absolute -bottom-10 -right-10 w-48 h-48 bg-primary-container/20 rounded-full blur-3xl group-hover:scale-150 transition-transform"></div>
+        </div>
+        {% else %}
+        {% if loop.index == 2 %}
+        <div class="md:col-span-2 bg-secondary-container/30 p-8 rounded-xl flex items-center gap-6 rotate-[-1deg] hover:rotate-0 transition-transform">
+          <div class="w-16 h-16 shrink-0 bg-white rounded-full flex items-center justify-center shadow-inner">
+            <span class="material-symbols-outlined text-secondary text-3xl" data-icon="{{ feature.icon }}">{{ feature.icon }}</span>
+          </div>
+          <div>
+            <h3 class="font-headline text-xl font-bold mb-1">{{ feature.title }}</h3>
+            <p class="text-on-surface-variant text-sm">{{ feature.description }}</p>
+          </div>
+        </div>
+        {% elif loop.index == 3 %}
+        <div class="bg-tertiary-container/40 p-8 rounded-xl flex flex-col justify-between rotate-1 hover:rotate-0 transition-transform">
+          <span class="material-symbols-outlined text-tertiary text-3xl mb-4" data-icon="{{ feature.icon }}">{{ feature.icon }}</span>
+          <h3 class="font-headline text-lg font-bold">{{ feature.title }}</h3>
+        </div>
+        {% else %}
+        <div class="bg-primary-container/30 p-8 rounded-xl flex flex-col justify-between -rotate-1 hover:rotate-0 transition-transform">
+          <span class="material-symbols-outlined text-primary text-3xl mb-4" data-icon="{{ feature.icon }}">{{ feature.icon }}</span>
+          <h3 class="font-headline text-lg font-bold">{{ feature.title }}</h3>
+        </div>
+        {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="py-24 px-6 relative">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+      <div>
+        <h2 class="font-headline text-4xl font-extrabold text-primary mb-2">The Curator's Picks</h2>
+        <p class="text-on-surface-variant font-medium">Grab 'em before they're gone! (Stocks are limited, bestie.)</p>
+      </div>
+      <a class="font-headline font-bold text-primary flex items-center gap-2 hover:underline" href="/shop/">
+        Explore All Collections
+        <span class="material-symbols-outlined">chevron_right</span>
+      </a>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 lg:items-start">
+      {% set picks = products | curatorPicks(4) %}
+      {% if picks.length == 0 %}
+        {% set picks = products | shopProducts | slice(0, 4) %}
+      {% endif %}
+      {% for p in picks %}
+        {% set idx = loop.index0 %}
+        {% set even = (idx % 2 == 0) %}
+        <a href="/product/{{ p.slug }}/" class="block">
+        <div
+          class="home-pick-slot{% if not even %} home-pick-slot-rev{% endif %}{% if not even %} lg:mt-16{% endif %}"
+          style="--home-drift-delay: {{ idx * 0.18 }}s"
+        >
+          <div class="group relative">
+            <div class="bg-surface-container-low p-4 pb-12 rounded-xl shadow-xl rotate-0 transition-transform duration-300 ease-out {% if even %}hover:-rotate-2{% else %}hover:rotate-2{% endif %} hover:-translate-y-2 hover:shadow-2xl">
+              <div class="aspect-[4/5] bg-surface-container overflow-hidden mb-6 rounded-lg">
+                {% image p.image, p.title, "w-full h-full object-cover group-hover:scale-110 transition-transform duration-500", "400px" %}
+              </div>
+              <div class="px-2">
+                <h3 class="font-headline text-xl font-bold text-on-surface">{{ p.title }}</h3>
+                <p class="text-on-surface-variant text-sm mb-4">{{ p.subtitle }}</p>
+                <div class="flex items-center justify-between mt-auto w-full gap-3">
+                  {{ macros.priceDisplay(p, "text-2xl") }}
+                  <span
+                    class="js-add-cart w-12 h-12 bg-[#fbcfe8] text-[#7d4d5f] rounded-full flex items-center justify-center hover:bg-primary hover:text-white transition-all shadow-sm active:scale-95 shrink-0{% if p.stock_status == 'out_of_stock' %} opacity-50 pointer-events-none{% endif %}"
+                    data-slug="{{ p.slug }}"
+                    data-title="{{ p.title | escape }}"
+                    data-price="{{ p.sale_price or p.price }}"
+                    data-image="{{ p.image | escape }}"
+                    data-subtitle="{{ p.subtitle | escape }}"
+                    data-preorder="{% if p.stock_status == 'pre_order' %}true{% else %}false{% endif %}"
+                  >
+                    <span class="material-symbols-outlined text-2xl">shopping_cart</span>
+                  </span>
+                </div>
+              </div>
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-6 bg-tertiary-container/60 washi-tape" aria-hidden="true"></div>
+              {{ macros.smartBadge(p) }}
+            </div>
+          </div>
+        </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% if homepageSettings.spotted_posts %}
+<section class="py-24 px-6 bg-surface overflow-hidden">
+  <div class="max-w-7xl mx-auto flex flex-col items-center">
+    <h2 class="font-handwritten text-5xl text-primary mb-12 text-center">Spotted in the Wild</h2>
+    <div class="relative w-full h-[500px] flex items-center justify-center">
+      <div class="absolute inset-0 opacity-10 pointer-events-none">
+        <span class="material-symbols-outlined absolute top-10 left-10 text-6xl text-primary rotate-[-15deg]" data-icon="favorite">favorite</span>
+        <span class="material-symbols-outlined absolute bottom-20 right-20 text-8xl text-secondary rotate-12" data-icon="brush">brush</span>
+      </div>
+      <div class="relative w-full h-full">
+        {% for post in homepageSettings.spotted_posts %}
+        {% set topPos = "top-[10%]" if loop.index == 1 else "top-[20%]" %}
+        {% set horizPos = "left-[5%]" if loop.index == 1 else "right-[10%]" %}
+        {% set width = "w-64" if loop.index == 1 else "w-72" %}
+        {% set padding = "p-3" if loop.index == 1 else "p-4" %}
+        {% set rotation = "rotate-[-8deg]" if loop.index == 1 else "rotate-[5deg]" %}
+        {% set imgHeight = "h-48" if loop.index == 1 else "h-56" %}
+        <div class="absolute {{ topPos }} {{ horizPos }} {{ width }} {{ padding }} bg-white shadow-lg {{ rotation }} hover:scale-105 hover:z-50 transition-all{% if loop.index == 2 %} border border-outline-variant/5{% endif %}">
+          <img alt="Customer post" class="w-full {{ imgHeight }} object-cover rounded-sm mb-3" src="{{ post.image }}" loading="lazy"/>
+          <p class="font-handwritten text-xl text-on-surface">{{ post.quote }}</p>
+          <p class="text-xs text-on-surface-variant font-bold text-right">- {{ post.author }}</p>
+          {% if loop.index == 2 %}
+          <div class="absolute -top-4 right-1/2 translate-x-1/2 w-20 h-8 bg-primary-container/50 washi-tape"></div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <a class="mt-12 px-10 py-5 bg-secondary-container text-on-secondary-container rounded-full font-bold text-xl shadow-md hover:scale-105 transition-all rotate-[-1deg]" href="/journaling-tips/">
+      Join the Community
+    </a>
+  </div>
+</section>
+{% endif %}

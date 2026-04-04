@@ -1,0 +1,82 @@
+---
+pagination:
+  data: categoryList
+  size: 1
+  alias: cat
+  addAllPagesToCollections: true
+permalink: "/{{ cat.slug }}/index.html"
+layout: base.njk
+---
+{% import "macros.njk" as macros %}
+<section class="max-w-7xl mx-auto px-6 pt-8 pb-24">
+  <header class="relative mb-16 text-center md:text-left">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b-2 border-outline-variant/10">
+      <div class="max-w-2xl">
+        <h1 class="font-headline text-5xl md:text-7xl font-black text-primary tracking-tighter leading-none mb-4">
+          {{ cat.page_title | default(cat.name) }}
+          <br/>
+          <span class="text-secondary scrapbook-rotate-1 inline-block mt-2">{{ cat.page_headline }}</span>
+        </h1>
+        <p class="mt-6 text-xl text-on-surface-variant font-medium leading-relaxed">
+          {{ cat.page_description }}
+        </p>
+      </div>
+      <div>
+        <a href="/shop/" class="inline-flex items-center gap-2 text-primary font-bold hover:underline">
+          <span class="material-symbols-outlined">arrow_back</span>
+          Back to all shop
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 lg:gap-10">
+    {% set cat_products = products | productsByCategory(cat.slug) %}
+    {% for p in cat_products %}
+      {% set idx = loop.index0 %}
+      {% set hoverRotations = [
+        "hover:rotate-[1.5deg]",
+        "hover:rotate-[-1.5deg]",
+        "hover:rotate-[1deg]",
+        "hover:rotate-[-1deg]"
+      ] %}
+      <a href="/product/{{ p.slug }}/" class="block">
+      <article class="bg-surface-container-low p-4 pb-12 shadow-xl ring-1 ring-outline-variant/5 rounded-xl relative transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl {{ hoverRotations[idx % 4] }}">
+        {{ macros.smartBadge(p) }}
+        <div class="aspect-[4/5] bg-surface-container overflow-hidden rounded-lg mb-6">
+          {% image p.image, p.title, "w-full h-full object-cover", "400px" %}
+        </div>
+        <div class="px-2">
+          <h2 class="font-headline text-xl font-bold text-on-surface">{{ p.title }}</h2>
+          <p class="text-on-surface-variant text-sm mt-1 mb-6 h-10 overflow-hidden">{{ p.subtitle }}</p>
+          <div class="flex items-center justify-between mt-auto w-full">
+            {{ macros.priceDisplay(p, "text-2xl") }}
+            <button
+              type="button"
+              class="js-add-cart w-10 h-10 bg-[#fbcfe8] text-[#7d4d5f] rounded-full flex items-center justify-center hover:bg-primary hover:text-white shadow-sm transition-all active:scale-90 shrink-0{% if p.stock_status == 'out_of_stock' %} opacity-50 pointer-events-none{% endif %}"
+              data-slug="{{ p.slug }}"
+              data-title="{{ p.title | escape }}"
+              data-price="{{ p.sale_price or p.price }}"
+              data-image="{{ p.image | escape }}"
+              data-subtitle="{{ p.subtitle | escape }}"
+              data-preorder="{% if p.stock_status == 'pre_order' %}true{% else %}false{% endif %}"
+              {% if p.stock_status == "out_of_stock" %}disabled{% endif %}
+            >
+              <span class="material-symbols-outlined text-xl">shopping_cart</span>
+            </button>
+          </div>
+        </div>
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-6 bg-tertiary-container/40 washi-tape rotate-[-2deg]" aria-hidden="true"></div>
+      </article>
+      </a>
+    {% endfor %}
+  </div>
+  
+  {% if cat_products.length == 0 %}
+    <div class="text-center py-24 bg-surface-container-low rounded-xl border-4 border-dashed border-outline-variant/20">
+      <span class="material-symbols-outlined text-6xl text-primary/30 mb-4">inventory_2</span>
+      <h3 class="font-headline text-2xl font-bold text-on-surface-variant">More items coming soon!</h3>
+      <p class="mt-2 text-on-surface-variant/70">Check back later for fresh {{ cat.name }} drops.</p>
+    </div>
+  {% endif %}
+</section>

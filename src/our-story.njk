@@ -1,0 +1,123 @@
+---
+layout: base.njk
+title: Our Story
+permalink: /our-story/index.html
+activeNav: story
+---
+<section class="relative max-w-7xl mx-auto px-6 pt-8 pb-10">
+  <header class="mb-12 text-center lg:text-left">
+    <div class="inline-block px-4 py-1.5 bg-tertiary-container/50 text-on-tertiary-container rounded-full -rotate-1 mb-6 shadow-sm font-headline text-sm font-bold uppercase tracking-widest">
+      Behind the brand
+    </div>
+    <h1 class="font-headline text-5xl md:text-7xl font-black text-primary tracking-tight leading-[1.05] mb-6">
+      We believe in
+      <span class="relative inline-block">
+        beautiful mess
+        <span class="absolute -bottom-1 left-0 w-full h-3 bg-secondary-container/55 -rotate-1 -z-10 rounded-sm"></span>
+      </span>
+    </h1>
+    <p class="text-lg md:text-xl text-on-surface-variant max-w-2xl leading-relaxed mx-auto lg:mx-0">
+      Yaaazz Creative Co. exists for the collectors, the daydreamers, and anyone who treats their planner like a living scrapbook.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+    <div class="lg:col-span-5 order-2 lg:order-1 space-y-6 text-on-surface-variant text-lg leading-relaxed">
+      <p>
+        It started on a messy desk: washi tape everywhere, coffee rings on drafts, and notebooks that couldn&rsquo;t hold the chaos we wanted to keep.
+      </p>
+      <p>
+        Every <strong class="text-on-surface font-headline">slam book</strong> we lay out is designed like a curator&rsquo;s shelf — room for polaroids, ticket stubs, lyrics, and little wins.
+      </p>
+      <blockquote class="bg-surface-container-low rounded-2xl p-6 border border-outline-variant/10 shadow-sm">
+        <p class="font-handwritten text-2xl md:text-3xl text-primary leading-snug">
+          &ldquo;{{ ourStorySettings.founder_quote | default("Hey there, lovely! Thank you for supporting my small shop. Each order is packed with joy and a few surprise stickers. Can't wait for you to create in your new notebook!") }}&rdquo;
+        </p>
+        <footer class="mt-4 font-handwritten text-xl text-secondary font-bold text-right">
+          — {{ ourStorySettings.founder_name | default("Rhia") }}, Founder
+        </footer>
+      </blockquote>
+    </div>
+
+    <div class="lg:col-span-7 order-1 lg:order-2 flex justify-center lg:justify-end">
+      <div class="relative w-full max-w-md">
+        <div class="absolute -top-3 left-4 md:left-8 bg-secondary-container px-5 py-1.5 rounded-full font-headline font-bold text-sm text-on-secondary-container rotate-[-2deg] shadow-md z-10">
+          Meet the maker
+        </div>
+        <div class="bg-white p-3 sm:p-4 pb-10 rounded-md shadow-2xl rotate-[-1deg] hover:rotate-0 transition-transform duration-500 border-8 border-surface-container-lowest polaroid-shadow">
+          {% if ourStorySettings.founder_photo %}
+            <div class="aspect-[4/5] rounded overflow-hidden bg-surface-container">
+              {% image ourStorySettings.founder_photo, (ourStorySettings.founder_name | default('Founder')) + ', ' + (ourStorySettings.founder_title | default('Yaaazz Creative Co.')), "w-full h-full object-cover" %}
+            </div>
+          {% else %}
+            <div class="aspect-[4/5] rounded bg-surface-container flex items-center justify-center text-on-surface-variant text-center p-6">
+              Add your portrait in <strong>/admin</strong> → Our Story Settings → Meet the Maker photo.
+            </div>
+          {% endif %}
+          <p class="font-handwritten text-2xl text-center text-primary mt-5 rotate-1">
+            {{ ourStorySettings.founder_name | default("Rhia") }}
+          </p>
+          <p class="text-center text-sm text-on-surface-variant font-medium -mt-1">
+            {{ ourStorySettings.founder_title | default("Founder, Yaaazz Creative Co.") }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 px-6 bg-surface-container-low rounded-t-[3rem]">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+    <div class="relative">
+      <div class="absolute -top-3 left-6 bg-primary-container/90 px-5 py-1.5 rounded-full font-headline font-bold text-sm text-on-primary-container rotate-2 shadow-md z-10">
+        Studio energy
+      </div>
+      <div class="relative bg-surface-container-lowest p-3 pb-10 rounded-lg shadow-[0_10px_30px_rgba(49,47,35,0.08)] rotate-2 lg:rotate-1 hover:rotate-0 transition-transform duration-500 border border-outline-variant/10">
+        <div class="aspect-[4/5] rounded-md overflow-hidden bg-surface-container">
+          {% if ourStorySettings.studio_photo %}
+          {% image ourStorySettings.studio_photo, "Studio energy", "w-full h-full object-cover" %}
+          {% else %}
+          <img
+            alt="Pastel journals flat lay"
+            class="w-full h-full object-cover"
+            src="/static/img/pages/studio-photo.webp"
+            width="600"
+            height="750"
+            loading="lazy"
+          />
+          {% endif %}
+        </div>
+        <p class="font-handwritten text-2xl text-center text-primary mt-4 rotate-[-1deg]">Glue sticks &amp; good vibes</p>
+      </div>
+    </div>
+    <div class="space-y-6 text-on-surface-variant text-lg leading-relaxed">
+      <h2 class="font-headline text-3xl font-black text-primary text-on-surface">What we won&rsquo;t compromise on</h2>
+      <p>Thoughtful layouts, kind materials, and the small-shop habit of packing every box like a gift.</p>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-3 pt-2">
+        <a class="inline-flex items-center gap-2 font-headline font-bold text-primary underline decoration-primary-container decoration-2" href="/shop/">Shop slam notebooks <span class="material-symbols-outlined text-sm">chevron_right</span></a>
+        <a class="inline-flex items-center gap-2 font-headline font-bold text-primary underline decoration-primary-container decoration-2" href="/devotionals/">See devotionals <span class="material-symbols-outlined text-sm">chevron_right</span></a>
+        <a class="inline-flex items-center gap-2 font-headline font-bold text-primary underline decoration-primary-container decoration-2" href="/bundles/">Bundles <span class="material-symbols-outlined text-sm">chevron_right</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 px-6">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="bg-surface-container-low p-8 rounded-2xl rotate-[-1deg] hover:rotate-0 transition-transform shadow-sm">
+      <span class="material-symbols-outlined text-4xl text-primary mb-3">auto_awesome</span>
+      <h3 class="font-headline text-xl font-bold mb-2">Layouts you can live in</h3>
+      <p class="text-on-surface-variant text-sm leading-relaxed">Breathing room for stickers, photos, and messy margins.</p>
+    </div>
+    <div class="bg-secondary-container/25 p-8 rounded-2xl rotate-1 hover:rotate-0 transition-transform shadow-sm md:translate-y-4">
+      <span class="material-symbols-outlined text-4xl text-secondary mb-3">eco</span>
+      <h3 class="font-headline text-xl font-bold mb-2">Materials that feel good</h3>
+      <p class="text-on-surface-variant text-sm leading-relaxed">Papers and finishes we&rsquo;d proudly use in our own journals.</p>
+    </div>
+    <div class="bg-tertiary-container/30 p-8 rounded-2xl rotate-[-1deg] hover:rotate-0 transition-transform shadow-sm">
+      <span class="material-symbols-outlined text-4xl text-tertiary mb-3">favorite</span>
+      <h3 class="font-headline text-xl font-bold mb-2">Packed with care</h3>
+      <p class="text-on-surface-variant text-sm leading-relaxed">Notes, samples, and the occasional stamp — because details matter.</p>
+    </div>
+  </div>
+</section>

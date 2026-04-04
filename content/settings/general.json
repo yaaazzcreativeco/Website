@@ -1,0 +1,58 @@
+{
+  "instagram_url": "https://www.instagram.com/yaaazzcreativeco?igsh=ZTZiZmxzemxkdTd6",
+  "site_name": "Yaaazz Creative Co.",
+  "nav_items": [
+    {
+      "label": "Shop",
+      "href": "",
+      "custom_href": "/shop/",
+      "id": "shop"
+    },
+    {
+      "href": "slam_notebook",
+      "label": "Slam Notebooks",
+      "custom_href": null,
+      "id": "notebook"
+    },
+    {
+      "label": "Devotionals",
+      "href": "",
+      "custom_href": "/devotionals/",
+      "id": "devotionals"
+    },
+    {
+      "custom_href": "",
+      "href": "bundle",
+      "id": "bundle",
+      "label": "Bundles"
+    },
+    {
+      "label": "Club Hub",
+      "href": "",
+      "custom_href": "/journaling-tips/",
+      "id": "journal"
+    },
+    {
+      "label": "Our Story",
+      "href": "",
+      "custom_href": "/our-story/",
+      "id": "story"
+    },
+    {
+      "label": "Contact",
+      "href": "",
+      "custom_href": "/contact/",
+      "id": "contact"
+    }
+  ],
+  "shopee_url": "https://shopee.ph",
+  "tawk_property_id": "69cdfb264cdcf71c377f4e74",
+  "lazada_url": "https://www.lazada.com.ph/",
+  "tiktok_url": "https://www.tiktok.com/@yaaazzcreative?_r=1&_t=ZS-95FKu1kP08i9396",
+  "pinterest_url": "https://www.pinterest.com/",
+  "youtube_url": "https://www.youtube.com/watch?v=AUTaJf1KfA0&list=RDAUTaJf1KfA0&start_radio=1",
+  "copyright_year": "2026",
+  "facebook_url": "https://www.facebook.com/profile.php?id=61585656467065",
+  "tawk_widget_id": "1jl69q4c9",
+  "logo_url": "/static/img/uploads/3d-version-logo.png"
+}

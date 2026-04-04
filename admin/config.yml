@@ -1,0 +1,360 @@
+backend:
+  name: proxy
+  proxy_url: http://localhost:8081/api/v1
+
+local_backend: true
+
+publish_mode: simple
+
+media_folder: static/img/uploads
+public_folder: /static/img/uploads
+
+
+collections:
+  # ============================================
+  # 1. HOMEPAGE SETTINGS
+  # ============================================
+  - name: homepage
+    label: "🏠 Homepage Settings"
+    files:
+      - label: Hero, Curator's Picks & Best Sellers
+        name: homepage
+        file: content/settings/homepage.json
+        fields:
+          - { label: Banner text, name: banner_text, widget: string, hint: "Pill badge above the headline" }
+          - { label: Headline line 1, name: headline_line1, widget: string }
+          - { label: Headline line 2, name: headline_line2, widget: string }
+          - { label: Subtitle, name: subtitle, widget: text }
+          - { label: CTA button text, name: cta_text, widget: string }
+          - { label: CTA link, name: cta_link, widget: string }
+          - { label: Secondary CTA text, name: secondary_cta_text, widget: string }
+          - { label: Secondary CTA link, name: secondary_cta_link, widget: string }
+          - { label: Hero image 1 (main), name: hero_image_1, widget: image, required: false, hint: "Large photo on the right" }
+          - { label: Hero image 2 (accent), name: hero_image_2, widget: image, required: false, hint: "Smaller photo on the left" }
+          - { label: Floating handwritten text, name: floating_text, widget: string, hint: "e.g. 'Collect every single scrap!'" }
+          - { label: "Why Our Collection — Heading", name: why_collection_heading, widget: string, required: false, default: "Why our Collection Products?" }
+          - { label: "Why Our Collection — Subtitle", name: why_collection_subtitle, widget: string, required: false, default: "More than just paper. It's a vibe." }
+          - { label: "Why Our Collection — Features", name: why_collection_features, widget: list, hint: "Add up to 4 features (1 large, 3 small)", fields: [
+              { label: Icon name (Material Symbol), name: icon, widget: string, hint: "e.g. auto_awesome, eco, palette, local_shipping" },
+              { label: Title, name: title, widget: string },
+              { label: Description, name: description, widget: text, required: false },
+              { label: Size, name: size, widget: select, options: [{ label: "Large (spans 2x2)", value: "large" }, { label: "Small", value: "small" }], default: "small" }
+            ] }
+          - { label: "Spotted in the Wild — Posts", name: spotted_posts, widget: list, hint: "Fan posts to display", fields: [
+              { label: Quote/Testimonial, name: quote, widget: text },
+              { label: Author/Handle, name: author, widget: string },
+              { label: Image, name: image, widget: image }
+            ] }
+
+  # ============================================
+  # 2. CATEGORIES BUILDER
+  # ============================================
+  - name: categories
+    label: "🏷️ Categories Builder"
+    folder: content/categories
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Display Name, name: name, widget: string, hint: "e.g. Bundles" }
+      - { label: URL Slug, name: slug, widget: string, hint: "Used for /category-name/ URLs" }
+      - { label: Icon, name: icon, widget: string, hint: "Go to Google Material Symbols to find icon names" }
+      - { label: Sort Order, name: order, widget: number, default: 0, value_type: int }
+      - { label: Enable Landing Page, name: is_page_active, widget: boolean, default: true, hint: "Turn on to create a standalone 'sheet' page for this category" }
+      - { label: Page Title (Large), name: page_title, widget: string, required: false }
+      - { label: Page Headline (Accent), name: page_headline, widget: string, required: false }
+      - { label: Page Description, name: page_description, widget: text, required: false }
+
+  - name: shop-products
+    label: "🛍️ Shop Settings — Products"
+    folder: content/products
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    media_folder: ""
+    public_folder: ""
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: URL slug, name: slug, widget: string, hint: "lowercase-with-dashes" }
+      - { label: Original Price (PHP), name: price, widget: number, value_type: int, min: 0, hint: "Crossed out if Sale Price is set" }
+      - { label: Sale Price (PHP), name: sale_price, widget: number, value_type: int, required: false, hint: "New discounted price" }
+      - { label: Subtitle, name: subtitle, widget: string, required: false }
+      - { label: Image, name: image, widget: image, required: false }
+      - {
+          label: Category,
+          name: category,
+          widget: relation,
+          collection: categories,
+          search_fields: ["name"],
+          value_field: "slug",
+          display_fields: ["name"],
+          placeholder: "Select a category...",
+          required: true
+        }
+      - { label: Stock Status, name: stock_status, widget: select, options: [
+          { label: "In Stock", value: "in_stock" },
+          { label: "Pre-Order", value: "pre_order" },
+          { label: "Sold Out", value: "out_of_stock" }
+        ], default: "in_stock", hint: "TECHNICAL: 'Sold Out' will automatically disable the Add to Cart button." }
+      - { label: Sales Badge (Next to Price), name: sales_badge, widget: select, options: [
+          { label: "None", value: "none" },
+          { label: "SALE", value: "sale" },
+          { label: "SOLD OUT", value: "sold_out" },
+          { label: "PRE-ORDER", value: "pre_order" }
+        ], default: "none", hint: "Manually choose the label to display beside the price." }
+      - { label: Promo Badge (Bottom Right), name: promo_badge, widget: select, options: [
+          { label: "None", value: "none" },
+          { label: "Best Seller", value: "best_seller" },
+          { label: "New Arrival", value: "new_arrival" },
+          { label: "Limited Edition", value: "limited" }
+        ], default: "none", hint: "Manually choose the decorative ribbon for the bottom right." }
+      - { label: Curator's Pick, name: is_curator_pick, widget: boolean, default: false, hint: "Show this product in the Curator's Picks section on the homepage" }
+      - { label: Show in Shop page, name: show_in_shop, widget: boolean, default: true, hint: "Turn off for devotional-only products" }
+      - { label: Sort order, name: order, widget: number, default: 0, value_type: int, hint: "Lower numbers appear first" }
+      - { label: Description, name: body, widget: markdown, required: false }
+      - { label: Tags, name: tags, widget: list, required: false, hint: "Comma-separated tags shown on product page" }
+      - { label: Thumbnails, name: thumbnails, widget: list, required: false, hint: "Additional images for gallery", fields: [
+          { label: Image, name: image, widget: image }
+        ] }
+      - { label: "What's Inside - Features", name: inside_features, widget: list, required: false, hint: "Features to show in 'What's Inside the Box' section", fields: [
+          { label: Icon name (Material Symbol), name: icon, widget: string, hint: "e.g. grid_4x4, local_offer, contact_page" },
+          { label: Title, name: title, widget: string },
+          { label: Description, name: description, widget: text }
+        ] }
+      - { label: Tip Message, name: tip_message, widget: string, required: false, hint: "Optional tip banner shown below Add to Cart" }
+
+  # ============================================
+  # 3. DEVOTIONALS SETTINGS
+  # ============================================
+  - name: devotionals
+    label: "🙏 Devotionals Settings"
+    files:
+      - label: Prompt of the Month & Bundle Info
+        name: devotionals
+        file: content/settings/devotionals.json
+        fields:
+          - { label: Prompt title (Month), name: prompt_title, widget: string, hint: "e.g. Stillness. Leave blank to use automated month name." }
+          - { label: Prompt quote, name: prompt_text, widget: text, hint: "Main devotional quote for the month. Leave blank to use automated prompt." }
+          - label: "Automated Monthly Quotes (12 items)"
+            name: monthly_prompts
+            widget: list
+            min: 12
+            max: 12
+            add_to_top: false
+            fields:
+              - { label: Month, name: month, widget: string, default: "Month" }
+              - { label: Quote, name: text, widget: text }
+          - { label: Sub-prompts (tips), name: prompt_sub_prompts, widget: list, required: false, hint: "Additional reflection prompts or tips", field: { label: Tip, name: tip, widget: string } }
+          - { label: Bundle title, name: bundle_title, widget: string, hint: "e.g. Bundle & Save!" }
+          - { label: Bundle description, name: bundle_description, widget: text }
+          - { label: Bundle CTA text, name: bundle_cta_text, widget: string }
+          - { label: Bundle CTA link, name: bundle_cta_link, widget: string }
+          - { label: Community image, name: community_image, widget: image, required: false }
+
+  # ============================================
+  # 4. CLUB HUB SETTINGS
+  # ============================================
+  - name: club-hub
+    label: "🎨 Club Hub Settings"
+    files:
+      - label: Monthly Prompt, Sticker Hacks & Layouts
+        name: club-hub
+        file: content/settings/club-hub.json
+        fields:
+          - { label: This Month's Prompt title, name: monthly_title, widget: string, hint: "e.g. Stillness" }
+          - { label: This Month's Prompt quote, name: monthly_prompt, widget: text }
+          - { label: Sub-prompts (tips), name: monthly_sub_prompts, widget: list, required: false, field: { label: Tip, name: tip, widget: string } }
+          - { label: Prompt image, name: monthly_image, widget: image, required: false }
+          - { label: Sticker Hacks title, name: sticker_hack_title, widget: string }
+          - { label: Sticker Hacks text, name: sticker_hack_text, widget: text }
+          - {
+              label: Creative Layouts,
+              name: creative_layouts,
+              widget: list,
+              required: false,
+              hint: "Cards shown in the horizontal carousel. Add URL/thumbnail for each layout.",
+              fields:
+                [
+                  { label: Title, name: title, widget: string },
+                  { label: Description, name: description, widget: text },
+                  { label: Thumbnail image, name: thumbnail_url, widget: image },
+                  { label: Tag label, name: tag, widget: string, hint: "e.g. TRAVEL THEME" },
+                ]
+            }
+          - { label: Community stat 1, name: community_stat1, widget: string }
+          - { label: Community stat 2, name: community_stat2, widget: string }
+          - {
+              label: Scrapbook Club Community (4 photos),
+              name: community_gallery,
+              widget: list,
+              required: false,
+              hint: "Exactly 4 images for the community grid",
+              field: { label: Image, name: image, widget: image }
+            }
+
+  # ============================================
+  # 5. OUR STORY SETTINGS
+  # ============================================
+  - name: our-story
+    label: "📖 Our Story Settings"
+    files:
+      - label: Founder Quote & Photos
+        name: our-story
+        file: content/settings/our-story.json
+        fields:
+          - { label: Founder quote (Rhia), name: founder_quote, widget: text, hint: "Rhia's message to customers" }
+          - { label: Founder name, name: founder_name, widget: string }
+          - { label: Founder title, name: founder_title, widget: string }
+          - { label: Meet the Maker photo, name: founder_photo, widget: image, required: false }
+          - { label: Studio Energy photo, name: studio_photo, widget: image, required: false }
+
+  # ============================================
+  # 6. CONTACT SETTINGS
+  # ============================================
+  - name: contact
+    label: "📬 Contact Settings"
+    files:
+      - label: Studio Vibe, Messenger & Email
+        name: contact
+        file: content/settings/contact.json
+        fields:
+          - { label: Studio Vibe photo, name: studio_photo, widget: image, required: false }
+          - { label: Facebook Page username (for m.me), name: messenger_username, widget: string, required: false, hint: "e.g. YourPageName -> https://m.me/YourPageName" }
+          - { label: Or full Messenger URL, name: messenger_full_url, widget: string, required: false }
+          - { label: Contact form enabled, name: contact_form_enabled, widget: boolean, default: true, hint: "Show/hide the contact form" }
+          - { label: Contact email, name: contact_email, widget: string, required: false, hint: "Email address shown on contact page" }
+
+  # ============================================
+  # 7. CART / CHECKOUT SETTINGS
+  # ============================================
+  - name: checkout
+    label: "🛒 Cart Settings"
+    files:
+      - label: GCash, Shipping & Messenger
+        name: checkout
+        file: content/settings/checkout.json
+        fields:
+          - { label: GCash account display name, name: gcash_account_name, widget: string }
+          - { label: GCash QR image, name: gcash_qr_image, widget: image, required: false }
+          - { label: Flat shipping rate (PHP), name: flat_rate_shipping_php, widget: number, value_type: int, default: 120 }
+          - { label: Ordering email, name: ordering_email, widget: string, required: false, hint: "Email to receive order notifications" }
+
+  # ============================================
+  # 8. SHIPPING SETTINGS
+  # ============================================
+  - name: shipping
+    label: "📦 Shipping Settings"
+    files:
+      - label: Shipping Rates & Policies
+        name: shipping
+        file: content/settings/shipping.json
+        fields:
+          - { label: Local shipping label, name: local_label, widget: string }
+          - { label: Local sub-label, name: local_sublabel, widget: string }
+          - { label: Local delivery timeline, name: local_timeline, widget: string }
+          - { label: International shipping label, name: intl_label, widget: string }
+          - { label: International sub-label, name: intl_sublabel, widget: string }
+          - { label: International delivery timeline, name: intl_timeline, widget: string }
+          - { label: Processing note, name: processing_note, widget: text }
+          - { label: Return policy items, name: return_policy_items, widget: list, hint: "Each line is one policy point", field: { label: Policy item, name: item, widget: string } }
+          - { label: Custom order note, name: custom_order_note, widget: text }
+          - { label: Lost parcel note, name: lost_parcel_note, widget: text }
+          - { label: Bulk shipping note, name: bulk_shipping_note, widget: text }
+          - { label: Shipping flatlay image, name: shipping_flatlay_image, widget: image, required: false }
+
+  # ============================================
+  # 9. PRIVACY SETTINGS
+  # ============================================
+  - name: privacy
+    label: "🔒 Privacy Settings"
+    files:
+      - label: Privacy Policy
+        name: privacy
+        file: content/settings/privacy.json
+        fields:
+          - { label: Page title, name: page_title, widget: string }
+          - { label: Policy content, name: body, widget: text, hint: "Write your privacy policy here. Use blank lines to separate paragraphs." }
+
+  # ============================================
+  # 10. GENERAL SETTINGS
+  # ============================================
+  - name: general
+    label: "⚙️ General Settings"
+    files:
+      - label: Branding, Social Links & Navigation
+        name: general
+        file: content/settings/general.json
+        fields:
+          - { label: Site name, name: site_name, widget: string }
+          - { label: Copyright year, name: copyright_year, widget: string }
+          - { label: Logo image, name: logo_url, widget: image, required: false }
+          - { label: Facebook URL, name: facebook_url, widget: string, required: false }
+          - { label: TikTok URL, name: tiktok_url, widget: string, required: false }
+          - { label: Instagram URL, name: instagram_url, widget: string, required: false }
+          - { label: Pinterest URL, name: pinterest_url, widget: string, required: false }
+          - { label: YouTube URL, name: youtube_url, widget: string, required: false }
+          - { label: Shopee Shop URL, name: shopee_url, widget: string, required: false }
+          - { label: Lazada Shop URL, name: lazada_url, widget: string, required: false }
+          - {
+              label: Navigation items,
+              name: nav_items,
+              widget: list,
+              hint: "Menu items shown in the header. Pick a page from the dropdown — new categories appear automatically.",
+              fields:
+                [
+                  { label: Label, name: label, widget: string },
+                  {
+                      label: Page,
+                      name: href,
+                      widget: relation,
+                      collection: categories,
+                      search_fields: ["name"],
+                      value_field: "slug",
+                      display_fields: ["name"],
+                      options_length: 50,
+                      required: false,
+                      hint: "Select a category (auto-links to /{slug}/). For built-in pages, leave blank and use 'Custom URL' below."
+                    },
+                  {
+                      label: Custom URL,
+                      name: custom_href,
+                      widget: select,
+                      required: false,
+                      default: "",
+                      hint: "Use for built-in pages like /shop/, /contact/, etc. Overrides the Page selection.",
+                      options:
+                        [
+                          { label: "— none (use Page above) —", value: "" },
+                          { label: "Shop (all products)", value: "/shop/" },
+                          { label: "Devotionals", value: "/devotionals/" },
+                          { label: "Club Hub", value: "/journaling-tips/" },
+                          { label: "Our Story", value: "/our-story/" },
+                          { label: "Contact", value: "/contact/" },
+                          { label: "Checkout / Cart", value: "/checkout/" },
+                          { label: "Shipping Info", value: "/shipping/" },
+                          { label: "Homepage", value: "/" },
+                        ]
+                    },
+                  {
+                      label: Active ID,
+                      name: id,
+                      widget: select,
+                      options:
+                        [
+                          { label: "Shop", value: "shop" },
+                          { label: "Devotionals", value: "devotionals" },
+                          { label: "Club Hub", value: "journal" },
+                          { label: "Our Story", value: "story" },
+                          { label: "Contact", value: "contact" },
+                          { label: "Slam Notebooks", value: "notebook" },
+                          { label: "Bundles", value: "bundle" },
+                          { label: "Checkout", value: "checkout" },
+                          { label: "Shipping", value: "shipping" },
+                          { label: "Home", value: "home" },
+                        ],
+                      required: false
+                    },
+                ]
+            }

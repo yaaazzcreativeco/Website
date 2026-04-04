@@ -1,0 +1,137 @@
+---
+layout: base.njk
+title: Shipping & Returns
+permalink: /shipping/index.html
+bodyClass: page-contact-dots
+---
+
+<div class="max-w-7xl mx-auto px-6 pt-8 pb-20">
+  <header class="relative mb-24 text-center pt-8">
+    <div class="absolute -top-4 left-1/2 -translate-x-1/2 opacity-10 pointer-events-none">
+      <span class="material-symbols-outlined text-[12rem]">local_shipping</span>
+    </div>
+    <h1 class="font-headline font-extrabold text-5xl md:text-7xl text-primary mb-6 relative z-10">
+      Delivering <span class="bg-tertiary-container px-4 rounded-lg sticker-rotate-pos inline-block">Sparkles</span>
+    </h1>
+    <p class="text-xl md:text-2xl text-on-surface-variant max-w-2xl mx-auto font-body italic">
+      From our studio to your doorstep, with a little extra love in every box.
+    </p>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+    <section class="md:col-span-7 bg-surface-container-low p-8 md:p-12 rounded-xl shadow-[0_10px_30px_rgba(49,47,35,0.06)] sticker-rotate-neg relative">
+      <div class="absolute -top-4 -right-4 bg-secondary-container px-6 py-2 rounded-sm font-bold text-on-secondary-container shadow-[2px_2px_5px_rgba(0,0,0,0.06)] -rotate-3">
+        Fast &amp; Safe
+      </div>
+      <div class="flex items-center gap-3 mb-8">
+        <span class="material-symbols-outlined text-primary text-3xl">schedule</span>
+        <h2 class="font-headline text-3xl font-bold text-primary">Shipping Timelines</h2>
+      </div>
+      <div class="space-y-8">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-surface-container-lowest rounded-lg">
+          <div>
+            <h3 class="font-headline font-bold text-xl text-on-surface">{{ shippingSettings.local_label | default("Local deliveries") }}</h3>
+            <p class="text-on-surface-variant italic">{{ shippingSettings.local_sublabel | default("Within the city & metro areas") }}</p>
+          </div>
+          <div class="bg-primary-container text-on-primary-container px-6 py-3 rounded-full font-bold text-lg whitespace-nowrap">
+            {{ shippingSettings.local_timeline | default("2 – 4 business days") }}
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-6 bg-surface-container-lowest rounded-lg">
+          <div>
+            <h3 class="font-headline font-bold text-xl text-on-surface">{{ shippingSettings.intl_label | default("International") }}</h3>
+            <p class="text-on-surface-variant italic">{{ shippingSettings.intl_sublabel | default("Worldwide shipping to your studio") }}</p>
+          </div>
+          <div class="bg-secondary-container text-on-secondary-container px-6 py-3 rounded-full font-bold text-lg whitespace-nowrap">
+            {{ shippingSettings.intl_timeline | default("7 – 15 business days") }}
+          </div>
+        </div>
+      </div>
+      {% if shippingSettings.processing_note %}
+      <p class="mt-8 text-sm text-on-surface-variant bg-surface-container-highest/50 p-4 rounded-lg">
+        {{ shippingSettings.processing_note }}
+      </p>
+      {% endif %}
+    </section>
+
+    <section class="md:col-span-5 bg-surface-container-high p-8 md:p-10 rounded-xl shadow-[0_10px_30px_rgba(49,47,35,0.04)] relative md:mt-12">
+      <div class="absolute -top-3 left-10 w-24 h-8 bg-[#fad3fd]/70 -rotate-1 shadow-sm rounded-sm"></div>
+      <div class="flex items-center gap-3 mb-6">
+        <span class="material-symbols-outlined text-primary text-3xl">assignment_return</span>
+        <h2 class="font-headline text-3xl font-bold text-primary">Returns &amp; exchanges</h2>
+      </div>
+      <p class="text-on-surface-variant mb-6 leading-relaxed">
+        Not feeling the vibe? We want you to love your stationery as much as we loved making it.
+      </p>
+      {% if shippingSettings.return_policy_items and shippingSettings.return_policy_items.length %}
+      <ul class="space-y-4 mb-8">
+        {% for item in shippingSettings.return_policy_items %}
+        <li class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary mt-1">check_circle</span>
+          <span>{{ item }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <a href="/contact/" class="block w-full text-center bg-primary text-on-primary py-4 rounded-full font-headline font-bold text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-md">
+        Start a return
+      </a>
+    </section>
+
+    <section class="md:col-span-12 mt-12 overflow-hidden bg-surface-container-lowest rounded-xl shadow-[0_10px_40px_rgba(0,0,0,0.03)] grid grid-cols-1 md:grid-cols-2 items-center">
+      <div class="p-10 md:p-16">
+        <div class="inline-flex items-center gap-2 bg-tertiary-container text-on-tertiary-container px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+          <span class="material-symbols-outlined text-sm">verified</span> Quality assurance
+        </div>
+        <h2 class="font-headline text-4xl font-extrabold text-primary mb-6">Safe pH shipping</h2>
+        <p class="text-lg text-on-surface-variant mb-8 leading-relaxed italic">
+          We use acid-free protective sleeves and careful packing so your notebooks arrive without warping or yellowing.
+        </p>
+        <div class="flex gap-4 flex-wrap">
+          <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center flex-1 min-w-[100px] text-center">
+            <span class="material-symbols-outlined text-primary mb-2">science</span>
+            <span class="text-sm font-bold">Acid-free wrap</span>
+          </div>
+          <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center flex-1 min-w-[100px] text-center">
+            <span class="material-symbols-outlined text-primary mb-2">thermostat</span>
+            <span class="text-sm font-bold">Climate conscious</span>
+          </div>
+          <div class="bg-surface-container-low p-4 rounded-lg flex flex-col items-center flex-1 min-w-[100px] text-center">
+            <span class="material-symbols-outlined text-primary mb-2">eco</span>
+            <span class="text-sm font-bold">Eco sleeves</span>
+          </div>
+        </div>
+      </div>
+      <div class="h-80 md:h-full min-h-[400px] relative">
+        {% if shippingSettings.shipping_flatlay_image %}
+        {% image shippingSettings.shipping_flatlay_image, "Packaged stationery flat lay", "absolute inset-0 w-full h-full object-cover" %}
+        {% else %}
+        <img class="absolute inset-0 w-full h-full object-cover" alt="Packaged stationery flat lay" src="/static/img/pages/shipping-flatlay.webp" width="800" height="600" loading="lazy" decoding="async"/>
+        {% endif %}
+        <div class="absolute inset-0 bg-primary/10 mix-blend-multiply pointer-events-none"></div>
+      </div>
+    </section>
+
+    {% if shippingSettings.custom_order_note %}
+    <div class="md:col-span-4 bg-[#b2f2bb]/30 p-8 rounded-xl sticker-rotate-pos">
+      <h4 class="font-headline font-bold text-xl mb-4 text-[#084a22]">Custom orders?</h4>
+      <p class="text-sm text-on-secondary-container opacity-80 mb-4">{{ shippingSettings.custom_order_note }}</p>
+      <a class="text-secondary font-bold underline text-sm" href="/contact/">Ask on the contact form</a>
+    </div>
+    {% endif %}
+    {% if shippingSettings.lost_parcel_note %}
+    <div class="md:col-span-4 bg-tertiary-container p-8 rounded-xl">
+      <h4 class="font-headline font-bold text-xl mb-4 text-on-tertiary-container">Lost parcel?</h4>
+      <p class="text-sm text-on-tertiary-container opacity-80 mb-4">{{ shippingSettings.lost_parcel_note }}</p>
+      <a class="text-on-tertiary-container font-bold underline text-sm" href="/contact/">Contact support</a>
+    </div>
+    {% endif %}
+    {% if shippingSettings.bulk_shipping_note %}
+    <div class="md:col-span-4 bg-surface-container-highest p-8 rounded-xl sticker-rotate-neg">
+      <h4 class="font-headline font-bold text-xl mb-4 text-on-surface">Bulk shipping</h4>
+      <p class="text-sm text-on-surface-variant mb-4">{{ shippingSettings.bulk_shipping_note }}</p>
+      <a class="text-primary font-bold underline text-sm" href="/contact/#bulk-quote">Inquire for bulk</a>
+    </div>
+    {% endif %}
+  </div>
+</div>

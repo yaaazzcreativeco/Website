@@ -1,0 +1,46 @@
+{
+  "monthly_title": "Stillness",
+  "monthly_prompt": "What is one small miracle you witnessed today that made you pause and say 'Yaaazz'?",
+  "monthly_sub_prompts": [
+    "Describe the smells and sounds.",
+    "Use three adjectives for the light.",
+    "Sketch a tiny doodle of the feeling."
+  ],
+  "monthly_image": "/static/img/pages/journal-notebook-flatlay.webp",
+  "sticker_hack_title": "Sticker Hacks!",
+  "sticker_hack_text": "Don't be afraid to overlap! Layering your floral stickers over washi tape creates a curated look without the mess.",
+  "creative_layouts": [
+    {
+      "title": "The 'Memory Map' Spread",
+      "description": "Vintage maps and tickets to anchor your summer memories.",
+      "thumbnail_url": "/static/img/pages/journal-tip1.webp",
+      "tag": "TRAVEL THEME"
+    },
+    {
+      "title": "Negative Space Magic",
+      "description": "Why leaving room to breathe is the best creative decision.",
+      "thumbnail_url": "/static/img/pages/journal-tip2.webp",
+      "tag": "MINIMALIST"
+    },
+    {
+      "title": "Mixed Media Layers",
+      "description": "Fabric and twine for a tactile spread.",
+      "thumbnail_url": "/static/img/pages/journal-tip3.webp",
+      "tag": "TEXTURES"
+    },
+    {
+      "title": "Rainbow Gratitude",
+      "description": "Color-coding moods for a year-long visual journey.",
+      "thumbnail_url": "/static/img/pages/journal-tip4.webp",
+      "tag": "COLOR PLAY"
+    }
+  ],
+  "community_stat1": "12,000+ creative souls sharing daily",
+  "community_stat2": "Weekly live layout workshops",
+  "community_gallery": [
+    "/static/img/pages/journal-gallery1.webp",
+    "/static/img/pages/journal-gallery2.webp",
+    "/static/img/pages/journal-gallery3.webp",
+    "/static/img/pages/journal-gallery4.webp"
+  ]
+}

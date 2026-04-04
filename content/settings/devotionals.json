@@ -1,0 +1,25 @@
+{
+  "community_image": "/static/img/uploads/devotional2.jpg",
+  "bundle_cta_link": "/bundle/",
+  "prompt_text": "",
+  "prompt_title": "",
+  "monthly_prompts": [
+    { "month": "January", "text": "What is your 'word' for this year, and why does it resonate with your soul right now?" },
+    { "month": "February", "text": "How can you show extra kindness to yourself today? Write a love letter from God to you." },
+    { "month": "March", "text": "Spring is coming. What 'seeds' of hope are you planting in your heart this season?" },
+    { "month": "April", "text": "Look for the small miracles today. What made you pause and say 'Thank You'?" },
+    { "month": "May", "text": "Bloom where you are planted. What is one area of your life where you feel God's growth?" },
+    { "month": "June", "text": "Mid-year check-in: What has been your favorite memory with the Creator so far?" },
+    { "month": "July", "text": "Summer rest. Where do you find the most peace when the world feels loud?" },
+    { "month": "August", "text": "Harvesting gratitude. What are three things you're grateful for in this current season?" },
+    { "month": "September", "text": "New beginnings. What is one habit you want to start to deepen your prayer life?" },
+    { "month": "October", "text": "Falling leaves, rising prayers. What is something you need to 'let go' of to move forward?" },
+    { "month": "November", "text": "A heart of thanks. Who is someone you can reach out to today with a blessing?" },
+    { "month": "December", "text": "The gift of presence. How can you find moments of stillness in the holiday rush?" }
+  ],
+  "prompt_sub_prompts": [],
+  "bundle_cta_text": "Get the Bundle",
+  "bundle_title": "Bundle & Save!",
+  "bundle_description": "Grab any 3 devotionals and get a free sticker sheet of your choice."
+}
+

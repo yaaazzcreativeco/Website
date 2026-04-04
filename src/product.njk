@@ -1,0 +1,267 @@
+---
+pagination:
+  data: products
+  size: 1
+  alias: product
+  addAllPagesToCollections: true
+permalink: "/product/{{ product.slug }}/"
+layout: base.njk
+title: Product
+---
+
+{% import "macros.njk" as macros %}
+
+<!-- Breadcrumb -->
+<div class="pt-8 pb-2 px-6 max-w-7xl mx-auto">
+  <p class="text-sm text-on-surface-variant font-body">
+    <a href="/" class="hover:text-primary transition-colors">Home</a>
+    <span class="mx-2">›</span>
+    <a href="/shop/" class="hover:text-primary transition-colors">Shop</a>
+    <span class="mx-2">›</span>
+    <span class="text-primary font-semibold">{{ product.title }}</span>
+  </p>
+</div>
+
+<!-- Product Section -->
+<section class="py-10 px-6">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+    <!-- Left: Image Gallery -->
+    <div class="relative group">
+      <!-- Decorative Elements -->
+      <div class="absolute -top-10 -left-10 w-24 h-24 bg-tertiary-container rounded-full opacity-50 blur-2xl"></div>
+      <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-secondary-container rounded-full opacity-40 blur-3xl"></div>
+      
+      <div class="relative bg-surface-container-low p-8 rounded-xl shadow-2xl rotate-[-1deg]">
+        {% if product.image %}
+        <img id="mainImage"
+          alt="{{ product.title }}"
+          class="w-full h-auto rounded-lg shadow-inner group-hover:scale-[1.02] transition-transform duration-500"
+          style="aspect-ratio: 4/3; object-fit: cover;"
+          src="{{ product.image }}"/>
+        {% endif %}
+        {{ macros.smartBadge(product) }}
+      </div>
+
+      <!-- Product Gallery Scraps -->
+      <div class="flex gap-4 mt-8 px-4">
+        <div class="w-20 h-20 bg-white p-1 rounded-lg shadow-md rotate-[-4deg] hover:rotate-0 transition-all cursor-pointer">
+          <img alt="Gallery 1" class="w-full h-full object-cover rounded" src="{{ product.image }}"/>
+        </div>
+        <div class="w-20 h-20 bg-white p-1 rounded-lg shadow-md rotate-[3deg] hover:rotate-0 transition-all cursor-pointer">
+          <img alt="Gallery 2" class="w-full h-full object-cover rounded" src="{{ product.image }}"/>
+        </div>
+        <div class="w-20 h-20 bg-white p-1 rounded-lg shadow-md rotate-[-2deg] hover:rotate-0 transition-all cursor-pointer">
+          <img alt="Gallery 3" class="w-full h-full object-cover rounded" src="{{ product.image }}"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Product Info -->
+    <div class="flex flex-col gap-8">
+      <!-- Title -->
+      <div>
+        <h1 class="text-5xl md:text-6xl font-headline font-black text-primary leading-tight mb-2">
+          {{ product.title }}
+        </h1>
+        <p class="text-handwritten text-3xl text-primary-dim">{{ product.subtitle }}</p>
+      </div>
+
+      <!-- Price -->
+      <div class="flex items-center gap-4">
+        {% if product.sale_price %}
+        <span class="text-4xl font-headline font-extrabold text-on-surface">{{ product.sale_price | moneyPHP }}</span>
+        <span class="text-lg line-through text-on-surface-variant/60 font-medium">{{ product.price | moneyPHP }}</span>
+        <div class="px-3 py-1 bg-secondary text-on-secondary rounded-lg text-xs font-bold uppercase tracking-widest">SALE</div>
+        {% else %}
+        <span class="text-4xl font-headline font-extrabold text-on-surface">{{ product.price | moneyPHP }}</span>
+        {% endif %}
+      </div>
+
+      <!-- Description -->
+      {% if product.body %}
+      <div class="space-y-6 text-on-surface-variant max-w-lg leading-relaxed">
+        <p class="text-lg">{{ product.body | safe }}</p>
+      </div>
+      {% endif %}
+
+      <!-- Tags -->
+      {% if product.tags and product.tags.length > 0 %}
+      <div class="flex flex-wrap gap-3">
+        {% for tag in product.tags %}
+        <span class="bg-surface-container-highest px-3 py-1 rounded-full text-sm font-medium border border-outline-variant/20">{{ tag }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Add to Cart Section -->
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-6">
+          <div class="flex items-center bg-surface-container-high rounded-full px-4 py-2 border border-outline-variant/30">
+            <button onclick="changeQty(-1)" class="w-14 h-14 flex items-center justify-center text-3xl font-bold text-primary hover:bg-primary hover:text-white transition-colors rounded-full">−</button>
+            <span id="qtyDisplay" class="px-8 font-headline font-bold text-2xl text-on-surface">1</span>
+            <button onclick="changeQty(1)" class="w-14 h-14 flex items-center justify-center text-3xl font-bold text-primary hover:bg-primary hover:text-white transition-colors rounded-full">+</button>
+          </div>
+          <p class="text-sm font-medium text-secondary flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            {% if product.stock_status == "pre_order" %}
+            Pre-order available!
+            {% elif product.stock_status == "out_of_stock" %}
+            Out of stock
+            {% else %}
+            In stock and ready to ship!
+            {% endif %}
+          </p>
+        </div>
+
+        <div class="flex gap-4">
+          <button
+            type="button"
+            class="js-add-cart flex-1 bg-gradient-to-r from-primary to-primary-dim text-on-primary py-5 rounded-full font-headline font-black text-xl shadow-[0_10px_25px_rgba(125,77,95,0.3)] hover:scale-[1.03] transition-transform active:scale-95 flex items-center justify-center gap-3{% if product.stock_status == 'out_of_stock' %} opacity-50 cursor-not-allowed{% endif %}"
+            data-slug="{{ product.slug }}"
+            data-title="{{ product.title | escape }}"
+            data-price="{{ product.price }}"
+            data-image="{{ product.image | escape }}"
+            data-subtitle="{{ product.subtitle | escape }}"
+            data-preorder="{% if product.stock_status == 'pre_order' %}true{% else %}false{% endif %}"
+            {% if product.stock_status == "out_of_stock" %}disabled{% endif %}
+          >
+            <span class="material-symbols-outlined">shopping_bag</span>
+            ADD TO CART
+          </button>
+          <button class="w-16 h-16 bg-secondary-container text-on-secondary-container rounded-2xl rotate-[3deg] flex items-center justify-center hover:rotate-0 transition-all shadow-md pointer-events-none">
+            <span class="material-symbols-outlined text-3xl text-secondary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tip Banner - Washi Tape Style -->
+      <div class="relative py-4 px-6 bg-secondary-container/40 rounded-sm rotate-[-1deg] max-w-sm mt-4 overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.2)_10px,rgba(255,255,255,0.2)_20px)]"></div>
+        <p class="relative font-handwritten text-xl text-on-secondary-container font-bold">
+          {% if product.tip_message %}
+          {{ product.tip_message }}
+          {% else %}
+          Tip: Grab the matching sticker sheet for the ultimate journaling experience!
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What's Inside the Box -->
+<section class="py-20 px-6 bg-surface-container-low rounded-t-[3rem]">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="font-headline text-3xl md:text-4xl font-extrabold text-primary text-center mb-12 rotate-[1deg]">
+      What's Inside the Box? 📦
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% if product.inside_features and product.inside_features.length > 0 %}
+        {% for feature in product.inside_features %}
+        <div class="bg-surface-container-low p-8 rounded-xl border-2 border-dashed border-outline-variant/40 flex flex-col items-center text-center {% if loop.index0 == 0 %}rotate-[-2deg]{% elseif loop.index0 == 1 %}rotate-[1deg]{% else %}rotate-[-1deg]{% endif %} hover:rotate-0 transition-transform duration-300">
+          <div class="w-16 h-16 rounded-full flex items-center justify-center mb-6 {% if loop.index0 == 0 %}bg-tertiary-fixed text-on-tertiary-fixed{% elseif loop.index0 == 1 %}bg-secondary-fixed text-on-secondary-fixed{% else %}bg-primary-fixed text-on-primary-fixed{% endif %}">
+            <span class="material-symbols-outlined text-4xl" style="font-variation-settings:'FILL' 1">{{ feature.icon | default('star') }}</span>
+          </div>
+          <h3 class="font-headline font-bold text-xl mb-3 text-primary">{{ feature.title }}</h3>
+          <p class="text-on-surface-variant font-body">{{ feature.description }}</p>
+        </div>
+        {% endfor %}
+      {% else %}
+      <div class="bg-surface-container-low p-8 rounded-xl border-2 border-dashed border-outline-variant/40 flex flex-col items-center text-center rotate-[-2deg] hover:rotate-0 transition-transform duration-300">
+        <div class="w-16 h-16 bg-tertiary-fixed rounded-full flex items-center justify-center mb-6 text-on-tertiary-fixed">
+          <span class="material-symbols-outlined text-4xl">grid_4x4</span>
+        </div>
+        <h3 class="font-headline font-bold text-xl mb-3 text-primary">Dotted Bliss</h3>
+        <p class="text-on-surface-variant font-body">160 pages of light grey dots. Perfect for bullet journaling, sketching, or late-night venting.</p>
+      </div>
+      <div class="bg-surface-container-low p-8 rounded-xl border-2 border-dashed border-outline-variant/40 flex flex-col items-center text-center rotate-[1deg] hover:rotate-0 transition-transform duration-300">
+        <div class="w-16 h-16 bg-secondary-fixed rounded-full flex items-center justify-center mb-6 text-on-secondary-fixed">
+          <span class="material-symbols-outlined text-4xl" style="font-variation-settings:'FILL' 1">sell</span>
+        </div>
+        <h3 class="font-headline font-bold text-xl mb-3 text-primary">Sticker Scraps</h3>
+        <p class="text-on-surface-variant font-body">Every notebook comes with 2 exclusive vinyl sticker sheets to start your creative chaos.</p>
+      </div>
+      <div class="bg-surface-container-low p-8 rounded-xl border-2 border-dashed border-outline-variant/40 flex flex-col items-center text-center rotate-[-1deg] hover:rotate-0 transition-transform duration-300">
+        <div class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mb-6 text-on-primary-fixed">
+          <span class="material-symbols-outlined text-4xl" style="font-variation-settings:'FILL' 1">folder_shared</span>
+        </div>
+        <h3 class="font-headline font-bold text-xl mb-3 text-primary">Hidden Pockets</h3>
+        <p class="text-on-surface-variant font-body">An expandable back pocket for all those receipts, movie tickets, and love notes you're keeping.</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- Love from the Community -->
+<section class="py-20 px-6 bg-surface">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="font-headline text-3xl md:text-4xl font-extrabold text-primary text-center mb-16">
+      Love from the Community ❤️
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="bg-[#fff9c4] p-6 shadow-lg rotate-[-3deg] hover:rotate-0 transition-all hover:-translate-y-2 cursor-default">
+        <div class="flex gap-1 mb-4">
+          <span class="material-symbols-outlined text-sm text-yellow-600" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-yellow-600" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-yellow-600" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-yellow-600" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-yellow-600" style="font-variation-settings: 'FILL' 1;">star</span>
+        </div>
+        <p class="font-handwritten text-xl text-on-surface leading-tight mb-4">"The paper quality is insane. No ghosting even with my heavy markers! Love it."</p>
+        <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60">— Maria C.</p>
+      </div>
+      <div class="bg-[#fad3fd] p-6 shadow-lg rotate-[2deg] hover:rotate-0 transition-all hover:-translate-y-2 cursor-default">
+        <div class="flex gap-1 mb-4">
+          <span class="material-symbols-outlined text-sm text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+        </div>
+        <p class="font-handwritten text-xl text-on-surface leading-tight mb-4">"Super cute aesthetic! The spiral is actually sturdy and doesn't bend in my bag."</p>
+        <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60">— Bianca R.</p>
+      </div>
+      <div class="bg-[#b2f2bb] p-6 shadow-lg rotate-[-1deg] hover:rotate-0 transition-all hover:-translate-y-2 cursor-default">
+        <div class="flex gap-1 mb-4">
+          <span class="material-symbols-outlined text-sm text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+        </div>
+        <p class="font-handwritten text-xl text-on-surface leading-tight mb-4">"The best slam book replacement. Me and my friends are obsessed!"</p>
+        <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60">— Sofia G.</p>
+      </div>
+      <div class="bg-[#ffeefd] p-6 shadow-lg rotate-[4deg] hover:rotate-0 transition-all hover:-translate-y-2 cursor-default">
+        <div class="flex gap-1 mb-4">
+          <span class="material-symbols-outlined text-sm text-[#7d4d5f]" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-[#7d4d5f]" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-[#7d4d5f]" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-[#7d4d5f]" style="font-variation-settings: 'FILL' 1;">star</span>
+          <span class="material-symbols-outlined text-sm text-[#7d4d5f]" style="font-variation-settings: 'FILL' 1;">star</span>
+        </div>
+        <p class="font-handwritten text-xl text-on-surface leading-tight mb-4">"The free stickers are so pretty, I almost don't want to use them!"</p>
+        <p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant/60">— Juju B.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  let qty = 1;
+  function changeQty(delta) {
+    qty = Math.max(1, qty + delta);
+    document.getElementById('qtyDisplay').textContent = qty;
+    
+    // Sync the quantity with the main Add to Cart button
+    const btn = document.querySelector('.js-add-cart');
+    if (btn) btn.setAttribute('data-qty', qty);
+  }
+
+  function swapImage(btn, src) {
+    document.getElementById('mainImage').src = src;
+    document.querySelectorAll('[onclick^="swapImage"]').forEach(b => b.classList.remove('thumbnail-active'));
+    btn.classList.add('thumbnail-active');
+  }
+</script>

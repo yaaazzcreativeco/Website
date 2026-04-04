@@ -1,0 +1,50 @@
+<footer class="w-full mt-20 rounded-t-[3rem] bg-[#f7f1dc] border-t-2 border-dashed border-[#e3ddc5] flex flex-col items-center gap-8 py-12 px-4 text-center">
+  <div class="flex flex-col items-center">
+    <a
+      class="logo-link logo-link--footer group inline-flex items-center justify-center overflow-visible outline-none transition-transform duration-300 mb-4 focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f7f1dc]"
+      href="/"
+    >
+      {% logo settings.logo_url, (settings.site_name | default('Yaaazz Creative Co.')) + " Logo", 260, "logo-mark h-32 md:h-40 w-auto max-w-[280px] object-contain object-center transition-all duration-300 ease-out" %}
+    </a>
+  </div>
+  <div class="flex flex-wrap justify-center gap-6 font-body text-sm tracking-wide text-[#7d4d5f]">
+    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="/privacy/">Privacy</a>
+    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="/shipping/">Shipping &amp; Returns</a>
+    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="/contact/">Contact</a>
+    <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="/admin/">Store admin</a>
+  </div>
+  {% set hasSocial = settings.instagram_url or settings.tiktok_url or settings.pinterest_url or settings.facebook_url or settings.youtube_url %}
+  {% if hasSocial %}
+  <div class="flex items-center gap-4">
+    {% if settings.facebook_url %}
+    <a href="{{ settings.facebook_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#7d4d5f]/10 flex items-center justify-center hover:bg-[#7d4d5f]/20 transition-colors" aria-label="Facebook">
+      <span class="material-symbols-outlined text-[#7d4d5f] text-lg">thumb_up</span>
+    </a>
+    {% endif %}
+    {% if settings.instagram_url %}
+    <a href="{{ settings.instagram_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#7d4d5f]/10 flex items-center justify-center hover:bg-[#7d4d5f]/20 transition-colors" aria-label="Instagram">
+      <span class="material-symbols-outlined text-[#7d4d5f] text-lg">photo_camera</span>
+    </a>
+    {% endif %}
+    {% if settings.tiktok_url %}
+    <a href="{{ settings.tiktok_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#7d4d5f]/10 flex items-center justify-center hover:bg-[#7d4d5f]/20 transition-colors" aria-label="TikTok">
+      <span class="material-symbols-outlined text-[#7d4d5f] text-lg">music_note</span>
+    </a>
+    {% endif %}
+    {% if settings.pinterest_url %}
+    <a href="{{ settings.pinterest_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#7d4d5f]/10 flex items-center justify-center hover:bg-[#7d4d5f]/20 transition-colors" aria-label="Pinterest">
+      <span class="material-symbols-outlined text-[#7d4d5f] text-lg">alternate_email</span>
+    </a>
+    {% endif %}
+    {% if settings.youtube_url %}
+    <a href="{{ settings.youtube_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#7d4d5f]/10 flex items-center justify-center hover:bg-[#7d4d5f]/20 transition-colors" aria-label="YouTube">
+      <span class="material-symbols-outlined text-[#7d4d5f] text-lg">play_circle</span>
+    </a>
+    {% endif %}
+  </div>
+  {% endif %}
+  <p class="font-handwritten text-3xl text-[#7d4d5f]/60 mt-4">Stay creative, yaaazz! ✨</p>
+  <p class="text-sm font-body text-on-surface-variant/60 mt-8">
+    © {{ settings.copyright_year | default("2026") }} {{ settings.site_name | default("Yaaazz Creative Co.") }}. Hand-crafted with love.
+  </p>
+</footer>

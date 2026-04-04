@@ -1,0 +1,21 @@
+{
+  "name": "yaaazz-creative-co",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve --port=8080",
+    "start": "eleventy --serve",
+    "cms": "decap-server --port 8081",
+    "dev": "concurrently \"npm run serve\" \"npm run cms\""
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^6.0.4",
+    "concurrently": "^9.2.1",
+    "decap-server": "^3.6.0",
+    "gray-matter": "^4.0.3",
+    "html-minifier-terser": "^7.2.0",
+    "sharp": "^0.34.5"
+  }
+}

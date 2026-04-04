@@ -1,0 +1,358 @@
+---
+layout: base.njk
+title: Journaling Tips & Club Hub
+permalink: /journaling-tips/index.html
+bodyClass: page-journaling-hub
+activeNav: journal
+---
+
+<div class="fixed inset-0 page-paper-texture z-[100] pointer-events-none" aria-hidden="true"></div>
+
+<div class="relative max-w-7xl mx-auto px-6 pt-8 pb-32">
+  <header class="relative mb-24 text-center">
+    <div class="absolute -top-8 -left-4 w-32 h-32 bg-tertiary-container/30 rounded-full blur-3xl -z-10"></div>
+    <div class="inline-block relative mb-6 mt-4">
+      <div class="absolute -top-4 -right-4 rotate-12 journaling-washi-tape px-6 py-1 text-xs font-bold text-secondary-dim rounded-sm">MEMBERS ONLY</div>
+      <h1 class="text-5xl md:text-7xl font-headline font-extrabold text-primary tracking-tighter leading-none mb-4">
+        The Scrapbook <br/><span class="italic text-primary-dim">Club Hub</span>
+      </h1>
+    </div>
+    <p class="max-w-2xl mx-auto text-lg text-on-surface-variant italic mb-8">
+      Your digital canvas for messy memories, joyful journaling, and creative connection. Let&apos;s make something beautiful today!
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="/contact/?subject=Club+Community&message=I+love+to+join+the+Scrapbook+Club+Community!" class="bg-primary text-on-primary px-8 py-3 rounded-full font-bold shadow-lg hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2">
+        Join the Community <span class="material-symbols-outlined text-sm">favorite</span>
+      </a>
+      <a href="/journaling-tips/#prompt-month" class="bg-secondary-container text-on-secondary-container px-8 py-3 rounded-none rotate-1 font-bold hover:rotate-0 transition-transform inline-block">
+        Explore Prompts
+      </a>
+    </div>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 relative" id="prompt-month">
+    {% if clubHubSettings.monthly_title or clubHubSettings.monthly_prompt %}
+    <div class="md:col-span-7 lg:col-span-8 bg-surface-container-low rounded-lg p-6 relative group overflow-hidden rotate-[-0.5deg]">
+      <div class="flex justify-between items-start mb-6">
+        <div>
+          <span class="bg-tertiary-container text-on-tertiary-container text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">This month</span>
+          <h2 class="text-3xl font-headline font-bold text-primary mt-2">{{ clubHubSettings.monthly_title | default("Prompt of the Month") }}</h2>
+        </div>
+        <span class="material-symbols-outlined text-primary/30 text-4xl">edit_note</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="bg-white p-4 pb-12 rounded-sm polaroid-shadow rotate-2 group-hover:rotate-1 transition-transform duration-500">
+          {% if clubHubSettings.monthly_image %}
+          {% image clubHubSettings.monthly_image, clubHubSettings.monthly_title | default("Monthly prompt"), "w-full aspect-square object-cover mb-4 grayscale-[0.2]" %}
+          {% else %}
+          <img alt="Open notebook flat lay" class="w-full aspect-square object-cover mb-4 grayscale-[0.2]" src="/static/img/pages/journal-notebook-flatlay.webp" width="400" height="400" loading="lazy" decoding="async"/>
+          {% endif %}
+          {% if clubHubSettings.monthly_prompt %}
+          <p class="text-sm italic text-on-surface/60 text-center font-body">&ldquo;{{ clubHubSettings.monthly_prompt }}&rdquo;</p>
+          {% endif %}
+        </div>
+        <div class="space-y-4">
+          {% if clubHubSettings.monthly_sub_prompts and clubHubSettings.monthly_sub_prompts.length %}
+          <ul class="space-y-2">
+            {% for tip in clubHubSettings.monthly_sub_prompts %}
+            <li class="flex items-center gap-2 text-sm font-bold text-primary"><span class="material-symbols-outlined text-xs">arrow_forward</span> {{ tip }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="md:col-span-5 lg:col-span-4 bg-primary-container p-8 rounded-sm shadow-xl rotate-2 relative flex flex-col justify-between min-h-[300px]">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-white/40 blur-sm rounded-full"></div>
+      <div>
+        <h3 class="font-headline font-bold text-on-primary-container text-2xl mb-4">{{ clubHubSettings.sticker_hack_title | default("Sticker Hacks!") }}</h3>
+        <p class="text-on-primary-container/80 text-sm leading-relaxed italic">
+          &ldquo;{{ clubHubSettings.sticker_hack_text | default("Don't be afraid to overlap! Layering your floral stickers over washi tape creates a curated look without the mess.") }}&rdquo;
+        </p>
+      </div>
+      <div class="flex items-center gap-3 mt-6">
+        {% if ourStorySettings.founder_photo %}
+          <img src="{{ ourStorySettings.founder_photo }}" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-primary/20"/>
+        {% else %}
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">Y</div>
+        {% endif %}
+        <div>
+          <p class="text-xs font-bold text-on-primary-container">{{ ourStorySettings.founder_name | default("Rhia") }}, Yaaazz Founder</p>
+          <p class="text-[10px] opacity-70 text-on-primary-container">Creative Lead</p>
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="md:col-span-7 lg:col-span-8 bg-surface-container-low rounded-lg p-6 relative group overflow-hidden rotate-[-0.5deg]">
+      <div class="flex justify-between items-start mb-6">
+        <div>
+          <span class="bg-tertiary-container text-on-tertiary-container text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">This month</span>
+          <h2 class="text-3xl font-headline font-bold text-primary mt-2">Prompt of the Month</h2>
+        </div>
+        <span class="material-symbols-outlined text-primary/30 text-4xl">edit_note</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="bg-white p-4 pb-12 rounded-sm polaroid-shadow rotate-2 group-hover:rotate-1 transition-transform duration-500">
+          <img alt="Open notebook flat lay" class="w-full aspect-square object-cover mb-4 grayscale-[0.2]" src="/static/img/pages/journal-notebook-flatlay.webp" width="400" height="400" loading="lazy" decoding="async"/>
+          <p class="text-sm italic text-on-surface/60 text-center font-body">&ldquo;Capture the quietest moment of your day…&rdquo;</p>
+        </div>
+        <div class="space-y-4">
+          <p class="text-on-surface-variant leading-relaxed">
+            This month we&apos;re diving into <strong>Stillness</strong>. Write about a moment where the world felt like it paused just for you.
+          </p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-sm font-bold text-primary"><span class="material-symbols-outlined text-xs">arrow_forward</span> Describe the smells and sounds.</li>
+            <li class="flex items-center gap-2 text-sm font-bold text-primary"><span class="material-symbols-outlined text-xs">arrow_forward</span> Use three adjectives for the light.</li>
+            <li class="flex items-center gap-2 text-sm font-bold text-primary"><span class="material-symbols-outlined text-xs">arrow_forward</span> Sketch a tiny doodle of the feeling.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="md:col-span-5 lg:col-span-4 bg-primary-container p-8 rounded-sm shadow-xl rotate-2 relative flex flex-col justify-between min-h-[300px]">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-white/40 blur-sm rounded-full"></div>
+      <div>
+        <h3 class="font-headline font-bold text-on-primary-container text-2xl mb-4">Sticker Hacks! 🎨</h3>
+        <p class="text-on-primary-container/80 text-sm leading-relaxed italic">
+          &ldquo;Don&apos;t be afraid to overlap! Layering your floral stickers over washi tape creates a curated look without the mess.&rdquo;
+        </p>
+      </div>
+      <div class="flex items-center gap-3 mt-6">
+        {% if ourStorySettings.founder_photo %}
+          <img src="{{ ourStorySettings.founder_photo }}" alt="" class="w-10 h-10 rounded-full object-cover border-2 border-primary/20"/>
+        {% else %}
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold">Y</div>
+        {% endif %}
+        <div>
+          <p class="text-xs font-bold text-on-primary-container">{{ ourStorySettings.founder_name | default("Rhia") }}, Yaaazz Founder</p>
+          <p class="text-[10px] opacity-70 text-on-primary-container">Creative Lead</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if clubHubSettings.creative_layouts and clubHubSettings.creative_layouts.length %}
+    <div class="md:col-span-12 mt-12">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-3xl font-headline font-extrabold text-primary italic">Creative Layouts</h2>
+        <div class="flex gap-2" id="carousel-dots">
+          <button type="button" data-index="0" class="w-3 h-3 rounded-full bg-primary transition-all hover:scale-125" aria-label="View first set"></button>
+          <button type="button" data-index="1" class="w-3 h-3 rounded-full bg-primary/30 transition-all hover:scale-125" aria-label="View middle set"></button>
+          <button type="button" data-index="2" class="w-3 h-3 rounded-full bg-primary/10 transition-all hover:scale-125" aria-label="View last set"></button>
+        </div>
+      </div>
+      <div class="relative overflow-hidden">
+        <div id="layouts-carousel" class="flex flex-nowrap gap-8 overflow-x-auto pb-4 px-2 scroll-smooth hide-scrollbar">
+          {% for layout in clubHubSettings.creative_layouts %}
+          <div class="flex-none w-80 group">
+            <div class="bg-surface-container-highest rounded-xl p-4 transition-all group-hover:-translate-y-2 border-b-4 border-primary/10{% if loop.index % 2 == 0 %} rotate-1{% elif loop.index % 3 == 0 %} -rotate-1{% endif %}">
+              <div class="relative rounded-lg overflow-hidden mb-4">
+                {% image layout.thumbnail_url, layout.title, "w-full h-48 object-cover" %}
+                {% if layout.tag %}
+                <div class="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-[10px] font-bold">{{ layout.tag }}</div>
+                {% endif %}
+              </div>
+              <h4 class="font-bold text-on-surface mb-2">{{ layout.title }}</h4>
+              <p class="text-xs text-on-surface-variant line-clamp-2 italic">{{ layout.description }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="md:col-span-12 mt-12">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-3xl font-headline font-extrabold text-primary italic">Creative Layouts</h2>
+        <div class="flex gap-2" id="carousel-dots">
+          <button type="button" data-index="0" class="w-3 h-3 rounded-full bg-primary transition-all hover:scale-125" aria-label="View first set"></button>
+          <button type="button" data-index="1" class="w-3 h-3 rounded-full bg-primary/30 transition-all hover:scale-125" aria-label="View middle set"></button>
+          <button type="button" data-index="2" class="w-3 h-3 rounded-full bg-primary/10 transition-all hover:scale-125" aria-label="View last set"></button>
+        </div>
+      </div>
+      <div class="relative overflow-hidden">
+        <div id="layouts-carousel" class="flex flex-nowrap gap-8 overflow-x-auto pb-4 px-2 scroll-smooth hide-scrollbar">
+        <div class="flex-none w-80 group">
+          <div class="bg-surface-container-highest rounded-xl p-4 transition-all group-hover:-translate-y-2 border-b-4 border-primary/10">
+            <div class="relative rounded-lg overflow-hidden mb-4">
+              <img alt="" class="w-full h-48 object-cover" src="/static/img/pages/journal-tip1.webp" width="320" height="192" loading="lazy" decoding="async"/>
+              <div class="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-[10px] font-bold">TRAVEL THEME</div>
+            </div>
+            <h4 class="font-bold text-on-surface mb-2">The &lsquo;Memory Map&rsquo; Spread</h4>
+            <p class="text-xs text-on-surface-variant line-clamp-2 italic">Vintage maps and tickets to anchor your summer memories.</p>
+          </div>
+        </div>
+        <div class="flex-none w-80 group">
+          <div class="bg-surface-container-highest rounded-xl p-4 transition-all group-hover:-translate-y-2 border-b-4 border-primary/10 rotate-1">
+            <div class="relative rounded-lg overflow-hidden mb-4">
+              <img alt="" class="w-full h-48 object-cover" src="/static/img/pages/journal-tip2.webp" width="320" height="192" loading="lazy" decoding="async"/>
+              <div class="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-[10px] font-bold">MINIMALIST</div>
+            </div>
+            <h4 class="font-bold text-on-surface mb-2">Negative Space Magic</h4>
+            <p class="text-xs text-on-surface-variant line-clamp-2 italic">Why leaving room to breathe is the best creative decision.</p>
+          </div>
+        </div>
+        <div class="flex-none w-80 group">
+          <div class="bg-surface-container-highest rounded-xl p-4 transition-all group-hover:-translate-y-2 border-b-4 border-primary/10 -rotate-1">
+            <div class="relative rounded-lg overflow-hidden mb-4">
+              <img alt="" class="w-full h-48 object-cover" src="/static/img/pages/journal-tip3.webp" width="320" height="192" loading="lazy" decoding="async"/>
+              <div class="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-[10px] font-bold">TEXTURES</div>
+            </div>
+            <h4 class="font-bold text-on-surface mb-2">Mixed Media Layers</h4>
+            <p class="text-xs text-on-surface-variant line-clamp-2 italic">Fabric and twine for a tactile spread.</p>
+          </div>
+        </div>
+        <div class="flex-none w-80 group">
+          <div class="bg-surface-container-highest rounded-xl p-4 transition-all group-hover:-translate-y-2 border-b-4 border-primary/10">
+            <div class="relative rounded-lg overflow-hidden mb-4">
+              <img alt="" class="w-full h-48 object-cover" src="/static/img/pages/journal-tip4.webp" width="320" height="192" loading="lazy" decoding="async"/>
+              <div class="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-[10px] font-bold">COLOR PLAY</div>
+            </div>
+            <h4 class="font-bold text-on-surface mb-2">Rainbow Gratitude</h4>
+            <p class="text-xs text-on-surface-variant line-clamp-2 italic">Color-coding moods for a year-long visual journey.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if clubHubSettings.community_gallery and clubHubSettings.community_gallery.length %}
+    <div class="md:col-span-12 grid md:grid-cols-2 gap-12 items-center mt-12 mb-12">
+      <div class="order-2 md:order-1 relative">
+        <div class="absolute inset-0 bg-secondary-container rounded-full blur-3xl opacity-20 -z-10"></div>
+        <div class="grid grid-cols-2 gap-4">
+          {% for img in clubHubSettings.community_gallery %}
+          {% set rotations = ["rotate-[-2deg]", "rotate-[3deg]", "rotate-[1deg]", "rotate-[-1deg]"] %}
+          <img alt="" class="w-full {% if loop.index == 2 or loop.index == 3 %}aspect-square{% else %}aspect-[4/5]{% endif %} object-cover rounded-lg {{ rotations[loop.index0] }} polaroid-shadow" src="{{ img }}" width="280" height="350" loading="lazy" decoding="async"/>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="order-1 md:order-2 space-y-6">
+        <h2 class="text-4xl font-headline font-extrabold text-primary leading-tight">The Scrapbook <br/>Club Community</h2>
+        <p class="text-on-surface-variant text-lg italic">
+          &ldquo;I found more than journaling tips — I found a sisterhood that celebrates the messy parts of life as much as the beautiful ones.&rdquo;
+        </p>
+        <div class="space-y-4">
+          {% if clubHubSettings.community_stat1 %}
+          <div class="flex items-center gap-4 p-4 bg-white/50 rounded-xl">
+            <div class="bg-tertiary-container p-2 rounded-full"><span class="material-symbols-outlined text-on-tertiary-container">groups</span></div>
+            <p class="text-sm font-medium">{{ clubHubSettings.community_stat1 }}</p>
+          </div>
+          {% endif %}
+          {% if clubHubSettings.community_stat2 %}
+          <div class="flex items-center gap-4 p-4 bg-white/50 rounded-xl">
+            <div class="bg-secondary-container p-2 rounded-full"><span class="material-symbols-outlined text-on-secondary-container">calendar_month</span></div>
+            <p class="text-sm font-medium">{{ clubHubSettings.community_stat2 }}</p>
+          </div>
+          {% endif %}
+        </div>
+        <a href="/contact/?subject=Club+Community&message=I+love+to+join+the+Scrapbook+Club+Community!" class="bg-primary text-on-primary w-full py-4 rounded-full font-bold shadow-xl hover:translate-y-[-2px] transition-all text-center block">
+          Join Our Private Circle
+        </a>
+      </div>
+    </div>
+    {% else %}
+    <div class="md:col-span-12 grid md:grid-cols-2 gap-12 items-center mt-12 mb-12">
+      <div class="order-2 md:order-1 relative">
+        <div class="absolute inset-0 bg-secondary-container rounded-full blur-3xl opacity-20 -z-10"></div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-4">
+            <img alt="" class="w-full aspect-[4/5] object-cover rounded-lg rotate-[-2deg] polaroid-shadow" src="/static/img/pages/journal-gallery1.webp" width="280" height="350" loading="lazy" decoding="async"/>
+            <img alt="" class="w-full aspect-square object-cover rounded-lg rotate-[3deg] polaroid-shadow" src="/static/img/pages/journal-gallery2.webp" width="280" height="280" loading="lazy" decoding="async"/>
+          </div>
+          <div class="space-y-4 pt-8">
+            <img alt="" class="w-full aspect-square object-cover rounded-lg rotate-[1deg] polaroid-shadow" src="/static/img/pages/journal-gallery3.webp" width="280" height="280" loading="lazy" decoding="async"/>
+            <img alt="" class="w-full aspect-[4/5] object-cover rounded-lg rotate-[-1deg] polaroid-shadow" src="/static/img/pages/journal-gallery4.webp" width="280" height="350" loading="lazy" decoding="async"/>
+          </div>
+        </div>
+      </div>
+      <div class="order-1 md:order-2 space-y-6">
+        <h2 class="text-4xl font-headline font-extrabold text-primary leading-tight">The Scrapbook <br/>Club Community</h2>
+        <p class="text-on-surface-variant text-lg italic">
+          &ldquo;I found more than journaling tips — I found a sisterhood that celebrates the messy parts of life as much as the beautiful ones.&rdquo;
+        </p>
+        <div class="space-y-4">
+          <div class="flex items-center gap-4 p-4 bg-white/50 rounded-xl">
+            <div class="bg-tertiary-container p-2 rounded-full"><span class="material-symbols-outlined text-on-tertiary-container">groups</span></div>
+            <p class="text-sm font-medium">12,000+ creative souls sharing daily</p>
+          </div>
+          <div class="flex items-center gap-4 p-4 bg-white/50 rounded-xl">
+            <div class="bg-secondary-container p-2 rounded-full"><span class="material-symbols-outlined text-on-secondary-container">calendar_month</span></div>
+            <p class="text-sm font-medium">Weekly live layout workshops</p>
+          </div>
+        </div>
+        <a href="/contact/?subject=Club+Community&message=I+love+to+join+the+Scrapbook+Club+Community!" class="bg-primary text-on-primary w-full py-4 rounded-full font-bold shadow-xl hover:translate-y-[-2px] transition-all text-center block">
+          Join Our Private Circle
+        </a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+<script>
+  (function() {
+    var carousel = document.getElementById('layouts-carousel');
+    var dots = document.querySelectorAll('#carousel-dots button');
+    if (carousel && dots.length === 3) {
+      var activeDot = 0;
+
+      function getPositions() {
+        var maxScroll = carousel.scrollWidth - carousel.offsetWidth;
+        var end = Math.max(0, maxScroll);
+        return [0, end / 2, end];
+      }
+
+      function setActiveDot(index) {
+        activeDot = index;
+        dots.forEach(function(d, i) {
+          if (i === index) {
+            d.classList.remove('bg-primary/30', 'bg-primary/10');
+            d.classList.add('bg-primary');
+          } else if (i === 0) {
+            d.classList.remove('bg-primary', 'bg-primary/10');
+            d.classList.add('bg-primary/30');
+          } else {
+            d.classList.remove('bg-primary', 'bg-primary/30');
+            d.classList.add('bg-primary/10');
+          }
+        });
+      }
+
+      dots.forEach(function(dot, index) {
+        dot.addEventListener('click', function() {
+          var positions = getPositions();
+          carousel.scrollTo({ left: positions[index], behavior: 'smooth' });
+          setActiveDot(index);
+        });
+      });
+
+      var scrollTimeout;
+      carousel.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function() {
+          var positions = getPositions();
+          var scrollPos = carousel.scrollLeft;
+          var closest = 0;
+          var minDist = Math.abs(scrollPos - positions[0]);
+          for (var i = 1; i < 3; i++) {
+            var dist = Math.abs(scrollPos - positions[i]);
+            if (dist < minDist) {
+              minDist = dist;
+              closest = i;
+            }
+          }
+          if (closest !== activeDot) {
+            setActiveDot(closest);
+          }
+        }, 100);
+      });
+    }
+  })();
+</script>

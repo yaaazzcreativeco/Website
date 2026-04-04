@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>{% if title %}{{ title }} | {% endif %}{{ settings.site_name | default("Yaaazz Creative Co.") }}</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;family=Caveat:wght@400;700&amp;family=Gochi+Hand&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary-dim": "#6f4253",
+            "on-secondary-fixed-variant": "#2c673c",
+            "primary-fixed": "#f8bbd0",
+            "surface-container-high": "#e9e3cc",
+            "on-tertiary-container": "#634668",
+            "secondary": "#2c673c",
+            "surface-variant": "#e3ddc5",
+            "error": "#b02500",
+            "on-secondary-container": "#215d33",
+            "error-container": "#f95630",
+            "outline": "#7a7768",
+            "error-dim": "#b92902",
+            "secondary-fixed-dim": "#a4e3ad",
+            "on-error": "#ffefec",
+            "on-primary-container": "#623648",
+            "surface-tint": "#7d4d5f",
+            "inverse-surface": "#100e05",
+            "on-primary-fixed-variant": "#6c3f51",
+            "on-surface-variant": "#5f5c4d",
+            "primary-container": "#f8bbd0",
+            "surface-container-low": "#f7f1dc",
+            "surface-container": "#eee8d3",
+            "inverse-on-surface": "#a19d8c",
+            "on-secondary": "#ceffd2",
+            "secondary-fixed": "#b2f2bb",
+            "on-error-container": "#520c00",
+            "on-primary-fixed": "#4b2334",
+            "surface": "#fcf6e3",
+            "inverse-primary": "#f8bbd0",
+            "on-tertiary": "#ffeefd",
+            "tertiary-fixed": "#fad3fd",
+            "secondary-container": "#b2f2bb",
+            "surface-dim": "#dbd5bc",
+            "on-secondary-fixed": "#084a22",
+            "on-background": "#312f23",
+            "tertiary-dim": "#624568",
+            "surface-bright": "#fcf6e3",
+            "primary": "#7d4d5f",
+            "tertiary-fixed-dim": "#ebc5ef",
+            "on-tertiary-fixed": "#4f3455",
+            "surface-container-highest": "#e3ddc5",
+            "on-surface": "#312f23",
+            "on-primary": "#ffeff2",
+            "outline-variant": "#b2ad9c",
+            "primary-fixed-dim": "#e9aec3",
+            "background": "#fcf6e3",
+            "on-tertiary-fixed-variant": "#6d4f72",
+            "tertiary-container": "#fad3fd",
+            "tertiary": "#6f5174",
+            "surface-container-lowest": "#ffffff",
+            "secondary-dim": "#1f5b31"
+          },
+          fontFamily: {
+            headline: ["Plus Jakarta Sans", "sans-serif"],
+            body: ["Be Vietnam Pro", "sans-serif"],
+            label: ["Plus Jakarta Sans", "sans-serif"],
+            handwritten: ["Caveat", "Gochi Hand", "cursive"],
+          },
+          borderRadius: { DEFAULT: "1rem", lg: "2rem", xl: "3rem", full: "9999px" },
+        },
+      },
+    };
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .grainy-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+      background-image: url(/static/img/site/grainy-texture.webp);
+    }
+    .washi-tape {
+      mask-image: url("data:image/svg+xml,%3Csvg width='200' height='40' viewBox='0 0 200 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 L10 0 L20 5 L30 2 L40 6 L50 1 L60 5 L70 0 L80 4 L90 1 L100 5 L110 0 L120 4 L130 1 L140 5 L150 0 L160 4 L170 1 L180 5 L190 0 L200 5 V35 L190 40 L180 35 L170 38 L160 34 L150 39 L140 35 L130 40 L120 36 L110 40 L100 35 L90 39 L80 35 L70 40 L60 36 L50 40 L40 35 L30 38 L20 34 L10 39 L0 35 Z' fill='black'/%3E%3C/svg%3E");
+      mask-size: cover;
+    }
+    /* Non-transparent raster logos: multiply blends white into theme; solid backing keeps this stable when scaled (no white “matte” flash). */
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .logo-link .logo-mark {
+      display: block;
+      transition: all 0.4s ease-out;
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    .logo-link:hover .logo-mark {
+      transform: translateY(-6px) scale(1.08) rotate(3deg); /* Pronounced float & tilt */
+    }
+    body.page-contact-dots {
+      background-color: #fcf6e3;
+      background-image: radial-gradient(#dbd5bc 0.5px, transparent 0.5px);
+      background-size: 24px 24px;
+    }
+    @keyframes homePickDrift {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(0, -7px, 0); }
+    }
+    .home-pick-slot {
+      animation: homePickDrift 6s ease-in-out infinite;
+      animation-delay: var(--home-drift-delay, 0s);
+      will-change: transform;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .home-pick-slot {
+        animation: none;
+      }
+    }
+    .home-pick-slot-rev {
+      animation-direction: reverse;
+    }
+    .home-pick-slot:hover {
+      animation-play-state: paused;
+    }
+    .scrapbook-rotate-1 { transform: rotate(1.2deg); }
+    .scrapbook-rotate-neg-1 { transform: rotate(-0.8deg); }
+    .scrapbook-rotate-2 { transform: rotate(2.5deg); }
+    .sticker-rotate-pos { transform: rotate(2deg); }
+    .sticker-rotate-neg { transform: rotate(-1.5deg); }
+    .polaroid-shadow {
+      box-shadow: 0 10px 30px rgba(49, 47, 35, 0.08);
+    }
+    body.page-journaling-hub {
+      background-color: #fcf6e3;
+      background-image: radial-gradient(#dbd5bc 0.5px, transparent 0.5px);
+      background-size: 24px 24px;
+    }
+    .page-paper-texture {
+      background-image: url(/static/img/site/paper-texture.webp);
+      opacity: 0.04;
+      pointer-events: none;
+    }
+    .journaling-washi-tape {
+      background: repeating-linear-gradient(45deg, #b2f2bb, #b2f2bb 10px, #a4e3ad 10px, #a4e3ad 20px);
+      opacity: 0.8;
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #f8bbd0;
+      border-radius: 10px;
+    }
+    .badge-preorder {
+      background: linear-gradient(135deg, #a8d5ba, #8cc5a0);
+      color: #1a4d2e;
+      box-shadow: 0 4px 12px rgba(44, 103, 60, 0.25), inset 0 1px 0 rgba(255,255,255,0.3);
+      border: 1px solid rgba(26, 77, 46, 0.15);
+      letter-spacing: 0.05em;
+    }
+    .badge-outofstock {
+      background: linear-gradient(135deg, #f5a090, #e88070);
+      color: #5a1500;
+      box-shadow: 0 4px 12px rgba(176, 37, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.3);
+      border: 1px solid rgba(90, 21, 0, 0.15);
+      letter-spacing: 0.05em;
+    }
+    .badge-bestseller {
+      background: linear-gradient(135deg, #ffe066, #ffd147);
+      color: #5c4a00;
+      box-shadow: 0 4px 12px rgba(204, 168, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.4);
+      border: 1px solid rgba(92, 74, 0, 0.15);
+      letter-spacing: 0.05em;
+    }
+    .badge-new {
+      background: linear-gradient(135deg, #f8bbd0, #f0a0b8);
+      color: #4a1a2e;
+      box-shadow: 0 4px 12px rgba(125, 77, 95, 0.25), inset 0 1px 0 rgba(255,255,255,0.3);
+      border: 1px solid rgba(74, 26, 46, 0.15);
+      letter-spacing: 0.05em;
+    }
+    .badge-custom {
+      background: linear-gradient(135deg, #e3ddc5, #d5cdb5);
+      color: #3a3828;
+      box-shadow: 0 4px 12px rgba(96, 92, 77, 0.2), inset 0 1px 0 rgba(255,255,255,0.4);
+      border: 1px solid rgba(58, 56, 40, 0.15);
+      letter-spacing: 0.05em;
+    }
+    @keyframes cart-pop {
+      0% { transform: scale(1); background-color: #2c673c; z-index: 60; }
+      10% { transform: scale(2.5); background-color: #fbcfe8; color: #7d4d5f; box-shadow: 0 0 25px rgba(251, 207, 232, 0.8); z-index: 60; }
+      90% { transform: scale(2.5); background-color: #fbcfe8; color: #7d4d5f; box-shadow: 0 0 25px rgba(251, 207, 232, 0.8); z-index: 60; }
+      100% { transform: scale(1); background-color: #2c673c; z-index: 60; }
+    }
+    @keyframes cart-glow {
+      0%, 100% { filter: drop-shadow(0 0 0px transparent); transform: translateY(0) scale(1); }
+      50% { filter: drop-shadow(0 0 15px #fbcfe8); transform: translateY(-8px) scale(1.1); }
+    }
+    .cart-badge-pop {
+      animation: cart-pop 2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cart-animate {
+      animation: cart-glow 2s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen{% if bodyClass %} {{ bodyClass }}{% endif %}">
+  <script src="/js/cart.js"></script>
+  <div class="grainy-overlay" aria-hidden="true"></div>
+  {% include "partials/header.njk" %}
+  <main>
+    {{ content | safe }}
+  </main>
+  {% include "partials/footer.njk" %}
+
+  {% if settings.tawk_property_id and settings.tawk_widget_id %}
+  <!-- Start of Tawk.to Script -->
+  <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+      var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+      s1.async=true;
+      s1.src='https://embed.tawk.to/{{ settings.tawk_property_id }}/{{ settings.tawk_widget_id }}';
+      s1.charset='UTF-8';
+      s1.setAttribute('crossorigin','*');
+      s0.parentNode.insertBefore(s1,s0);
+    })();
+  </script>
+  <!-- End of Tawk.to Script -->
+  {% endif %}
+</body>
+</html>

@@ -1,0 +1,523 @@
+---
+layout: base.njk
+title: Checkout
+permalink: /checkout/index.html
+---
+<section class="max-w-7xl mx-auto px-6 pt-8 pb-16">
+  <header class="mb-10 relative">
+    <h1 class="font-headline font-black text-4xl md:text-5xl text-primary mb-2">Complete your order!</h1>
+    <p class="text-on-surface font-medium opacity-80">Send your order to us via Live Chat for confirmation and exact shipping calculation.</p>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+    <div class="lg:col-span-7 space-y-8">
+      <div
+        class="space-y-8"
+        id="checkout-form"
+      >
+
+        <section class="bg-surface-container-low rounded-2xl p-6 md:p-8 shadow-sm border border-outline-variant/20">
+          <h2 class="font-headline font-bold text-2xl text-on-surface mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">local_shipping</span>
+            Shipping Information
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="md:col-span-2">
+              <label class="text-sm font-bold text-on-surface-variant ml-1" for="ship-name">Full name</label>
+              <input class="mt-1 w-full bg-surface-container-highest border-none rounded-full px-5 py-3 focus:ring-2 focus:ring-primary-container text-on-surface" id="ship-name" name="name" autocomplete="off" required/>
+            </div>
+            <div>
+              <label class="text-sm font-bold text-on-surface-variant ml-1" for="ship-email">Email</label>
+              <input class="mt-1 w-full bg-surface-container-highest border-none rounded-full px-5 py-3 focus:ring-2 focus:ring-primary-container text-on-surface" id="ship-email" name="email" type="email" autocomplete="off" required/>
+            </div>
+            <div>
+              <label class="text-sm font-bold text-on-surface-variant ml-1" for="ship-phone">Mobile / Phone</label>
+              <input class="mt-1 w-full bg-surface-container-highest border-none rounded-full px-5 py-3 focus:ring-2 focus:ring-primary-container text-on-surface" id="ship-phone" name="phone" autocomplete="off" required/>
+            </div>
+            <div class="md:col-span-2">
+              <label class="text-sm font-bold text-on-surface-variant ml-1" for="ship-address">Street Address / House No. / Building</label>
+              <input class="mt-1 w-full bg-surface-container-highest border-none rounded-full px-5 py-3 focus:ring-2 focus:ring-primary-container text-on-surface" id="ship-address" name="address" required/>
+            </div>
+            <div>
+              <label class="text-sm font-bold text-on-surface-variant ml-1" for="ship-barangay">Barangay</label>
+              <input class="mt-1 w-full bg-surface-container-highest border-none rounded-full px-5 py-3 focus:ring-2 focus:ring-primary-container text-on-surface" id="ship-barangay" name="barangay" required/>
+            </div>
+            <div>
+              <label class="text-sm font-bold text-on-surface-variant ml-1" for="ship-city">City / Municipality</label>
+              <input class="mt-1 w-full bg-surface-container-highest border-none rounded-full px-5 py-3 focus:ring-2 focus:ring-primary-container text-on-surface" id="ship-city" name="city" required/>
+            </div>
+            <div>
+              <label class="text-sm font-bold text-on-surface-variant ml-1" for="ship-province">Province</label>
+              <input class="mt-1 w-full bg-surface-container-highest border-none rounded-full px-5 py-3 focus:ring-2 focus:ring-primary-container text-on-surface" id="ship-province" name="province" required/>
+            </div>
+            <div>
+              <label class="text-sm font-bold text-on-surface-variant ml-1" for="ship-postal">Postal Code</label>
+              <input class="mt-1 w-full bg-surface-container-highest border-none rounded-full px-5 py-3 focus:ring-2 focus:ring-primary-container text-on-surface" id="ship-postal" name="postal" inputmode="numeric"/>
+            </div>
+          </div>
+        </section>
+
+        <section class="bg-primary-container/25 rounded-2xl p-6 md:p-8 border border-primary/10">
+          <div class="flex justify-between items-start mb-3">
+            <h2 class="font-headline font-bold text-xl text-on-surface">Live Chat Confirmation</h2>
+            <div id="live-status-pill" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-500 shadow-sm border">
+              <span class="relative flex h-3 w-3" id="status-indicator-dots">
+                <span id="status-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-green-400"></span>
+                <span id="status-dot" class="relative inline-flex rounded-full h-3 w-3 bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+              </span>
+              <span id="live-status-text">CHECKING...</span>
+            </div>
+          </div>
+          <p class="text-on-surface-variant text-sm mb-4 leading-relaxed">
+            Fill in your details and click below to open our Live Chat. 
+            <strong>Your order details will be copied automatically</strong>—just paste them into the chat bubble and our team will calculate the shipping fee for you!
+          </p>
+          <div class="flex items-center gap-2 mb-6 text-xs font-medium text-on-surface-variant bg-surface-container-low/50 w-fit px-3 py-2 rounded-lg border border-outline-variant/10">
+            <span class="material-symbols-outlined text-sm text-primary">schedule</span>
+            <span><strong>Chat Schedule:</strong> 8:00 AM – 5:00 PM, Monday to Saturday</span>
+          </div>
+          <div class="flex flex-col gap-4">
+            <button type="button" id="btn-submit-order" class="w-full inline-flex items-center justify-center gap-3 bg-primary text-on-primary font-headline font-black py-4 px-8 rounded-full shadow-lg hover:opacity-95 transition-all hover:scale-[1.02] active:scale-95 text-lg">
+              <span class="material-symbols-outlined">send_and_archive</span>
+              SUBMIT ORDER & OPEN CHAT
+            </button>
+          </div>
+          <div id="copy-toast" class="mt-6 p-5 rounded-2xl bg-secondary-container text-on-secondary-container text-sm font-bold hidden border border-secondary/20 shadow-inner flex items-center justify-center gap-3 animate-fade-in">
+              <span class="material-symbols-outlined text-2xl">check_circle</span>
+              <p>ORDER DETAILS COPIED! Please paste the message into the chat bubble to finalize your order.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <aside class="lg:col-span-5 lg:sticky lg:top-28">
+      <div class="bg-secondary-fixed/25 p-6 md:p-8 shadow-sm rounded-2xl border border-secondary/20">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-headline font-black text-2xl text-on-surface flex items-center gap-2">
+            <span class="material-symbols-outlined text-secondary">shopping_basket</span>
+            Order summary
+          </h2>
+          <button id="btn-clear-cart-summary" class="flex items-center gap-1.5 text-xs font-bold text-rose-500 hover:text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-full transition-all">
+            <span class="material-symbols-outlined text-sm">delete_sweep</span>
+            Clear All
+          </button>
+        </div>
+        <div id="checkout-lines" class="space-y-5"></div>
+        <div class="mt-8 pt-6 border-t border-secondary/20 space-y-3 text-sm">
+          <div class="flex justify-between pt-2 text-lg font-headline font-black text-secondary">
+            <span>Items Subtotal</span>
+            <span id="sum-sub">₱0</span>
+          </div>
+          <p class="text-xs text-on-surface-variant font-medium text-right">*Shipping calculated in chat</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script>
+  (function () {
+    function money(n) {
+      var v = Number(n) || 0;
+      return "₱" + v.toLocaleString("en-PH");
+    }
+    function render() {
+      var cart = window.YaaazzCart.get();
+      var wrap = document.getElementById("checkout-lines");
+      wrap.innerHTML = "";
+      if (!cart.length) {
+        wrap.innerHTML = '<p class="text-on-surface-variant">Your cart is empty. <a class="font-bold text-primary underline" href="/shop/">Go to shop</a>.</p>';
+        document.getElementById("sum-sub").textContent = money(0);
+        return;
+      }
+      cart.forEach(function (line) {
+        var row = document.createElement("div");
+        row.className = "flex gap-4 items-start";
+        row.innerHTML =
+          '<div class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-surface-container">' +
+          (line.image ? '<img alt="" class="w-full h-full object-cover" src="' + line.image + '"/>' : "") +
+          "</div>" +
+          '<div class="flex-1 min-w-0">' +
+          '<p class="font-headline font-bold text-on-surface truncate">' +
+          line.title +
+          "</p>" +
+          '<p class="text-xs text-on-surface-variant">' +
+          money(line.price) +
+          " × " +
+          line.qty +
+          (line.isPreOrder ? ' <span class="text-amber-700 font-bold">[PRE-ORDER]</span>' : "") +
+          "</p>" +
+          '<label class="sr-only" for="q-' + line.slug + '">Qty</label>' +
+          '<div class="mt-2 flex items-center gap-2">' +
+          '<button type="button" class="qty-down px-2 py-1 rounded-full bg-surface-container-highest text-on-surface" data-slug="' +
+          line.slug +
+          '">−</button>' +
+          '<input id="q-' +
+          line.slug +
+          '" class="w-12 text-center bg-transparent font-bold" inputmode="numeric" value="' +
+          line.qty +
+          '" data-slug="' +
+          line.slug +
+          '"/>' +
+          '<button type="button" class="qty-up px-2 py-1 rounded-full bg-surface-container-highest text-on-surface" data-slug="' +
+          line.slug +
+          '">+</button>' +
+          "</div>" +
+          "</div>" +
+          '<div class="text-right font-bold text-on-surface">' +
+          money(line.price * line.qty) +
+          "</div>";
+        wrap.appendChild(row);
+      });
+      var sub = window.YaaazzCart.subtotal();
+      document.getElementById("sum-sub").textContent = money(sub);
+
+      wrap.querySelectorAll(".qty-down").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var slug = btn.getAttribute("data-slug");
+          var line = window.YaaazzCart.get().find(function (l) { return l.slug === slug; });
+          if (!line) return;
+          window.YaaazzCart.setQty(slug, (Number(line.qty) || 1) - 1);
+          render();
+        });
+      });
+      wrap.querySelectorAll(".qty-up").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var slug = btn.getAttribute("data-slug");
+          var line = window.YaaazzCart.get().find(function (l) { return l.slug === slug; });
+          if (!line) return;
+          window.YaaazzCart.setQty(slug, (Number(line.qty) || 1) + 1);
+          render();
+        });
+      });
+    }
+
+    function buyerFromForm() {
+      return {
+        name: document.getElementById("ship-name").value.trim(),
+        email: document.getElementById("ship-email").value.trim(),
+        phone: document.getElementById("ship-phone").value.trim(),
+        address: document.getElementById("ship-address").value.trim(),
+        barangay: document.getElementById("ship-barangay") ? document.getElementById("ship-barangay").value.trim() : "",
+        city: document.getElementById("ship-city").value.trim(),
+        province: document.getElementById("ship-province") ? document.getElementById("ship-province").value.trim() : "",
+        postal: document.getElementById("ship-postal").value.trim()
+      };
+    }
+
+    document.getElementById("btn-submit-order").addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // Manual HTML5 validation since we removed the form wrapper
+      var requiredFields = document.getElementById("checkout-form").querySelectorAll("input[required]");
+      for (var i = 0; i < requiredFields.length; i++) {
+        if (!requiredFields[i].value.trim()) {
+          requiredFields[i].reportValidity();
+          return;
+        }
+      }
+
+      if (!window.YaaazzCart.get().length) {
+        alert("Your cart is empty.");
+        return;
+      }
+
+      var buyer = buyerFromForm();
+      var text = window.YaaazzOrderText.compose(buyer);
+
+      // --- 1. Copy order to clipboard ---
+      navigator.clipboard.writeText(text).then(function () {
+        // --- 2. Show the floating instruction overlay ---
+        showPasteOverlay(text);
+
+        // --- 3. Set visitor name/email (only these 2 actually work) ---
+        if (typeof Tawk_API !== "undefined") {
+          if (Tawk_API.setAttributes) {
+            Tawk_API.setAttributes({
+              'name': buyer.name,
+              'email': buyer.email
+            }, function(error){});
+          }
+        }
+
+        // --- 4. Open the chat ---
+        setTimeout(function() {
+          if (typeof Tawk_API !== "undefined") {
+            if (Tawk_API.maximize) Tawk_API.maximize();
+            else if (Tawk_API.toggle) Tawk_API.toggle();
+          }
+        }, 500);
+
+      }).catch(function(err) {
+        // Fallback if clipboard fails
+        showPasteOverlay(text);
+        if (typeof Tawk_API !== "undefined") {
+          if (Tawk_API.maximize) Tawk_API.maximize();
+          else if (Tawk_API.toggle) Tawk_API.toggle();
+        }
+      });
+    });
+
+    // --- Floating overlay that guides the customer ---
+    function showPasteOverlay(orderText) {
+      // Remove old overlay if exists
+      var old = document.getElementById("paste-overlay");
+      if (old) old.remove();
+
+      var overlay = document.createElement("div");
+      overlay.id = "paste-overlay";
+      overlay.id = "paste-overlay";
+      // We moved the styling to the CSS block at the bottom so it can be responsive
+
+      overlay.innerHTML =
+        '<div style="padding:20px 20px 12px;border-bottom:1px solid rgba(255,255,255,0.15);">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
+            '<h3 style="margin:0;font-size:18px;font-weight:900;">✅ Order Copied!</h3>' +
+            '<button id="close-paste-overlay" style="background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;" title="Close">✕</button>' +
+          '</div>' +
+          '<p style="margin:8px 0 0;font-size:13px;opacity:0.85;">Follow these 2 simple steps:</p>' +
+        '</div>' +
+        '<div style="padding:16px 20px;">' +
+          '<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">' +
+            '<span style="background:#fbcfe8;color:#7d4d5f;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0;">1</span>' +
+            '<p style="margin:0;font-size:14px;line-height:1.5;">Click inside the <strong>chat box</strong> at the bottom right 👇</p>' +
+          '</div>' +
+          '<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;">' +
+            '<span style="background:#fbcfe8;color:#7d4d5f;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0;">2</span>' +
+            '<p style="margin:0;font-size:14px;line-height:1.5;">Press <kbd style="background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:6px;font-size:12px;font-weight:700;">Ctrl+V</kbd> to paste, then press <kbd style="background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:6px;font-size:12px;font-weight:700;">Enter</kbd> to send!</p>' +
+          '</div>' +
+          '<button id="btn-recopy" style="width:100%;padding:10px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:12px;color:#fff;font-weight:700;font-size:13px;cursor:pointer;transition:background 0.2s;">📋 Copy Again</button>' +
+          '<details style="margin:0;">' +
+            '<summary style="font-size:12px;opacity:0.7;cursor:pointer;">Preview what was copied</summary>' +
+            '<pre id="order-preview" style="margin:8px 0 0;padding:10px;background:rgba(0,0,0,0.3);border-radius:10px;font-size:11px;white-space:pre-wrap;word-break:break-word;max-height:200px;overflow-y:auto;line-height:1.4;"></pre>' +
+          '</details>' +
+        '</div>';
+
+      document.body.appendChild(overlay);
+
+      // Set the preview text safely
+      document.getElementById("order-preview").textContent = orderText;
+
+      // Close button
+      document.getElementById("close-paste-overlay").addEventListener("click", function() {
+        overlay.remove();
+      });
+
+      // Re-copy button
+      document.getElementById("btn-recopy").addEventListener("click", function() {
+        navigator.clipboard.writeText(orderText).then(function() {
+          document.getElementById("btn-recopy").textContent = "✅ Copied!";
+          setTimeout(function() {
+            document.getElementById("btn-recopy").textContent = "📋 Copy Again";
+          }, 2000);
+        });
+      });
+
+      // Auto-dismiss after 60 seconds
+      setTimeout(function() {
+        if (document.getElementById("paste-overlay")) {
+          overlay.remove();
+        }
+      }, 60000);
+    }
+
+    function updateLiveStatus() {
+      var pill = document.getElementById("live-status-pill");
+      var text = document.getElementById("live-status-text");
+      var dot = document.getElementById("status-dot");
+      var ping = document.getElementById("status-ping");
+      if (!pill || !text) return;
+
+      var now = new Date();
+      var day = now.getDay();
+      var hour = now.getHours();
+
+      // Monday (1) to Saturday (6)
+      // 8:00 AM (8) to 5:00 PM (17)
+      var isOpen = day >= 1 && day <= 6 && hour >= 8 && hour < 17;
+
+      if (isOpen) {
+        pill.className = "inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-500 shadow-[0_0_15px_rgba(34,197,94,0.3)] border border-green-500/40 bg-green-500/15 text-green-700";
+        text.textContent = "LIVE NOW";
+        dot.className = "relative inline-flex rounded-full h-3 w-3 bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)]";
+        ping.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75";
+      } else {
+        pill.className = "inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-500 border border-outline-variant/30 bg-surface-container-highest text-on-surface-variant/60";
+        text.textContent = "OFFLINE";
+        dot.className = "relative inline-flex rounded-full h-3 w-3 bg-on-surface-variant/40";
+        ping.className = "hidden";
+      }
+    }
+
+    function boot() {
+      render();
+      updateLiveStatus();
+
+      // Clear cart button in order summary
+      var clearBtn = document.getElementById("btn-clear-cart-summary");
+      var modal = document.getElementById("clear-cart-modal");
+      var modalYes = document.getElementById("clear-modal-yes");
+      var modalNo = document.getElementById("clear-modal-no");
+      if (clearBtn && modal && modalYes && modalNo) {
+        clearBtn.addEventListener("click", function() {
+          if (window.YaaazzCart.get().length === 0) return;
+          modal.classList.add("show");
+        });
+        modalYes.addEventListener("click", function() {
+          window.YaaazzCart.clear();
+          render();
+          modal.classList.remove("show");
+        });
+        modalNo.addEventListener("click", function() {
+          modal.classList.remove("show");
+        });
+        modal.addEventListener("click", function(e) {
+          if (e.target === modal) modal.classList.remove("show");
+        });
+      }
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+    else boot();
+    window.addEventListener("yaaazz:cart", render);
+  })();
+</script>
+
+<style>
+  @keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  #paste-overlay {
+    position: fixed;
+    bottom: 90px;
+    right: 380px;
+    z-index: 9999;
+    width: 380px;
+    max-width: calc(100vw - 40px);
+    max-height: 85vh;
+    background: linear-gradient(135deg, #1a472a, #2c673c);
+    color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    padding: 0;
+    font-family: inherit;
+    overflow-y: auto;
+    animation: slideUp 0.4s ease;
+  }
+
+  /* On smaller screens, show it at the center top so it doesn't overlap mobile chat */
+  @media (max-width: 768px) {
+    #paste-overlay {
+      right: 20px;
+      bottom: auto;
+      top: 20px;
+    }
+  }
+
+  /* Custom Confirmation Modal */
+  #clear-cart-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(4px);
+  }
+  #clear-cart-modal.show {
+    display: flex;
+  }
+  .clear-modal-box {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px 28px;
+    max-width: 340px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+    animation: modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes modalPop {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .clear-modal-icon {
+    width: 64px;
+    height: 64px;
+    background: #fee2e2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .clear-modal-icon .material-symbols-outlined {
+    font-size: 32px;
+    color: #e11d48;
+  }
+  .clear-modal-title {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
+    color: #1f2937;
+    margin-bottom: 10px;
+  }
+  .clear-modal-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .clear-modal-actions {
+    display: flex;
+    gap: 12px;
+  }
+  .clear-modal-btn {
+    flex: 1;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  .clear-modal-btn.cancel {
+    background: #f3f4f6;
+    color: #4b5563;
+  }
+  .clear-modal-btn.cancel:hover {
+    background: #e5e7eb;
+  }
+  .clear-modal-btn.confirm {
+    background: linear-gradient(135deg, #ec4899, #db2777);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+  }
+  .clear-modal-btn.confirm:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.5);
+  }
+  .clear-modal-btn.confirm:active {
+    transform: scale(0.98);
+  }
+</style>
+
+<!-- Custom Clear Cart Confirmation Modal -->
+<div id="clear-cart-modal">
+  <div class="clear-modal-box">
+    <div class="clear-modal-icon">
+      <span class="material-symbols-outlined">inventory_2</span>
+    </div>
+    <h3 class="clear-modal-title">Clear your cart?</h3>
+    <p class="clear-modal-text">You're about to remove all items from your order list. This action cannot be undone.</p>
+    <div class="clear-modal-actions">
+      <button class="clear-modal-btn cancel" id="clear-modal-no">Keep Items</button>
+      <button class="clear-modal-btn confirm" id="clear-modal-yes">Yes, Clear All</button>
+    </div>
+  </div>
+</div>

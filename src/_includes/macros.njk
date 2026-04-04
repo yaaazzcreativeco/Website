@@ -1,0 +1,67 @@
+{% macro messengerUrl(settings) %}
+  {% if settings.messenger_full_url and settings.messenger_full_url | length %}
+    {{ settings.messenger_full_url | trim }}
+  {% elif settings.messenger_username and settings.messenger_username | length %}
+    https://m.me/{{ settings.messenger_username | trim }}
+  {% else %}
+    https://m.me/
+  {% endif %}
+{% endmacro %}
+
+{% macro smartBadge(p) %}
+  {# Priority 1: Bottom-right Promo Badge (Ribbon style) #}
+  {% set currentPromo = p.promo_badge %}
+  {% if not currentPromo %}
+    {% if p.is_best_seller %}
+      {% set currentPromo = "best_seller" %}
+    {% elif p.is_new_arrival %}
+      {% set currentPromo = "new_arrival" %}
+    {% endif %}
+  {% endif %}
+
+  {% if currentPromo == "best_seller" %}
+    <div class="absolute -bottom-2 -right-2 bg-secondary-container text-secondary px-3 py-1 font-black text-[10px] shadow-sm rotate-[15deg] uppercase z-20 washi-tape">Best Seller</div>
+  {% elif currentPromo == "new_arrival" %}
+    <div class="absolute -bottom-2 -right-2 bg-primary-container text-primary px-3 py-1 font-black text-[10px] shadow-sm rotate-[-8deg] uppercase z-20 washi-tape">New!</div>
+  {% elif currentPromo == "limited" %}
+    <div class="absolute -bottom-2 -right-2 bg-tertiary-container text-tertiary px-3 py-1 font-black text-[10px] shadow-sm rotate-[6deg] uppercase z-20 washi-tape">Limited</div>
+  {% endif %}
+{% endmacro %}
+
+{% macro priceDisplay(p, sizeClass="text-base", colorClass="text-primary") %}
+  <div class="flex items-center gap-2 flex-wrap min-h-[32px]">
+    <div class="flex items-center gap-1.5 mt-auto">
+      {% if p.sale_price %}
+        <span class="font-headline {{ sizeClass }} font-black {{ colorClass }}">{{ p.sale_price | moneyPHP }}</span>
+        <span class="text-[10px] line-through text-on-surface-variant/50 font-medium">{{ p.price | moneyPHP }}</span>
+      {% else %}
+        <span class="font-headline {{ sizeClass }} font-black {{ colorClass }}">{{ p.price | moneyPHP }}</span>
+      {% endif %}
+    </div>
+
+    {# Determine the active badge for the sales placement #}
+    {% set activeBadge = p.sales_badge | lower %}
+    
+    {# Global fallbacks if no manual badge is selected #}
+    {% if not activeBadge or activeBadge == 'none' %}
+      {% if p.stock_status == 'out_of_stock' %}
+        {% set activeBadge = 'sold_out' %}
+      {% elif p.stock_status == 'pre_order' %}
+        {% set activeBadge = 'pre_order' %}
+      {% elif p.sale_price %}
+        {% set activeBadge = 'sale' %}
+      {% endif %}
+    {% endif %}
+
+    {% if activeBadge == "sale" %}
+      <span class="px-2 py-0.5 bg-primary text-on-primary rounded-sm text-[9px] font-black uppercase tracking-widest shadow-sm rotate-1">SALE</span>
+    {% elif activeBadge == "sold_out" %}
+      <span class="px-2 py-0.5 bg-outline-variant/30 text-on-surface-variant/60 rounded-sm text-[9px] font-black uppercase tracking-widest shadow-sm">Sold Out</span>
+    {% elif activeBadge == "pre_order" %}
+      <span class="px-2 py-0.5 bg-secondary text-on-secondary rounded-sm text-[9px] font-black uppercase tracking-widest shadow-sm">Pre-Order</span>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+
+

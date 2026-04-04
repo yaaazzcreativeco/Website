@@ -1,0 +1,16 @@
+node_modules/
+_site/
+.env
+.DS_Store
+*.log
+Thumbs.db
+.cache/
+
+# Dev scripts
+_convert_images.js
+_download_images.ps1
+test-tol40.png
+test.png
+
+# Knowledge base draft
+Yaaazz_KnowledgeBase_Articles.txt

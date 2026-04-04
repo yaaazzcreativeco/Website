@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = "_site"
+
+# Allow Decap CMS OAuth (Git Gateway) — enable in Netlify UI when using Identity
+[build.environment]
+  NODE_VERSION = "20"
+
+[[headers]]
+  for = "/static/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+

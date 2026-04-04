@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Yaaazz — Site admin (Decap CMS)</title>
+</head>
+<body>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      window.CMS_ENV = "development";
+      window.localStorage.setItem("netlifySiteId", "local");
+    }
+  </script>
+</body>
+</html>
