@@ -319,6 +319,20 @@ module.exports = function (eleventyConfig) {
     return content;
   });
 
+  // Rewrite root-relative paths for GitHub Pages subdirectory deploys
+  eleventyConfig.addTransform("pathPrefixRewrite", function (content, outputPath) {
+    if (outputPath && outputPath.endsWith(".html") && pathPrefix && pathPrefix !== '/') {
+      const cleanPrefix = pathPrefix.replace(/\/$/, '');
+      // Rewrite href="/..." but NOT href="https://..." or href="#"
+      content = content.replace(/(href|src)="\/(?!\/)/g, `$1="${cleanPrefix}/`);
+      // Fix double slashes
+      content = content.replace(/\/\//g, '/');
+      // Restore https://
+      content = content.replace(/https:\//g, 'https://');
+    }
+    return content;
+  });
+
   return {
     pathPrefix: process.env.PATH_PREFIX || "/",
     dir: {
