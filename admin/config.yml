@@ -4,6 +4,8 @@ backend:
   name: github
   repo: yaaazz/website
   branch: main
+  base_url: https://decap-proxy.yaaazz-creativeco.workers.dev
+  auth_endpoint: auth
 
 local_backend: true
 
