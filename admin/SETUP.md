@@ -77,15 +77,46 @@ Commit and push. Your GitHub user needs **write** access to the content repo.
 
 ## 4. Optional: Basic Auth on `/admin` (Cloudflare route)
 
-A second Worker on `yaaazzcreative.com/admin/*` only adds a **browser** username/password gate. It does **not** replace GitHub OAuth — Decap still needs a token to talk to GitHub.
+A second Worker on `yaaazzcreative.com/admin/*` adds the **browser** username/password dialog (the small “Sign in to yaaazzcreative.com” window). It does **not** replace GitHub OAuth — after this gate, Decap still uses **Login with GitHub**.
 
-If you proxy to GitHub Pages from that Worker, use the **repository** Pages URL so paths match your project (example for repo `website` under user `yaaazz`):
+### Why email/password “did not work” before
 
-`https://yaaazz.github.io/website` + `request` path + query
+If the Worker compared a **precomputed Base64** string to `Authorization: Basic …`, any typo, wrong encoder, or special character in the password breaks the match. **Do not** hard-code Base64 in the Worker.
 
-Using only `https://yaaazz.github.io` (no repo segment) will 404 for project sites.
+Use **`admin/cloudflare-admin-basic-auth.worker.js`**: credentials come from **Worker variables** (see below).
 
-Use **HttpOnly session cookies** after the first Basic Auth success so the OAuth return does not ask for Basic Auth twice.
+### Cloudflare → `admin-auth` Worker
+
+1. **Edit code** — paste the full contents of **`admin/cloudflare-admin-basic-auth.worker.js`**.
+2. **Settings → Variables** add:
+
+| Name | Type | Example |
+|------|------|--------|
+| `BASIC_AUTH_USER` | Variable or Secret | Your login name (e.g. full email) |
+| `BASIC_AUTH_PASS` | **Secret** | Same password you want the dialog to accept |
+| `PAGES_ORIGIN` | Variable | Your **GitHub Pages** address (no trailing slash). **Do not** use your custom domain. Find it: GitHub → your repo → **Settings** → **Pages** (or open `https://YOUR_USER.github.io/YOUR_REPO/` in a browser). This project’s remote is `yaaazzcreativeco/Website`, so the value is **`https://yaaazzcreativeco.github.io/Website`**. Wrong user or repo name → **404** after login. |
+
+3. **Save and deploy.**
+
+The Worker sets a short-lived **cookie** after the first successful Basic Auth so the GitHub OAuth popup is not asked for Basic Auth again on every navigation.
+
+### Routes: what to keep or remove
+
+| Entry | What it is | Action |
+|--------|------------|--------|
+| **Route** `yaaazzcreative.com/admin/*` | Puts the password wall on your real admin URL | **Keep** if you want the wall. **Delete this route only** if you want to remove the wall entirely. |
+| **`admin-auth.yaaazz-creativeco.workers.dev`** | Default `workers.dev` URL for that Worker | **Ignore.** Cloudflare always shows it; it does not add a second password prompt on your domain. You cannot “clean” it without deleting the whole Worker. |
+
+**Do not** delete the **`decap-proxy`** Worker or its secrets — that one finishes GitHub login for Decap.
+
+### Cloudflare: “old client secrets” (OAuth)
+
+Cloudflare **never shows** past values of a secret after you save them. There is **no list of old secrets** to compare.
+
+- For **`GITHUB_OAUTH_SECRET`** on **`decap-proxy`**: you only ever have **one stored value** per name. Updating it **replaces** the previous value.
+- **GitHub** → your OAuth App → **Client secrets**: here you may see **more than one** row if you clicked “Generate new client secret” several times. **Remove** any secret you are **not** using (keep the one whose value you last pasted into Cloudflare). If you are unsure, generate **one new** secret in GitHub, paste it into Cloudflare as `GITHUB_OAUTH_SECRET`, deploy, then **delete all other** client secrets on that OAuth app so only the new one remains.
+
+I cannot see your GitHub screen, so I cannot name an exact secret “ID” to delete — only you can see the list under **Developer settings → OAuth Apps → your app → Client secrets**.
 
 ## Local editing (no OAuth)
 

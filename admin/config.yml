@@ -3,7 +3,7 @@
 # Local CMS: run `npx decap-server` from project root; Decap uses the local backend on localhost.
 backend:
   name: github
-  repo: yaaazz/website
+  repo: yaaazzcreativeco/Website
   branch: main
   base_url: https://decap-proxy.yaaazz-creativeco.workers.dev
   auth_endpoint: auth
