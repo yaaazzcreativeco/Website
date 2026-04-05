@@ -98,7 +98,18 @@ Use **`admin/cloudflare-admin-basic-auth.worker.js`**: credentials come from **W
 
 3. **Save and deploy.**
 
-The Worker sets a short-lived **cookie** after the first successful Basic Auth so the GitHub OAuth popup is not asked for Basic Auth again on every navigation.
+The Worker sets a **session cookie** after the first successful Basic Auth so you are not prompted again while the browser stays open. When you **fully quit the browser** and come back, the cookie is gone and the custom login asks again. (This does not log you out of GitHub.)
+
+### Wrong-password lockout (5 tries → wait 10 minutes)
+
+1. Cloudflare dashboard → **Workers & Pages** → **KV** → **Create a namespace** (name e.g. `admin-auth-rate-limit`).
+2. Open your **`admin-auth`** Worker → **Settings** → **Bindings** → **Add binding** → **KV Namespace**.
+3. **Variable name** must be exactly: **`ADMIN_AUTH_KV`**  
+4. **KV namespace**: choose the namespace you created → **Save** → redeploy the Worker (paste the latest `cloudflare-admin-basic-auth.worker.js` if needed).
+
+After **5 wrong** username/password attempts from the **same internet connection** (same public IP), the Worker returns **429** and asks to wait **about 10 minutes** before trying again. Successful login **clears** the counter.
+
+**Café / shared Wi‑Fi:** everyone on that Wi‑Fi usually shares **one public IP**, so lockout applies to **that network**, not only one PC. **Autofill:** the browser may still offer a **saved** Basic Auth password; the Worker cannot turn that off. For untrusted PCs, use a **private window** and avoid saving the password when the browser asks.
 
 ### Routes: what to keep or remove
 
