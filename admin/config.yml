@@ -1,11 +1,12 @@
-# Production (GitHub Pages): log in with GitHub — see admin/SETUP.md (OAuth app + meta client id).
+# Production (GitHub Pages): log in with GitHub — see admin/SETUP.md.
+# OAuth proxy: paste admin/cloudflare-decap-proxy.worker.js into Cloudflare (secrets: GITHUB_OAUTH_*).
 # Local CMS: run `npx decap-server` from project root; Decap uses the local backend on localhost.
 backend:
   name: github
   repo: yaaazz/website
   branch: main
   base_url: https://decap-proxy.yaaazz-creativeco.workers.dev
-  auth_endpoint: /auth
+  auth_endpoint: auth
 
 local_backend: true
 
