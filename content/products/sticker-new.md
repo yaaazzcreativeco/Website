@@ -11,5 +11,5 @@ sales_badge: sale
 promo_badge: limited
 is_curator_pick: false
 show_in_shop: true
-order: 0
+order: 10
 ---
