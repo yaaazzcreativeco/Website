@@ -43,6 +43,11 @@
       "href": "",
       "custom_href": "/contact/",
       "id": "contact"
+    },
+    {
+      "custom_href": "",
+      "label": "Stickers",
+      "href": "/stickers/"
     }
   ],
   "shopee_url": "https://shopee.ph",
