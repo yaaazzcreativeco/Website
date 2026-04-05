@@ -35,9 +35,9 @@ Open the URL Eleventy prints (usually `http://localhost:8080`).
 
 ## Decap CMS (`/admin/`)
 
-1. Enable **Netlify Identity** on the site and invite yourself as a user.
-2. Enable **Git Gateway** (Decap docs) so `/admin/` can commit to GitHub on your behalf.
-3. Visit `https://YOUR-SITE.netlify.app/admin/` → log in → edit products and site settings.
+The admin UI uses the **GitHub** backend on the live site (not the old localhost proxy). See **[admin/SETUP.md](admin/SETUP.md)** for OAuth, `github-client-id` in `admin/index.html`, and local `decap-server` usage.
+
+For a **custom domain** on GitHub Pages + Cloudflare DNS, see **[docs/Custom-domain-GitHub-Cloudflare.md](docs/Custom-domain-GitHub-Cloudflare.md)** (and set GitHub Actions variable `PATH_PREFIX` to `/`).
 
 Products live in `content/products/*.md`. Store settings live in `content/settings/general.json`. Uploaded images go to `static/img/uploads/`.
 

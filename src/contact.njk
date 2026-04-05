@@ -27,11 +27,13 @@ bodyClass: page-contact-dots
       <div class="absolute -top-4 -right-4 bg-secondary-container shadow-[2px_2px_5px_rgba(0,0,0,0.05)] px-8 py-2 text-on-secondary-container font-headline font-bold -rotate-12 z-20 rounded-sm">
         Snail Mail? No, Digital!
       </div>
+      <!-- FormSubmit: first time, open the activation link they email you for this address. AJAX errors often mean the form is not activated yet. -->
       <form name="contact" action="https://formsubmit.co/ajax/yaaazz.creativeco@gmail.com" method="POST" autocomplete="off" class="space-y-8" id="contact-form">
         <!-- FormSubmit Config -->
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_subject" id="dynamic-subject" value="Inquiry" />
         <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_replyto" id="contact-replyto" value="" />
         
         <!-- Honeypot -->
         <input type="text" name="_honey" style="display:none" autocomplete="off" />
@@ -217,23 +219,42 @@ bodyClass: page-contact-dots
     // 1. Auto-populate from URL AND dynamic Subject
     const params = new URLSearchParams(window.location.search);
     const email = params.get('email');
-    const message = params.get('message');
+    const messageParam = params.get('message');
     const subjectParam = params.get('subject');
-    
-    // Set dynamic subject
+    const returnMsgId = params.get('return_msg');
+
+    const RETURN_REASON_PRESETS = {
+      "1": "I'm starting a return: my item arrived damaged or defective.\n\nOrder / tracking (if any):\n\n",
+      "2": "I'm requesting an exchange for a different product or variant.\n\nWhat I ordered vs what I need:\n\n",
+      "3": "I'd like to return an unused item in original condition.\n\nReason:\n\n",
+      "4": "My package never arrived. Please help with a lost parcel or reship.\n\nLast known tracking:\n\n",
+      "5": "I received the wrong item and need a return or exchange.\n\nWhat I got vs what I ordered:\n\n"
+    };
+
     if (subjectParam) {
       const subjectField = document.getElementById('dynamic-subject');
       if (subjectField) subjectField.value = subjectParam;
     }
-    
+
+    let messageBody = null;
+    if (returnMsgId && RETURN_REASON_PRESETS[returnMsgId]) {
+      messageBody = RETURN_REASON_PRESETS[returnMsgId];
+    } else if (messageParam) {
+      try {
+        messageBody = decodeURIComponent(String(messageParam).replace(/\+/g, ' '));
+      } catch (e) {
+        messageBody = messageParam;
+      }
+    }
+
     if (email) {
       const emailField = document.getElementById('c-email');
       if (emailField) emailField.value = email;
     }
-    
-    if (message) {
+
+    if (messageBody) {
       const msgField = document.getElementById('c-msg');
-      if (msgField) msgField.value = message;
+      if (msgField) msgField.value = messageBody;
     }
 
     // 2. Magic Validation for Contact Form
@@ -278,7 +299,8 @@ bodyClass: page-contact-dots
         });
 
         const timeSinceLoad = Date.now() - window.__formLoadTime;
-        if (timeSinceLoad < 3000) {
+        const skipBotDelay = params.has('subject') || params.has('return_msg') || params.has('message') || params.has('email');
+        if (!skipBotDelay && timeSinceLoad < 1200) {
             hasError = true;
             console.warn("Blocked bot submission due to typing speed.");
         }
@@ -300,18 +322,36 @@ bodyClass: page-contact-dots
 
           const outData = new FormData(form);
           const nameVal = outData.get('name') || 'Someone';
+          const emailVal = outData.get('email') || '';
           const baseSubj = document.getElementById('dynamic-subject').value || 'Inquiry';
           const shortId = Math.random().toString(36).substring(2,6).toUpperCase();
           const dateStr = new Date().toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
           outData.set('_subject', `${baseSubj} - ${nameVal} [${dateStr} #${shortId}]`);
+          if (emailVal) {
+            outData.set('_replyto', emailVal);
+            const rt = document.getElementById('contact-replyto');
+            if (rt) rt.value = emailVal;
+          }
 
           fetch(form.action, {
             method: 'POST',
             body: outData,
             headers: { 'Accept': 'application/json' }
           })
-          .then(response => response.json())
-          .then(data => {
+          .then(async function (response) {
+            const raw = await response.text();
+            let data;
+            try {
+              data = JSON.parse(raw);
+            } catch (e) {
+              throw new Error(raw ? raw.slice(0, 280) : 'Invalid response from form service.');
+            }
+            if (!response.ok || data.success === false) {
+              throw new Error(data.message || data.error || 'Form could not be sent.');
+            }
+            return data;
+          })
+          .then(function () {
             form.innerHTML = `
               <div class="text-center pt-16 pb-12 animate-fade-in">
                 <div class="inline-flex items-center justify-center w-20 h-20 bg-primary-container rounded-full mb-6 relative">
@@ -322,8 +362,12 @@ bodyClass: page-contact-dots
                 <p class="text-on-surface-variant text-lg">Your message is flying its way to us. We'll be in touch soon ✨</p>
               </div>`;
           })
-          .catch(error => {
-            alert("Uh oh! There was a glitch in the magic. Please try again later.");
+          .catch(function (error) {
+            var hint = (error && error.message) ? error.message : "Unknown error.";
+            if (/activation|token|valid link/i.test(hint)) {
+              hint += "\n\nIf you are the site owner: open FormSubmit’s email and activate this form for yaaazz.creativeco@gmail.com, or send a test from their dashboard.";
+            }
+            alert("We couldn’t send the form.\n\n" + hint);
             btn.innerHTML = originalText;
             btn.disabled = false;
             btn.style.opacity = '1';
@@ -393,8 +437,20 @@ bodyClass: page-contact-dots
             body: bulkData,
             headers: { 'Accept': 'application/json' }
           })
-          .then(response => response.json())
-          .then(data => {
+          .then(async function (response) {
+            const raw = await response.text();
+            let data;
+            try {
+              data = JSON.parse(raw);
+            } catch (e) {
+              throw new Error(raw ? raw.slice(0, 280) : 'Invalid response from form service.');
+            }
+            if (!response.ok || data.success === false) {
+              throw new Error(data.message || data.error || 'Form could not be sent.');
+            }
+            return data;
+          })
+          .then(function () {
             bulkForm.innerHTML = `
               <div class="text-center pt-12 pb-8 animate-fade-in bg-white/50 rounded-xl border border-tertiary/10">
                 <div class="inline-flex items-center justify-center w-14 h-14 bg-tertiary-container rounded-full mb-4 shadow-inner">
@@ -404,8 +460,9 @@ bodyClass: page-contact-dots
                 <p class="text-on-tertiary-container/80 text-sm px-4">We're reviewing your bulk order request and will email you with special rates shortly.</p>
               </div>`;
           })
-          .catch(error => {
-            alert("Uh oh! Could not send your request. Please try again.");
+          .catch(function (error) {
+            var hint = (error && error.message) ? error.message : 'Unknown error.';
+            alert("Could not send your bulk request.\n\n" + hint);
             btn.innerHTML = originalText;
             btn.style.pointerEvents = 'auto';
           });

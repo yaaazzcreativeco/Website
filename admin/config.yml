@@ -1,6 +1,9 @@
+# Production (GitHub Pages): log in with GitHub — see admin/SETUP.md (OAuth app + meta client id).
+# Local CMS: run `npx decap-server` from project root; Decap uses the local backend on localhost.
 backend:
-  name: proxy
-  proxy_url: http://localhost:8081/api/v1
+  name: github
+  repo: yaaazz/website
+  branch: main
 
 local_backend: true
 

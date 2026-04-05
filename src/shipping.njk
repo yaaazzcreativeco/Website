@@ -73,7 +73,15 @@ bodyClass: page-contact-dots
         {% endfor %}
       </ul>
       {% endif %}
-      <a href="/contact/" class="block w-full text-center bg-primary text-on-primary py-4 rounded-full font-headline font-bold text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-md">
+      <p class="text-sm font-bold text-on-surface-variant mb-2">Choose a reason (we&apos;ll open the contact form for you)</p>
+      <select id="return-reason-select" class="w-full mb-4 rounded-full bg-surface-container-highest border-none px-5 py-3 text-on-surface focus:ring-2 focus:ring-primary-container text-sm font-medium">
+        <option value="1">My item arrived damaged or defective.</option>
+        <option value="2">I want to exchange for a different product or variant.</option>
+        <option value="3">I changed my mind — unused item, original condition.</option>
+        <option value="4">My package never arrived (lost parcel).</option>
+        <option value="5">I received the wrong item and need a return or exchange.</option>
+      </select>
+      <a id="shipping-return-link" href="#" class="block w-full text-center bg-primary text-on-primary py-4 rounded-full font-headline font-bold text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-md">
         Start a return
       </a>
     </section>
@@ -116,22 +124,45 @@ bodyClass: page-contact-dots
     <div class="md:col-span-4 bg-[#b2f2bb]/30 p-8 rounded-xl sticker-rotate-pos">
       <h4 class="font-headline font-bold text-xl mb-4 text-[#084a22]">Custom orders?</h4>
       <p class="text-sm text-on-secondary-container opacity-80 mb-4">{{ shippingSettings.custom_order_note }}</p>
-      <a class="text-secondary font-bold underline text-sm" href="/contact/">Ask on the contact form</a>
+      <a class="text-secondary font-bold underline text-sm" href="{{ '/contact/' | url }}">Ask on the contact form</a>
     </div>
     {% endif %}
     {% if shippingSettings.lost_parcel_note %}
     <div class="md:col-span-4 bg-tertiary-container p-8 rounded-xl">
       <h4 class="font-headline font-bold text-xl mb-4 text-on-tertiary-container">Lost parcel?</h4>
       <p class="text-sm text-on-tertiary-container opacity-80 mb-4">{{ shippingSettings.lost_parcel_note }}</p>
-      <a class="text-on-tertiary-container font-bold underline text-sm" href="/contact/">Contact support</a>
+      <a class="text-on-tertiary-container font-bold underline text-sm" href="{{ '/contact/' | url }}">Contact support</a>
     </div>
     {% endif %}
     {% if shippingSettings.bulk_shipping_note %}
     <div class="md:col-span-4 bg-surface-container-highest p-8 rounded-xl sticker-rotate-neg">
       <h4 class="font-headline font-bold text-xl mb-4 text-on-surface">Bulk shipping</h4>
       <p class="text-sm text-on-surface-variant mb-4">{{ shippingSettings.bulk_shipping_note }}</p>
-      <a class="text-primary font-bold underline text-sm" href="/contact/#bulk-quote">Inquire for bulk</a>
+      <a class="text-primary font-bold underline text-sm" href="{{ '/contact/' | url }}#bulk-quote">Inquire for bulk</a>
     </div>
     {% endif %}
   </div>
 </div>
+
+<script>
+  (function () {
+    var contactPath = {{ '/contact/' | url | dump | safe }};
+    var RETURN_SUBJECT = "Return & Exchange Request";
+    var sel = document.getElementById("return-reason-select");
+    var link = document.getElementById("shipping-return-link");
+    if (!sel || !link) return;
+    function buildHref() {
+      var id = sel.value || "1";
+      var q = new URLSearchParams();
+      q.set("subject", RETURN_SUBJECT);
+      q.set("return_msg", id);
+      var sep = contactPath.indexOf("?") >= 0 ? "&" : "?";
+      return contactPath + sep + q.toString();
+    }
+    function sync() {
+      link.setAttribute("href", buildHref());
+    }
+    sel.addEventListener("change", sync);
+    sync();
+  })();
+</script>

@@ -341,8 +341,9 @@ module.exports = function (eleventyConfig) {
       return cleanPrefix + p;
     }
 
-    content = content.replace(/\b(href|src|data-image)="([^"]*)"/g, (full, attr, val) => {
+    content = content.replace(/\b(href|src|data-image|action)="([^"]*)"/g, (full, attr, val) => {
       if (val === "" || val === "#") return full;
+      if (attr === "action" && (/^https?:/i.test(val) || val.startsWith("//"))) return full;
       return `${attr}="${prefixPath(val)}"`;
     });
 

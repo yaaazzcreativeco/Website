@@ -14,6 +14,7 @@ permalink: /checkout/index.html
       <div
         class="space-y-8"
         id="checkout-form"
+        data-shop-url="{{ '/shop/' | url }}"
       >
 
         <section class="bg-surface-container-low rounded-2xl p-6 md:p-8 shadow-sm border border-outline-variant/20">
@@ -126,7 +127,8 @@ permalink: /checkout/index.html
       var wrap = document.getElementById("checkout-lines");
       wrap.innerHTML = "";
       if (!cart.length) {
-        wrap.innerHTML = '<p class="text-on-surface-variant">Your cart is empty. <a class="font-bold text-primary underline" href="/shop/">Go to shop</a>.</p>';
+        var shopUrl = document.getElementById("checkout-form").getAttribute("data-shop-url") || "/shop/";
+        wrap.innerHTML = '<p class="text-on-surface-variant">Your cart is empty. <a class="font-bold text-primary underline" href="' + shopUrl + '">Go to shop</a>.</p>';
         document.getElementById("sum-sub").textContent = money(0);
         return;
       }
@@ -205,7 +207,33 @@ permalink: /checkout/index.html
       };
     }
 
-    document.getElementById("btn-submit-order").addEventListener("click", function (e) {
+    var submitBtn = document.getElementById("btn-submit-order");
+    var submitBtnDefaultHtml = submitBtn ? submitBtn.innerHTML : "";
+
+    function setSubmitSuccessState(active) {
+      var toast = document.getElementById("copy-toast");
+      if (!submitBtn) return;
+      if (active) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add("checkout-submit-done", "scale-105");
+        submitBtn.innerHTML = '<span class="material-symbols-outlined">check_circle</span><span>ORDER COPIED — OPENING CHAT…</span>';
+        submitBtn.style.opacity = "1";
+        if (toast) {
+          toast.classList.remove("hidden");
+          toast.classList.add("flex");
+        }
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove("checkout-submit-done", "scale-105");
+        submitBtn.innerHTML = submitBtnDefaultHtml;
+        if (toast) {
+          toast.classList.add("hidden");
+          toast.classList.remove("flex");
+        }
+      }
+    }
+
+    submitBtn.addEventListener("click", function (e) {
       e.preventDefault();
 
       // Manual HTML5 validation since we removed the form wrapper
@@ -227,6 +255,7 @@ permalink: /checkout/index.html
 
       // --- 1. Copy order to clipboard ---
       navigator.clipboard.writeText(text).then(function () {
+        setSubmitSuccessState(true);
         // --- 2. Show the floating instruction overlay ---
         showPasteOverlay(text);
 
@@ -249,6 +278,7 @@ permalink: /checkout/index.html
         }, 500);
 
       }).catch(function(err) {
+        setSubmitSuccessState(true);
         // Fallback if clipboard fails
         showPasteOverlay(text);
         if (typeof Tawk_API !== "undefined") {
@@ -265,7 +295,6 @@ permalink: /checkout/index.html
       if (old) old.remove();
 
       var overlay = document.createElement("div");
-      overlay.id = "paste-overlay";
       overlay.id = "paste-overlay";
       // We moved the styling to the CSS block at the bottom so it can be responsive
 
@@ -386,6 +415,26 @@ permalink: /checkout/index.html
   @keyframes slideUp {
     from { transform: translateY(40px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
+  }
+
+  #checkout-form input:-webkit-autofill,
+  #checkout-form input:-webkit-autofill:hover,
+  #checkout-form input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #e3ddc5 inset !important;
+    box-shadow: 0 0 0 1000px #e3ddc5 inset !important;
+    -webkit-text-fill-color: #312f23 !important;
+    caret-color: #312f23 !important;
+    transition: background-color 99999s ease-in-out 0s;
+  }
+
+  #btn-submit-order.checkout-submit-done {
+    background: linear-gradient(135deg, #2c673c, #215d33);
+    animation: checkoutBtnPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes checkoutBtnPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+    100% { transform: scale(1.05); }
   }
 
   #paste-overlay {

@@ -39,7 +39,7 @@ activeNav: devotionals
 
   {% for p in products | devotionalProducts %}
     {% set idx = loop.index0 %}
-    <a href="/product/{{ p.slug }}/" class="block group cursor-pointer lg:pl-0">
+    <a href="{{ ('/product/' ~ p.slug ~ '/') | url }}" class="block group cursor-pointer lg:pl-0">
       <div class="relative mb-6 rounded-xl bg-surface-container-low p-6 transition-transform duration-300 shadow-sm border border-outline-variant/20 h-full flex flex-col {% if idx == 0 %}group-hover:-translate-y-2{% elif idx == 1 %}group-hover:rotate-1{% elif idx == 2 %}group-hover:-rotate-1{% elif idx == 3 %}group-hover:scale-[1.02]{% else %}group-hover:-translate-y-2{% endif %}">
         {% if loop.first %}
         <article 
@@ -110,7 +110,6 @@ activeNav: devotionals
           >Add to Cart</button>
         </div>
       </div>
-    </div>
     </a>
 
     {% if loop.index == 4 %}
@@ -118,7 +117,7 @@ activeNav: devotionals
         <span class="material-symbols-outlined text-4xl text-tertiary mb-4">auto_awesome</span>
         <h3 class="font-headline text-3xl font-black text-on-tertiary-container mb-4">{{ devotionalsSettings.bundle_title | default("Bundle & Save!") }}</h3>
         <p class="text-on-tertiary-container/80 mb-8 font-medium">{{ devotionalsSettings.bundle_description | default("Grab any 3 devotionals and get a free sticker sheet of your choice.") }}</p>
-        <a href="{{ devotionalsSettings.bundle_cta_link | default('/checkout/') }}" class="bg-primary-dim text-on-primary px-8 py-3 rounded-full font-headline font-black uppercase tracking-widest text-sm shadow-xl hover:scale-110 transition-transform inline-block">{{ devotionalsSettings.bundle_cta_text | default("Get the Bundle") }}</a>
+        <a href="{{ (devotionalsSettings.bundle_cta_link | default('/bundle/')) | sitePath | url }}" class="bg-primary-dim text-on-primary px-8 py-3 rounded-full font-headline font-black uppercase tracking-widest text-sm shadow-xl hover:scale-110 transition-transform inline-block">{{ devotionalsSettings.bundle_cta_text | default("Get the Bundle") }}</a>
       </div>
     {% endif %}
   {% endfor %}
@@ -129,9 +128,9 @@ activeNav: devotionals
     <div class="flex-1 z-10">
       <h2 class="font-headline text-4xl md:text-5xl font-black text-primary mb-6 leading-tight">Join our creative <br/>prayer community</h2>
       <p class="text-lg text-on-surface-variant mb-8">Get weekly prompts, free phone wallpapers, and early access to new journal drops.</p>
-      <form id="community-form" class="flex flex-col sm:flex-row gap-4" action="/contact/" method="GET" autocomplete="off">
+      <form id="community-form" class="flex flex-col sm:flex-row gap-4" action="{{ '/contact/' | url }}" method="GET" autocomplete="off">
         <input name="subject" type="hidden" value="Prayer Community"/>
-        <input name="message" type="hidden" value="I&apos;m falling in love with this creative community! ✨ I&apos;d be so honored to join the prayer circle. Please count me in for all the prompts and inspiration!"/>
+        <input name="message" type="hidden" value="I'm falling in love with this creative community! ✨ I'd be so honored to join the prayer circle. Please count me in for all the prompts and inspiration!"/>
         <input id="community-email" class="flex-1 px-6 py-4 rounded-full border-none bg-surface-container-high text-on-surface focus:ring-2 focus:ring-primary-container transition-all" placeholder="your-email@creative.com" type="email" required name="email" autocomplete="new-password"/>
         <button type="submit" class="bg-primary-dim text-on-primary px-10 py-4 rounded-full font-headline font-black uppercase tracking-widest text-sm shadow-xl hover:scale-105 transition-all text-center inline-flex items-center justify-center border-none cursor-pointer">Join with Love ✨</button>
       </form>
