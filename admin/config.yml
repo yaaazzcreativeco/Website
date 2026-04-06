@@ -64,7 +64,7 @@ collections:
     format: frontmatter
     fields:
       - { label: Display Name, name: name, widget: string, hint: "e.g. Bundles" }
-      - { label: URL Slug, name: slug, widget: string, hint: "Used for /category-name/ URLs" }
+      - { label: URL Slug, name: slug, widget: string, hint: "Used for /category-name/ URLs", required: true }
       - { 
           label: Icon, 
           name: icon, 
@@ -110,7 +110,7 @@ collections:
     format: frontmatter
     fields:
       - { label: Title, name: title, widget: string }
-      - { label: URL slug, name: slug, widget: string, hint: "lowercase-with-dashes" }
+      - { label: URL slug, name: slug, widget: string, hint: "lowercase-with-dashes", required: true }
       - { label: Original Price (PHP), name: price, widget: number, value_type: int, min: 0, hint: "Crossed out if Sale Price is set" }
       - { label: Sale Price (PHP), name: sale_price, widget: number, value_type: int, required: false, hint: "New discounted price" }
       - { label: Subtitle, name: subtitle, widget: string, required: false }
