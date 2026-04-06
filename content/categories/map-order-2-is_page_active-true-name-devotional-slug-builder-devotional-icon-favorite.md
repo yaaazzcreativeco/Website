@@ -1,7 +1,7 @@
 ---
-name: Devotional
+name: Devotionals
 slug: /builder-devotional/
 icon: favorite
-order: 2
+order: 3
 is_page_active: true
 ---
