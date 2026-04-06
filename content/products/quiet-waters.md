@@ -6,7 +6,7 @@ is_best_seller: false
 title: Quiet Waters
 slug: quiet-waters
 price: 520
-sale_price: null
+sale_price: 
 subtitle: Be still and know.
 image: /static/img/products/quiet-waters.webp
 category: devotional
@@ -21,4 +21,4 @@ tags:
   - Stillness
   - Quiet Time
 ---
-Be still and know. 🕯️ Quiet Waters is designed for those seeking peaceful moments with God. This devotional includes breathing exercises, meditation prompts, andsilent reflection exercises to help you find rest in His presence.
+Be still and know. 🕯️ Quiet Waters is designed for those seeking peaceful moments with God. This devotional includes breathing exercises, meditation prompts, and silent reflection exercises to help you find rest in His presence.

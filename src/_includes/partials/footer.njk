@@ -13,9 +13,9 @@
     <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="{{ '/contact/' | url }}">Contact</a>
     <a class="opacity-80 hover:opacity-100 hover:text-[#7d4d5f] transition-all underline decoration-[#fad3fd] decoration-2" href="{{ '/admin/' | url }}">Store admin</a>
   </div>
-  {% set hasSocial = settings.instagram_url or settings.tiktok_url or settings.pinterest_url or settings.facebook_url or settings.youtube_url %}
+  {% set hasSocial = settings.instagram_url or settings.tiktok_url or settings.pinterest_url or settings.facebook_url or settings.youtube_url or settings.shopee_url or settings.lazada_url %}
   {% if hasSocial %}
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-4 flex-wrap justify-center">
     {% if settings.facebook_url %}
     <a href="{{ settings.facebook_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#7d4d5f]/10 flex items-center justify-center hover:bg-[#7d4d5f]/20 transition-colors" aria-label="Facebook">
       <span class="material-symbols-outlined text-[#7d4d5f] text-lg">thumb_up</span>
@@ -39,6 +39,16 @@
     {% if settings.youtube_url %}
     <a href="{{ settings.youtube_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#7d4d5f]/10 flex items-center justify-center hover:bg-[#7d4d5f]/20 transition-colors" aria-label="YouTube">
       <span class="material-symbols-outlined text-[#7d4d5f] text-lg">play_circle</span>
+    </a>
+    {% endif %}
+    {% if settings.shopee_url %}
+    <a href="{{ settings.shopee_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#7d4d5f]/10 flex items-center justify-center hover:bg-[#7d4d5f]/20 transition-colors" aria-label="Shopee">
+      <span class="material-symbols-outlined text-[#7d4d5f] text-lg">shopping_bag</span>
+    </a>
+    {% endif %}
+    {% if settings.lazada_url %}
+    <a href="{{ settings.lazada_url }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-[#7d4d5f]/10 flex items-center justify-center hover:bg-[#7d4d5f]/20 transition-colors" aria-label="Lazada">
+      <span class="material-symbols-outlined text-[#7d4d5f] text-lg">storefront</span>
     </a>
     {% endif %}
   </div>

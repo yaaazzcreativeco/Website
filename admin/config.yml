@@ -65,7 +65,36 @@ collections:
     fields:
       - { label: Display Name, name: name, widget: string, hint: "e.g. Bundles" }
       - { label: URL Slug, name: slug, widget: string, hint: "Used for /category-name/ URLs" }
-      - { label: Icon, name: icon, widget: string, hint: "Go to Google Material Symbols to find icon names" }
+      - { 
+          label: Icon, 
+          name: icon, 
+          widget: select, 
+          hint: "Pick a visual icon for this category.",
+          options: [
+            { label: "Sticker", value: "sticker" },
+            { label: "Journal / Book", value: "menu_book" },
+            { label: "Sparkles", value: "auto_awesome" },
+            { label: "Palette", value: "palette" },
+            { label: "Shopping Bag", value: "shopping_bag" },
+            { label: "Price Tag", value: "sell" },
+            { label: "Heart", value: "favorite" },
+            { label: "Star", value: "star" },
+            { label: "Pencil / Writing", value: "edit" },
+            { label: "Ink Pen", value: "ink_pen" },
+            { label: "Brush", value: "brush" },
+            { label: "Scissors / Cut", value: "content_cut" },
+            { label: "Handwritten / Notes", value: "description" },
+            { label: "Bookmarks", value: "collections_bookmark" },
+            { label: "Puzzle / Add-on", value: "extension" },
+            { label: "Gifting", value: "volunteer_activism" },
+            { label: "Celebration", value: "celebration" },
+            { label: "Shipping", value: "local_shipping" },
+            { label: "Leaf / Eco", value: "eco" },
+            { label: "Store", value: "storefront" },
+            { label: "Squares / Grid", value: "category" },
+            { label: "Storage", value: "home_storage" }
+          ]
+        }
       - { label: Sort Order, name: order, widget: number, default: 0, value_type: int }
       - { label: Enable Landing Page, name: is_page_active, widget: boolean, default: true, hint: "Turn on to create a standalone 'sheet' page for this category" }
       - { label: Page Title (Large), name: page_title, widget: string, required: false }
@@ -79,8 +108,6 @@ collections:
     slug: "{{slug}}"
     extension: md
     format: frontmatter
-    media_folder: ""
-    public_folder: ""
     fields:
       - { label: Title, name: title, widget: string }
       - { label: URL slug, name: slug, widget: string, hint: "lowercase-with-dashes" }
@@ -117,6 +144,8 @@ collections:
           { label: "Limited Edition", value: "limited" }
         ], default: "none", hint: "Manually choose the decorative ribbon for the bottom right." }
       - { label: Curator's Pick, name: is_curator_pick, widget: boolean, default: false, hint: "Show this product in the Curator's Picks section on the homepage" }
+      - { label: Best Seller, name: is_best_seller, widget: boolean, default: false, hint: "Adds a 'Best Seller' ribbon badge if Promo Badge is set to None" }
+      - { label: New Arrival, name: is_new_arrival, widget: boolean, default: false, hint: "Adds a 'New!' ribbon badge if Promo Badge is set to None and Best Seller is off" }
       - { label: Show in Shop page, name: show_in_shop, widget: boolean, default: true, hint: "Turn off for devotional-only products" }
       - { label: Sort order, name: order, widget: number, default: 0, value_type: int, hint: "Lower numbers appear first" }
       - { label: Description, name: body, widget: markdown, required: false }
@@ -281,7 +310,7 @@ collections:
         file: content/settings/privacy.json
         fields:
           - { label: Page title, name: page_title, widget: string }
-          - { label: Policy content, name: body, widget: text, hint: "Write your privacy policy here. Use blank lines to separate paragraphs." }
+          - { label: Policy content, name: body, widget: markdown, hint: "Write your privacy policy here. Use headings and bullet points for clarity." }
 
   # ============================================
   # 10. GENERAL SETTINGS
@@ -303,6 +332,8 @@ collections:
           - { label: YouTube URL, name: youtube_url, widget: string, required: false }
           - { label: Shopee Shop URL, name: shopee_url, widget: string, required: false }
           - { label: Lazada Shop URL, name: lazada_url, widget: string, required: false }
+          - { label: "Tawk.to Property ID", name: tawk_property_id, widget: string, required: false, hint: "Found in Tawk.to dashboard → Administration → Property ID" }
+          - { label: "Tawk.to Widget ID", name: tawk_widget_id, widget: string, required: false, hint: "Found in Tawk.to dashboard → Administration → Widget ID" }
           - {
               label: Navigation items,
               name: nav_items,
@@ -346,21 +377,9 @@ collections:
                   {
                       label: Active ID,
                       name: id,
-                      widget: select,
-                      options:
-                        [
-                          { label: "Shop", value: "shop" },
-                          { label: "Devotionals", value: "devotionals" },
-                          { label: "Club Hub", value: "journal" },
-                          { label: "Our Story", value: "story" },
-                          { label: "Contact", value: "contact" },
-                          { label: "Slam Notebooks", value: "notebook" },
-                          { label: "Bundles", value: "bundle" },
-                          { label: "Checkout", value: "checkout" },
-                          { label: "Shipping", value: "shipping" },
-                          { label: "Home", value: "home" },
-                        ],
-                      required: false
+                      widget: string,
+                      required: false,
+                      hint: "Matches the 'Slug' of the category or page. This makes the navigation link highlight when you are on that page."
                     },
                 ]
             }

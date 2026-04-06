@@ -217,6 +217,11 @@
     .cart-animate {
       animation: cart-glow 2s ease-in-out;
     }
+    .thumbnail-active {
+      ring: 2px solid #7d4d5f;
+      box-shadow: 0 0 0 2px #7d4d5f;
+      transform: rotate(0deg) !important;
+    }
   </style>
 </head>
 <body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen{% if bodyClass %} {{ bodyClass }}{% endif %}">

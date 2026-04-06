@@ -9,11 +9,84 @@
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  
+  <style>
+    .cms-preview-wrapper {
+      padding: 20px;
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .cms-product-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid #eee;
+    }
+    .cms-product-img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      object-fit: cover;
+      background: #f7f1dc;
+    }
+    .cms-product-title { margin: 0 0 8px 0; font-size: 24px; color: #7d4d5f; font-weight: 800; }
+    .cms-product-subtitle { margin: 0 0 16px 0; color: #5f5c4d; font-size: 16px; }
+    .cms-product-price { font-size: 20px; font-weight: 700; color: #2c673c; margin-bottom: 20px; }
+    .cms-product-body { color: #312f23; line-height: 1.6; }
+    .cms-empty { color: #a19d8c; font-style: italic; }
+  </style>
+
   <script>
     if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
       window.CMS_ENV = "development";
       window.localStorage.setItem("netlifySiteId", "local");
     }
+
+    // Custom Preview for Products
+    const ProductPreview = createClass({
+      render: function() {
+        const entry = this.props.entry;
+        const getAsset = this.props.getAsset;
+        
+        // Fields
+        const title = entry.getIn(['data', 'title']) || 'New Product';
+        const subtitle = entry.getIn(['data', 'subtitle']) || '';
+        const price = entry.getIn(['data', 'price']);
+        const salePrice = entry.getIn(['data', 'sale_price']);
+        const body = this.props.widgetFor('body');
+        
+        // Handle images stored globally correctly
+        let image = entry.getIn(['data', 'image']);
+        let imgSrc = image ? getAsset(image).toString() : '';
+
+        // Price formatting
+        let displayPrice = '';
+        if (salePrice) {
+          displayPrice = `₱${salePrice} (Sale! Original: ₱${price})`;
+        } else if (price !== undefined) {
+          displayPrice = `₱${price}`;
+        } else {
+          displayPrice = 'Price not set';
+        }
+
+        return h('div', {className: 'cms-preview-wrapper'},
+          h('div', {className: 'cms-product-card'},
+            imgSrc ? h('img', {src: imgSrc, className: 'cms-product-img', alt: title}) : h('div', {className: 'cms-empty', style: {padding: '40px', background: '#f7f1dc', borderRadius: '12px', marginBottom: '20px', textAlign: 'center'}}, 'No image selected'),
+            h('h1', {className: 'cms-product-title'}, title),
+            subtitle ? h('p', {className: 'cms-product-subtitle'}, subtitle) : null,
+            h('div', {className: 'cms-product-price'}, displayPrice),
+            h('div', {className: 'cms-product-body'}, body || h('span', {className: 'cms-empty'}, 'Add a product description...'))
+          )
+        );
+      }
+    });
+
+    CMS.registerPreviewTemplate("shop-products", ProductPreview);
   </script>
 </body>
 </html>

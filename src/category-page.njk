@@ -12,6 +12,9 @@ layout: base.njk
   <header class="relative mb-16 text-center md:text-left">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b-2 border-outline-variant/10">
       <div class="max-w-2xl">
+        {% if cat.icon %}
+        <span class="material-symbols-outlined text-5xl text-secondary mb-3 block" style="font-variation-settings:'FILL' 1">{{ cat.icon }}</span>
+        {% endif %}
         <h1 class="font-headline text-5xl md:text-7xl font-black text-primary tracking-tighter leading-none mb-4">
           {{ cat.page_title | default(cat.name) }}
           <br/>

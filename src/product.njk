@@ -42,18 +42,32 @@ title: Product
         {{ macros.smartBadge(product) }}
       </div>
 
-      <!-- Product Gallery Scraps -->
+      <!-- Product Gallery Thumbnails -->
+      {% if product.thumbnails and product.thumbnails.length > 0 %}
+      <div class="flex gap-4 mt-8 px-4 flex-wrap">
+        {# Show the main image as first thumbnail #}
+        <div class="w-20 h-20 bg-white p-1 rounded-lg shadow-md rotate-[-4deg] hover:rotate-0 transition-all cursor-pointer thumbnail-active ring-2 ring-primary/40"
+             onclick="swapImage(this, '{{ product.image }}')"
+        >
+          <img alt="Main image" class="w-full h-full object-cover rounded" src="{{ product.image }}"/>
+        </div>
+        {# Additional thumbnails from CMS #}
+        {% set rotations = ["rotate-[3deg]", "rotate-[-2deg]", "rotate-[1deg]", "rotate-[-3deg]"] %}
+        {% for thumb in product.thumbnails %}
+        <div class="w-20 h-20 bg-white p-1 rounded-lg shadow-md {{ rotations[loop.index0 % 4] }} hover:rotate-0 transition-all cursor-pointer"
+             onclick="swapImage(this, '{{ thumb.image }}')"
+        >
+          <img alt="Gallery {{ loop.index }}" class="w-full h-full object-cover rounded" src="{{ thumb.image }}"/>
+        </div>
+        {% endfor %}
+      </div>
+      {% elif product.image %}
       <div class="flex gap-4 mt-8 px-4">
-        <div class="w-20 h-20 bg-white p-1 rounded-lg shadow-md rotate-[-4deg] hover:rotate-0 transition-all cursor-pointer">
-          <img alt="Gallery 1" class="w-full h-full object-cover rounded" src="{{ product.image }}"/>
-        </div>
-        <div class="w-20 h-20 bg-white p-1 rounded-lg shadow-md rotate-[3deg] hover:rotate-0 transition-all cursor-pointer">
-          <img alt="Gallery 2" class="w-full h-full object-cover rounded" src="{{ product.image }}"/>
-        </div>
-        <div class="w-20 h-20 bg-white p-1 rounded-lg shadow-md rotate-[-2deg] hover:rotate-0 transition-all cursor-pointer">
-          <img alt="Gallery 3" class="w-full h-full object-cover rounded" src="{{ product.image }}"/>
+        <div class="w-20 h-20 bg-white p-1 rounded-lg shadow-md rotate-[-4deg] hover:rotate-0 transition-all cursor-pointer thumbnail-active ring-2 ring-primary/40">
+          <img alt="Product image" class="w-full h-full object-cover rounded" src="{{ product.image }}"/>
         </div>
       </div>
+      {% endif %}
     </div>
 
     <!-- Right: Product Info -->
@@ -68,19 +82,13 @@ title: Product
 
       <!-- Price -->
       <div class="flex items-center gap-4">
-        {% if product.sale_price %}
-        <span class="text-4xl font-headline font-extrabold text-on-surface">{{ product.sale_price | moneyPHP }}</span>
-        <span class="text-lg line-through text-on-surface-variant/60 font-medium">{{ product.price | moneyPHP }}</span>
-        <div class="px-3 py-1 bg-secondary text-on-secondary rounded-lg text-xs font-bold uppercase tracking-widest">SALE</div>
-        {% else %}
-        <span class="text-4xl font-headline font-extrabold text-on-surface">{{ product.price | moneyPHP }}</span>
-        {% endif %}
+        {{ macros.priceDisplay(product, "text-4xl") }}
       </div>
 
       <!-- Description -->
       {% if product.body %}
       <div class="space-y-6 text-on-surface-variant max-w-lg leading-relaxed">
-        <p class="text-lg">{{ product.body | safe }}</p>
+        <div class="text-lg">{{ product.body | markdownToHtml | safe }}</div>
       </div>
       {% endif %}
 
@@ -101,8 +109,8 @@ title: Product
             <span id="qtyDisplay" class="px-8 font-headline font-bold text-2xl text-on-surface">1</span>
             <button onclick="changeQty(1)" class="w-14 h-14 flex items-center justify-center text-3xl font-bold text-primary hover:bg-primary hover:text-white transition-colors rounded-full">+</button>
           </div>
-          <p class="text-sm font-medium text-secondary flex items-center gap-1">
-            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+          <p class="text-sm font-medium flex items-center gap-1 {% if product.stock_status == 'out_of_stock' %}text-error{% elif product.stock_status == 'pre_order' %}text-tertiary{% else %}text-secondary{% endif %}">
+            <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">{% if product.stock_status == 'out_of_stock' %}cancel{% elif product.stock_status == 'pre_order' %}schedule{% else %}check_circle{% endif %}</span>
             {% if product.stock_status == "pre_order" %}
             Pre-order available!
             {% elif product.stock_status == "out_of_stock" %}
@@ -119,7 +127,7 @@ title: Product
             class="js-add-cart flex-1 bg-gradient-to-r from-primary to-primary-dim text-on-primary py-5 rounded-full font-headline font-black text-xl shadow-[0_10px_25px_rgba(125,77,95,0.3)] hover:scale-[1.03] transition-transform active:scale-95 flex items-center justify-center gap-3{% if product.stock_status == 'out_of_stock' %} opacity-50 cursor-not-allowed{% endif %}"
             data-slug="{{ product.slug }}"
             data-title="{{ product.title | escape }}"
-            data-price="{{ product.price }}"
+            data-price="{{ product.sale_price or product.price }}"
             data-image="{{ product.image | escape }}"
             data-subtitle="{{ product.subtitle | escape }}"
             data-preorder="{% if product.stock_status == 'pre_order' %}true{% else %}false{% endif %}"

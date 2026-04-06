@@ -1,8 +1,8 @@
 ---
 title: Red Ribbon Slam
 slug: red-ribbon-slam
-price: 99
-sale_price: 149
+price: 149
+sale_price: 99
 subtitle: Spiral Bound
 image: /static/img/uploads/4.png
 category: slam_notebook
