@@ -11,7 +11,7 @@
 {% macro smartBadge(p) %}
   {# Priority 1: Bottom-right Promo Badge (Ribbon style) #}
   {% set currentPromo = p.promo_badge %}
-  {% if not currentPromo %}
+  {% if not currentPromo or currentPromo == 'none' %}
     {% if p.is_best_seller %}
       {% set currentPromo = "best_seller" %}
     {% elif p.is_new_arrival %}
