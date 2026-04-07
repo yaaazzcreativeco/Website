@@ -20,12 +20,4 @@ tags:
   - Prayer and Reflection
 inside_features: []
 ---
-Find daily peace and inspiration with the Daily Inspiration: 50 Bible Verses for 50 Days Journal. Each page offers a Bible verse, a gentle morning prayer, and space for reflection.
-
-
-
-Bundled with an 80‑page To‑Do Notepad and a FREE Bookmark
-
-
-
-Perfect for anyone seeking a simple, uplifting way to grow in faith and devotion.
+Find daily peace and inspiration with the Daily Inspiration: 50 Bible Verses for 50 Days Journal. Each page offers a Bible verse, a gentle morning prayer, and space for reflection. Bundled with an 80‑page To‑Do Notepad and a FREE Bookmark. Perfect for anyone seeking a simple, uplifting way to grow in faith and devotion.
