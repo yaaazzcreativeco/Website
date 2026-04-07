@@ -6,11 +6,36 @@
   <title>Yaaazz — Site admin (Decap CMS)</title>
   <!-- Replace with your GitHub OAuth App Client ID (see admin/SETUP.md). Required for /admin on GitHub Pages. -->
   <meta name="github-client-id" content="Ov23liKWWdow8xp9Azz4"/>
+
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const isNewSession = !sessionStorage.getItem('admin_session_active');
+      const forceLogout = urlParams.get('logout') === 'true';
+
+      if (forceLogout || isNewSession) {
+        // Clear CMS-related local storage
+        Object.keys(localStorage).forEach(key => {
+          if (key.toLowerCase().includes('decap-cms') || 
+              key.toLowerCase().includes('netlify-cms') || 
+              key.toLowerCase().includes('repo')) {
+            localStorage.removeItem(key);
+          }
+        });
+        
+        // Mark session as active so refresh doesn't log out
+        sessionStorage.setItem('admin_session_active', 'true');
+        
+        // Clean URL if needed
+        if (forceLogout) {
+          window.location.href = window.location.pathname;
+        }
+      }
+    })();
+  </script>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   
   <style>
     .cms-preview-wrapper {
@@ -47,44 +72,79 @@
       window.localStorage.setItem("netlifySiteId", "local");
     }
 
-    // Custom Preview for Products
-    const ProductPreview = createClass({
-      render: function() {
-        const entry = this.props.entry;
-        const getAsset = this.props.getAsset;
-        
-        // Fields
-        const title = entry.getIn(['data', 'title']) || 'New Product';
-        const subtitle = entry.getIn(['data', 'subtitle']) || '';
-        const price = entry.getIn(['data', 'price']);
-        const salePrice = entry.getIn(['data', 'sale_price']);
-        const body = this.props.widgetFor('body');
-        
-        // Handle images stored globally correctly
-        let image = entry.getIn(['data', 'image']);
-        let imgSrc = image ? getAsset(image).toString() : '';
+    const h = window.h;
 
-        // Price formatting
-        let displayPrice = '';
-        if (salePrice) {
-          displayPrice = `₱${salePrice} (Sale! Original: ₱${price})`;
-        } else if (price !== undefined) {
-          displayPrice = `₱${price}`;
-        } else {
-          displayPrice = 'Price not set';
-        }
-
-        return h('div', {className: 'cms-preview-wrapper'},
-          h('div', {className: 'cms-product-card'},
-            imgSrc ? h('img', {src: imgSrc, className: 'cms-product-img', alt: title}) : h('div', {className: 'cms-empty', style: {padding: '40px', background: '#f7f1dc', borderRadius: '12px', marginBottom: '20px', textAlign: 'center'}}, 'No image selected'),
-            h('h1', {className: 'cms-product-title'}, title),
-            subtitle ? h('p', {className: 'cms-product-subtitle'}, subtitle) : null,
-            h('div', {className: 'cms-product-price'}, displayPrice),
-            h('div', {className: 'cms-product-body'}, body || h('span', {className: 'cms-empty'}, 'Add a product description...'))
-          )
-        );
+    // Helper to resolve assets robustly
+    const getAssetUrl = (getAsset, asset) => {
+      if (!asset) return null;
+      if (typeof asset === 'string' && (asset.startsWith('http') || asset.startsWith('blob:') || asset.startsWith('data:'))) {
+        return asset;
       }
-    });
+      const assetProxy = getAsset(asset);
+      return assetProxy ? assetProxy.toString() : asset;
+    };
+
+    // Custom Preview for Products
+    const ProductPreview = (props) => {
+      const { entry, getAsset, widgetFor } = props;
+      
+      // Fields
+      const title = entry.getIn(['data', 'title']) || 'New Product';
+      const subtitle = entry.getIn(['data', 'subtitle']) || '';
+      const price = entry.getIn(['data', 'price']);
+      const salePrice = entry.getIn(['data', 'sale_price']);
+      const body = widgetFor('body');
+      
+      // Main Image
+      const image = entry.getIn(['data', 'image']);
+      const imgSrc = getAssetUrl(getAsset, image);
+
+      // Thumbnails
+      const thumbnails = entry.getIn(['data', 'thumbnails']);
+      let thumbnailUrls = [];
+      try {
+        if (thumbnails) {
+          const list = typeof thumbnails.toJS === 'function' ? thumbnails.toJS() : thumbnails;
+          if (Array.isArray(list)) {
+            thumbnailUrls = list.map(t => getAssetUrl(getAsset, t.image)).filter(url => url);
+          }
+        }
+      } catch (e) {
+        console.error("Error processing thumbnails:", e);
+      }
+
+      // Price formatting
+      let displayPrice = '';
+      if (salePrice) {
+        displayPrice = `₱${salePrice} (Sale! Original: ₱${price})`;
+      } else if (price !== undefined) {
+        displayPrice = `₱${price}`;
+      } else {
+        displayPrice = 'Price not set';
+      }
+
+      return h('div', {className: 'cms-preview-wrapper'},
+        h('div', {className: 'cms-product-card'},
+          // Main Image
+          imgSrc ? h('img', {src: imgSrc, className: 'cms-product-img', alt: title}) : 
+                  h('div', {className: 'cms-empty', style: {padding: '40px', background: '#f7f1dc', borderRadius: '12px', marginBottom: '20px', textAlign: 'center'}}, 'No main image selected'),
+          
+          // Thumbnails Gallery
+          thumbnailUrls.length > 0 && h('div', {style: {display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px', marginBottom: '20px'}},
+            thumbnailUrls.map((url, idx) => h('img', {
+              key: idx, 
+              src: url, 
+              style: {width: '100%', height: '60px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #eee'}
+            }))
+          ),
+
+          h('h1', {className: 'cms-product-title'}, title),
+          subtitle ? h('p', {className: 'cms-product-subtitle'}, subtitle) : null,
+          h('div', {className: 'cms-product-price'}, displayPrice),
+          h('div', {className: 'cms-product-body'}, body || h('span', {className: 'cms-empty'}, 'Add a product description...'))
+        )
+      );
+    };
 
     CMS.registerPreviewTemplate("shop-products", ProductPreview);
   </script>
