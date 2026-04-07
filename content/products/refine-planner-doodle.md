@@ -9,7 +9,7 @@ category: bundle
 stock_status: pre_order
 sales_badge: sale
 promo_badge: none
-is_curator_pick: false
+is_curator_pick: true
 is_best_seller: false
 is_new_arrival: false
 show_in_shop: true
