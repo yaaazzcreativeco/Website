@@ -5,7 +5,7 @@ price: 199
 sale_price: 149
 subtitle: 50-Day Bible Verse Journey
 image: /static/img/uploads/gemini_generated_image_vbnlbpvbnlbpvbnl.png
-category: /builder-devotional/
+category: devotional
 stock_status: pre_order
 sales_badge: sale
 promo_badge: new_arrival
