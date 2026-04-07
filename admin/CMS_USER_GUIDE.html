@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yaaazz Creative Co. — CMS User Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #312f23;
+      --primary-container: #e3ddc5;
+      --secondary: #5e6051;
+      --secondary-container: #e3e3d4;
+      --tertiary: #526070;
+      --tertiary-container: #d6e4f7;
+      --surface: #fdfaf3;
+      --on-surface: #1b1c18;
+      --on-surface-variant: #44483d;
+      --outline-variant: #c3c8bc;
+      --radius: 12px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--on-surface);
+      background-color: white;
+    }
+
+    .guide-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 60px;
+      background: white;
+    }
+
+    header {
+      border-bottom: 4px solid var(--primary-container);
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Outfit', sans-serif;
+      color: var(--primary);
+      margin-top: 1.5em;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-top: 0;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    h2 {
+      font-size: 2rem;
+      border-left: 8px solid var(--primary-container);
+      padding-left: 20px;
+      margin-top: 2.5em;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      color: var(--secondary);
+    }
+
+    p, li {
+      font-size: 1.1rem;
+      color: var(--on-surface-variant);
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--primary-container);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin: 20px 0;
+    }
+
+    .pro-tip {
+      background: var(--tertiary-container);
+      border-radius: var(--radius);
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+      margin: 40px 0;
+    }
+
+    .pro-tip h3 {
+      margin-top: 0;
+      color: var(--tertiary);
+    }
+
+    .pro-tip::after {
+      content: '✨';
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 80px;
+      opacity: 0.1;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 12px;
+    }
+
+    code {
+      background: var(--secondary-container);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 0.95em;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--secondary);
+      border-top: 1px solid var(--outline-variant);
+      padding-top: 20px;
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+      .guide-container {
+        margin: 0;
+        padding: 40px;
+        max-width: 100%;
+      }
+      .pro-tip {
+        break-inside: avoid;
+      }
+      h2 {
+        break-before: page;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class=\"guide-container\">
+    <header>
+      <div class=\"badge\">Creator Dashboard</div>
+      <h1>Yaaazz Creative Co.<br>CMS User Guide</h1>
+      <p>A comprehensive walkthrough for managing your products, visuals, and site experience with ease.</p>
+    </header>
+
+    <section>
+      <h2>🛍️ 1. Managing Products</h2>
+      <p>Your store’s heart is the <code>Shop Settings — Products</code> collection. This is where you bring your creations to life.</p>
+      <div class=\"card\">
+        <h3>Essential Configuration</h3>
+        <ul>
+          <li><strong>Title & Slug:</strong> Use descriptive titles. Slugs should be lowercase and hyphenated (e.g., <code>humble-roots-journal</code>).</li>\n          <li><strong>Pricing:</strong> Input numbers only. If you set a \"Sale Price\", the site automatically marks down the original price for you.</li>
+          <li><strong>Status:</strong> Use <code>In Stock</code> for regular sales, <code>Pre-Order</code> for upcoming drops, and <code>Sold Out</code> to temporarily disable purchasing.</li>
+        </ul>
+      </div>
+
+      <h3>🔢 The Logic of Sort Order</h3>
+      <p>Manual sorting gives you the power to curate your layout. The site sorts numerically from lowest to highest.</p>\n      <div class=\"pro-tip\">\n        <h3>Pro Sorting Hack</h3>\n        <p>Instead of numbering 1, 2, 3, use <strong>multiples of 10</strong> (10, 20, 30). If you add a new \"Best Seller\" later, you can simply label it <code>15</code> to place it exactly where you want without moving every other product.</p>\n      </div>\n    </section>\n\n    <section>\n      <h2>🏷️ 2. Categories Builder</h2>\n      <p>Categories organize your shop and determine where products appear. Each category can be given its own unique landing page identity.</p>\n      <ul>\n        <li><strong>Visual Icons:</strong> Select from the curated list of symbols (Sparkles, Hearts, Stationery) to match the vibe.</li>\n        <li><strong>Landing Pages:</strong> Toggle <code>Enable Landing Page</code> to true to create a dedicated space for that collection.</li>\n      </ul>\n    </section>\n\n    <section>\n      <h2>🙏 3. Devotionals Features</h2>\n      <p>The Devotionals page includes special interactive features to engage your community.</p>\n      <div class=\"card\">\n        <h3>Prompt of the Month</h3>\n        <p>The site is pre-programmed with a year-round rotating list of prompts. You can override these anytime by filling in the <code>Prompt title</code> and <code>Prompt quote</code> fields in the Devotionals Settings.</p>\n      </div>\n    </section>\n\n    <section>\n      <h2>⚙️ 4. Global Look & Feel</h2>\n      <p>Control the navigation and branding through <code>General Settings</code>.</p>\n      <ul>\n        <li><strong>Nav Anchors:</strong> Set the <code>Active ID</code> to the category slug to ensure the menu underlines correctly.</li>\n        <li><strong>Payment Flows:</strong> Update your <strong>GCash QR code</strong> and <strong>Flat Rate Shipping</strong> in the Cart Settings to ensure smooth checkouts.</li>\n      </ul>\n    </section>\n\n    <div class=\"footer\">\n      &copy; 2026 Yaaazz Creative Co. — Always create with love. ✨\n    </div>\n  </div>\n</body>\n</html>
