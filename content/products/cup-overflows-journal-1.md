@@ -13,7 +13,7 @@ is_curator_pick: true
 is_best_seller: false
 is_new_arrival: true
 show_in_shop: true
-order: 0
+order: 7
 tags:
   - 50 Days 50 Verses
   - Space & Prayer
