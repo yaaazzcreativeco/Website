@@ -13,7 +13,7 @@ is_curator_pick: true
 is_best_seller: false
 is_new_arrival: false
 show_in_shop: true
-order: 1
+order: 0
 tags:
   - 90 Days Planner
   - Doodle Notes
