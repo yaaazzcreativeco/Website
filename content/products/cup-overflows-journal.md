@@ -11,7 +11,7 @@ sales_badge: sale
 promo_badge: none
 is_curator_pick: true
 is_best_seller: false
-is_new_arrival: false
+is_new_arrival: true
 show_in_shop: true
 order: 0
 tags:
