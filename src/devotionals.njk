@@ -38,99 +38,131 @@ activeNav: devotionals
 
 
   {% set devoItems = products | devotionalProducts %}
-  {% if devoItems | length == 0 %}
-    <div class="relative bg-tertiary-container/30 p-10 rounded-xl flex flex-col items-center justify-center text-center overflow-hidden scrapbook-rotate-1 border-2 border-dashed border-tertiary">
-      <span class="material-symbols-outlined text-4xl text-tertiary mb-4">auto_awesome</span>
-      <h3 class="font-headline text-3xl font-black text-on-tertiary-container mb-4">{{ devotionalsSettings.bundle_title | default("Bundle & Save!") }}</h3>
-      <p class="text-on-tertiary-container/80 mb-8 font-medium">{{ devotionalsSettings.bundle_description | default("Grab any 3 devotionals and get a free sticker sheet of your choice.") }}</p>
-      <a href="{{ (devotionalsSettings.bundle_cta_link | default('/bundle/')) | sitePath | url }}" class="bg-primary-dim text-on-primary px-8 py-3 rounded-full font-headline font-black uppercase tracking-widest text-sm shadow-xl hover:scale-110 transition-transform inline-block">{{ devotionalsSettings.bundle_cta_text | default("Get the Bundle") }}</a>
-    </div>
-  {% endif %}
 
-  {% for p in devoItems %}
-    {% set idx = loop.index0 %}
-    <a href="{{ ('/product/' ~ p.slug ~ '/') | url }}" class="block group cursor-pointer lg:pl-0">
-      <div class="relative mb-6 rounded-xl bg-surface-container-low p-6 transition-transform duration-300 shadow-sm border border-outline-variant/20 h-full flex flex-col {% if idx == 0 %}group-hover:-translate-y-2{% elif idx == 1 %}group-hover:rotate-1{% elif idx == 2 %}group-hover:-rotate-1{% elif idx == 3 %}group-hover:scale-[1.02]{% else %}group-hover:-translate-y-2{% endif %}">
-        {% if loop.first %}
-        <article 
-          class="js-prompt-sticky absolute -top-8 -left-4 w-5/6 scrapbook-rotate-2 z-30 pointer-events-none group-hover:scale-105 transition-transform"
-          data-prompts='{{ devotionalsSettings.monthly_prompts | dump | escape }}'
-          data-override-text="{{ devotionalsSettings.prompt_text | escape }}"
-          data-override-title="{{ devotionalsSettings.prompt_title | escape }}"
-        >
-          <div class="bg-[#fff9c4] p-6 shadow-2xl border-t-8 border-yellow-200 relative">
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-20 h-8 bg-secondary-container/60 washi-tape rotate-[-2deg]" aria-hidden="true"></div>
-            <span class="material-symbols-outlined text-yellow-600 block mb-2">edit_note</span>
-            <h3 class="font-headline font-bold text-on-surface text-sm mb-2">Prompt of the Month</h3>
-            
-            <p id="prompt-text-display" class="font-handwritten text-xl text-on-surface italic mb-4 leading-snug">
-              {{ devotionalsSettings.prompt_text | default("Seek His presence in the quiet moments today.") }}
-            </p>
-            
-            <div class="flex justify-end">
-              <span id="prompt-title-display" class="text-[10px] uppercase font-black text-yellow-600/40">
-                {{ devotionalsSettings.prompt_title | default("This season") }}
-              </span>
+  {# 1. First 4 Slots: Products or Placeholders #}
+  {% for i in range(0, 4) %}
+    {% if i < devoItems.length %}
+      {% set p = devoItems[i] %}
+      {% set idx = i %}
+      <a href="{{ ('/product/' ~ p.slug ~ '/') | url }}" class="block group cursor-pointer lg:pl-0">
+        <div class="relative mb-6 rounded-xl bg-surface-container-low p-6 transition-transform duration-300 shadow-sm border border-outline-variant/20 h-full flex flex-col {% if idx == 0 %}group-hover:-translate-y-2{% elif idx == 1 %}group-hover:rotate-1{% elif idx == 2 %}group-hover:-rotate-1{% elif idx == 3 %}group-hover:scale-[1.02]{% else %}group-hover:-translate-y-2{% endif %}">
+          {% if i == 0 %}
+          <article 
+            class="js-prompt-sticky absolute -top-8 -left-4 w-5/6 scrapbook-rotate-2 z-30 pointer-events-none group-hover:scale-105 transition-transform"
+            data-prompts='{{ devotionalsSettings.monthly_prompts | dump | escape }}'
+            data-override-text="{{ devotionalsSettings.prompt_text | escape }}"
+            data-override-title="{{ devotionalsSettings.prompt_title | escape }}"
+          >
+            <div class="bg-[#fff9c4] p-6 shadow-2xl border-t-8 border-yellow-200 relative">
+              <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-20 h-8 bg-secondary-container/60 washi-tape rotate-[-2deg]" aria-hidden="true"></div>
+              <span class="material-symbols-outlined text-yellow-600 block mb-2">edit_note</span>
+              <h3 class="font-headline font-bold text-on-surface text-sm mb-2">Prompt of the Month</h3>
+              <p id="prompt-text-display" class="font-handwritten text-xl text-on-surface italic mb-4 leading-snug">
+                {{ devotionalsSettings.prompt_text | default("Seek His presence in the quiet moments today.") }}
+              </p>
+              <div class="flex justify-end">
+                <span id="prompt-title-display" class="text-[10px] uppercase font-black text-yellow-600/40">
+                  {{ devotionalsSettings.prompt_title | default("This season") }}
+                </span>
+              </div>
             </div>
+          </article>
+          <script>
+            (function() {
+              const container = document.querySelector('.js-prompt-sticky');
+              if (!container) return;
+              const overrideText = container.dataset.overrideText;
+              const overrideTitle = container.dataset.overrideTitle;
+              try {
+                const prompts = JSON.parse(container.dataset.prompts || '[]');
+                const now = new Date();
+                const current = prompts[now.getMonth()];
+                if (current) {
+                  const textEl = document.getElementById('prompt-text-display');
+                  const titleEl = document.getElementById('prompt-title-display');
+                  if (textEl && !overrideText) textEl.textContent = current.text;
+                  if (titleEl && !overrideTitle) titleEl.textContent = current.month + ' ' + now.getFullYear();
+                }
+              } catch (e) { console.warn("Auto-prompt error:", e); }
+            })();
+          </script>
+          {% endif %}
+          <div class="aspect-[3/4] overflow-hidden rounded-lg mb-6 bg-white/50">
+            {% image p.image, p.title, "w-full h-full object-contain p-2", "400px" %}
           </div>
-        </article>
-
-        <script>
-          (function() {
-            const container = document.querySelector('.js-prompt-sticky');
-            if (!container) return;
-            
-            const overrideText = container.dataset.overrideText;
-            const overrideTitle = container.dataset.overrideTitle;
-            
-            try {
-              const prompts = JSON.parse(container.dataset.prompts || '[]');
-              const now = new Date();
-              const current = prompts[now.getMonth()];
-              
-              if (current) {
-                const textEl = document.getElementById('prompt-text-display');
-                const titleEl = document.getElementById('prompt-title-display');
-                
-                if (textEl && !overrideText) textEl.textContent = current.text;
-                if (titleEl && !overrideTitle) titleEl.textContent = current.month + ' ' + now.getFullYear();
-              }
-            } catch (e) { console.warn("Auto-prompt error:", e); }
-          })();
-        </script>
-        {% endif %}
-        <div class="aspect-[3/4] overflow-hidden rounded-lg mb-6 bg-white/50">
-          {% image p.image, p.title, "w-full h-full object-contain p-2", "400px" %}
+          {{ macros.smartBadge(p) }}
+          <h3 class="font-headline text-2xl font-black text-primary mb-1">{{ p.title }}</h3>
+          <p class="text-sm text-on-surface-variant mb-4 font-medium italic flex-grow">{{ p.subtitle }}</p>
+          <div class="flex justify-between items-center mt-auto pt-4 w-full gap-3">
+            {{ macros.priceDisplay(p, "text-xl") }}
+            <button
+              type="button"
+              class="js-add-cart bg-primary text-on-primary px-5 py-2 rounded-full font-headline text-sm font-bold shadow-md hover:scale-105 active:scale-95 transition-all{% if p.stock_status == 'out_of_stock' %} opacity-50 pointer-events-none{% endif %}"
+              data-slug="{{ p.slug }}"
+              data-title="{{ p.title | escape }}"
+              data-price="{{ p.price }}"
+              data-image="{{ p.image | escape }}"
+              data-subtitle="{{ p.subtitle | escape }}"
+              data-preorder="{% if p.stock_status == 'pre_order' %}true{% else %}false{% endif %}"
+              {% if p.stock_status == "out_of_stock" %}disabled{% endif %}
+            >Add to Cart</button>
+          </div>
         </div>
-        {{ macros.smartBadge(p) }}
-        <h3 class="font-headline text-2xl font-black text-primary mb-1">{{ p.title }}</h3>
-        <p class="text-sm text-on-surface-variant mb-4 font-medium italic flex-grow">{{ p.subtitle }}</p>
-        <div class="flex justify-between items-center mt-auto pt-4 w-full gap-3">
-          {{ macros.priceDisplay(p, "text-xl") }}
-          <button
-            type="button"
-            class="js-add-cart bg-primary text-on-primary px-5 py-2 rounded-full font-headline text-sm font-bold shadow-md hover:scale-105 active:scale-95 transition-all{% if p.stock_status == 'out_of_stock' %} opacity-50 pointer-events-none{% endif %}"
-            data-slug="{{ p.slug }}"
-            data-title="{{ p.title | escape }}"
-            data-price="{{ p.price }}"
-            data-image="{{ p.image | escape }}"
-            data-subtitle="{{ p.subtitle | escape }}"
-            data-preorder="{% if p.stock_status == 'pre_order' %}true{% else %}false{% endif %}"
-            {% if p.stock_status == "out_of_stock" %}disabled{% endif %}
-          >Add to Cart</button>
+      </a>
+    {% else %}
+      {# Placeholder #}
+      <div class="relative mb-6 rounded-xl bg-surface-container-low/30 p-8 border-2 border-dashed border-outline-variant/20 h-full flex flex-col items-center justify-center text-center group">
+        <div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-4 transition-transform group-hover:scale-110">
+          <span class="material-symbols-outlined text-outline-variant text-4xl">edit_calendar</span>
         </div>
-      </div>
-    </a>
-
-    {% if loop.index == 1 %}
-      <div class="relative bg-tertiary-container/30 p-10 rounded-xl flex flex-col items-center justify-center text-center overflow-hidden scrapbook-rotate-1 md:col-span-2 lg:col-span-1 border-2 border-dashed border-tertiary">
-        <span class="material-symbols-outlined text-4xl text-tertiary mb-4">auto_awesome</span>
-        <h3 class="font-headline text-3xl font-black text-on-tertiary-container mb-4">{{ devotionalsSettings.bundle_title | default("Bundle & Save!") }}</h3>
-        <p class="text-on-tertiary-container/80 mb-8 font-medium">{{ devotionalsSettings.bundle_description | default("Grab any 3 devotionals and get a free sticker sheet of your choice.") }}</p>
-        <a href="{{ (devotionalsSettings.bundle_cta_link | default('/bundle/')) | sitePath | url }}" class="bg-primary-dim text-on-primary px-8 py-3 rounded-full font-headline font-black uppercase tracking-widest text-sm shadow-xl hover:scale-110 transition-transform inline-block">{{ devotionalsSettings.bundle_cta_text | default("Get the Bundle") }}</a>
+        <p class="font-handwritten text-xl text-on-surface-variant/60 font-bold">New Arrival loading...</p>
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-12 h-6 bg-outline-variant/10 washi-tape opacity-30"></div>
       </div>
     {% endif %}
   {% endfor %}
+
+  {# 2. Bundle Card (5th Slot) #}
+  <div class="relative bg-tertiary-container/30 p-10 rounded-xl flex flex-col items-center justify-center text-center overflow-hidden scrapbook-rotate-1 md:col-span-2 lg:col-span-1 border-2 border-dashed border-tertiary shadow-xl group hover:rotate-0 transition-all">
+    <div class="absolute -top-10 -right-10 w-32 h-32 bg-tertiary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+    <span class="material-symbols-outlined text-4xl text-tertiary mb-4 animate-pulse">auto_awesome</span>
+    <h3 class="font-headline text-3xl font-black text-on-tertiary-container mb-4">{{ devotionalsSettings.bundle_title | default("Bundle & Save!") }}</h3>
+    <p class="text-on-tertiary-container/80 mb-8 font-medium">{{ devotionalsSettings.bundle_description | default("Grab any 3 devotionals and get a free sticker sheet of your choice.") }}</p>
+    <a href="{{ (devotionalsSettings.bundle_cta_link | default('/bundle/')) | sitePath | url }}" class="bg-primary-dim text-on-primary px-8 py-3 rounded-full font-headline font-black uppercase tracking-widest text-sm shadow-xl hover:scale-110 transition-transform inline-block">
+      {{ devotionalsSettings.bundle_cta_text | default("Get the Bundle") }}
+    </a>
+  </div>
+
+  {# 3. Remaining Products (if any) #}
+  {% if devoItems.length > 4 %}
+    {% for i in range(4, devoItems.length) %}
+      {% set p = devoItems[i] %}
+      {% set idx = i %}
+      <a href="{{ ('/product/' ~ p.slug ~ '/') | url }}" class="block group cursor-pointer lg:pl-0">
+        <div class="relative mb-6 rounded-xl bg-surface-container-low p-6 transition-transform duration-300 shadow-sm border border-outline-variant/20 h-full flex flex-col group-hover:-translate-y-2">
+          <div class="aspect-[3/4] overflow-hidden rounded-lg mb-6 bg-white/50">
+            {% image p.image, p.title, "w-full h-full object-contain p-2", "400px" %}
+          </div>
+          {{ macros.smartBadge(p) }}
+          <h3 class="font-headline text-2xl font-black text-primary mb-1">{{ p.title }}</h3>
+          <p class="text-sm text-on-surface-variant mb-4 font-medium italic flex-grow">{{ p.subtitle }}</p>
+          <div class="flex justify-between items-center mt-auto pt-4 w-full gap-3">
+            {{ macros.priceDisplay(p, "text-xl") }}
+            <button
+              type="button"
+              class="js-add-cart bg-primary text-on-primary px-5 py-2 rounded-full font-headline text-sm font-bold shadow-md hover:scale-105 active:scale-95 transition-all{% if p.stock_status == 'out_of_stock' %} opacity-50 pointer-events-none{% endif %}"
+              data-slug="{{ p.slug }}"
+              data-title="{{ p.title | escape }}"
+              data-price="{{ p.price }}"
+              data-image="{{ p.image | escape }}"
+              data-subtitle="{{ p.subtitle | escape }}"
+              data-preorder="{% if p.stock_status == 'pre_order' %}true{% else %}false{% endif %}"
+              {% if p.stock_status == "out_of_stock" %}disabled{% endif %}
+            >Add to Cart</button>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  {% endif %}
 </section>
 
 <section class="mt-24 mb-12 px-6 max-w-7xl mx-auto relative">
