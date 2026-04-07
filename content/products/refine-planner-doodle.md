@@ -11,12 +11,13 @@ sales_badge: sale
 promo_badge: none
 is_curator_pick: true
 is_best_seller: false
-is_new_arrival: false
+is_new_arrival: true
 show_in_shop: true
-order: 1
+order: 0
 tags:
   - 90 Days Planner
   - Doodle Notes
   - Plan & Create
+thumbnails: []
 ---
 This set includes a colorful planner with 90 days of guided planning and a doodle notebook with 160 pages. Its cover reads ‘A Beautiful Transformation in Progress’, a gentle affirmation of your journey.
