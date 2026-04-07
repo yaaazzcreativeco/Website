@@ -6,6 +6,8 @@ pagination:
   addAllPagesToCollections: true
 permalink: "/{{ cat.slug }}/index.html"
 layout: base.njk
+eleventyComputed:
+  activeNav: "{{ cat.slug }}"
 ---
 {% import "macros.njk" as macros %}
 <section class="max-w-7xl mx-auto px-6 pt-8 pb-24">
