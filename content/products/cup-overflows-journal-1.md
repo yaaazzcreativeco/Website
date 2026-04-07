@@ -1,8 +1,8 @@
 ---
 title: Cup Overflows Journal
 slug: cup-overflow
-price: 150
-sale_price: 125
+price: 199
+sale_price: 149
 subtitle: 50-Day Bible Verse Journey
 image: /static/img/uploads/gemini_generated_image_vbnlbpvbnlbpvbnl.png
 category: /builder-devotional/
