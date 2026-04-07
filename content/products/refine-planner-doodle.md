@@ -15,7 +15,7 @@ is_new_arrival: false
 show_in_shop: true
 order: 1
 tags:
-  - 60 Days Planner
+  - 90 Days Planner
   - Doodle Notes
   - Plan & Create
 ---
