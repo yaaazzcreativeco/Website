@@ -9,7 +9,7 @@ category: /builder-devotional/
 stock_status: pre_order
 sales_badge: sale
 promo_badge: new_arrival
-is_curator_pick: false
+is_curator_pick: true
 is_best_seller: false
 is_new_arrival: true
 show_in_shop: true
