@@ -4,7 +4,7 @@ slug: cup-overflows
 price: 199
 sale_price: 149
 subtitle: Set of 2 Items
-image: /static/img/uploads/untitled-design-1-.jpg
+image: /static/img/uploads/727cadfb-4f49-48b1-b520-381908a2f90f.jpg
 category: bundle
 stock_status: pre_order
 sales_badge: sale
