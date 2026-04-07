@@ -1,6 +1,6 @@
 ---
 name: Devotionals
-slug: /builder-devotional/
+slug: devotional
 icon: favorite
 order: 3
 is_page_active: true

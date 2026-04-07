@@ -37,7 +37,17 @@ activeNav: devotionals
 <section class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 relative pb-8">
 
 
-  {% for p in products | devotionalProducts %}
+  {% set devoItems = products | devotionalProducts %}
+  {% if devoItems | length == 0 %}
+    <div class="relative bg-tertiary-container/30 p-10 rounded-xl flex flex-col items-center justify-center text-center overflow-hidden scrapbook-rotate-1 border-2 border-dashed border-tertiary">
+      <span class="material-symbols-outlined text-4xl text-tertiary mb-4">auto_awesome</span>
+      <h3 class="font-headline text-3xl font-black text-on-tertiary-container mb-4">{{ devotionalsSettings.bundle_title | default("Bundle & Save!") }}</h3>
+      <p class="text-on-tertiary-container/80 mb-8 font-medium">{{ devotionalsSettings.bundle_description | default("Grab any 3 devotionals and get a free sticker sheet of your choice.") }}</p>
+      <a href="{{ (devotionalsSettings.bundle_cta_link | default('/bundle/')) | sitePath | url }}" class="bg-primary-dim text-on-primary px-8 py-3 rounded-full font-headline font-black uppercase tracking-widest text-sm shadow-xl hover:scale-110 transition-transform inline-block">{{ devotionalsSettings.bundle_cta_text | default("Get the Bundle") }}</a>
+    </div>
+  {% endif %}
+
+  {% for p in devoItems %}
     {% set idx = loop.index0 %}
     <a href="{{ ('/product/' ~ p.slug ~ '/') | url }}" class="block group cursor-pointer lg:pl-0">
       <div class="relative mb-6 rounded-xl bg-surface-container-low p-6 transition-transform duration-300 shadow-sm border border-outline-variant/20 h-full flex flex-col {% if idx == 0 %}group-hover:-translate-y-2{% elif idx == 1 %}group-hover:rotate-1{% elif idx == 2 %}group-hover:-rotate-1{% elif idx == 3 %}group-hover:scale-[1.02]{% else %}group-hover:-translate-y-2{% endif %}">
@@ -112,7 +122,7 @@ activeNav: devotionals
       </div>
     </a>
 
-    {% if loop.index == 4 %}
+    {% if loop.index == 1 %}
       <div class="relative bg-tertiary-container/30 p-10 rounded-xl flex flex-col items-center justify-center text-center overflow-hidden scrapbook-rotate-1 md:col-span-2 lg:col-span-1 border-2 border-dashed border-tertiary">
         <span class="material-symbols-outlined text-4xl text-tertiary mb-4">auto_awesome</span>
         <h3 class="font-headline text-3xl font-black text-on-tertiary-container mb-4">{{ devotionalsSettings.bundle_title | default("Bundle & Save!") }}</h3>
