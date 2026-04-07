@@ -1,5 +1,5 @@
 ---
-title: "Cup Overflows Journal "
+title: Cup Overflows Bundles
 slug: cup-overflows
 price: 199
 sale_price: 149
