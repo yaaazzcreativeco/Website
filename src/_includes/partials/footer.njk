@@ -53,8 +53,190 @@
     {% endif %}
   </div>
   {% endif %}
-  <p class="font-handwritten text-3xl text-[#7d4d5f]/60 mt-4">Stay creative, yaaazz! ✨</p>
+  <p class="font-handwritten text-3xl text-[#7d4d5f]/60 mt-8">Stay creative, yaaazz! ✨</p>
   <p class="text-sm font-body text-on-surface-variant/60 mt-8">
     © {{ settings.copyright_year | default("2026") }} {{ settings.site_name | default("Yaaazz Creative Co.") }}. Hand-crafted with love.
   </p>
 </footer>
+
+<!-- Intelligent Artist Tag (Realistic Crumple/Unroll) -->
+<button 
+  id="artist-tag" 
+  class="fixed bottom-6 left-6 z-[9990] bg-tertiary-fixed text-on-tertiary-fixed shadow-md flex items-center overflow-hidden cursor-pointer translate-y-[150%] opacity-0 transition-opacity duration-500 ease-out"
+  aria-label="View Site Credits"
+>
+  <!-- Main Icon -->
+  <div class="w-12 h-12 flex items-center justify-center shrink-0 z-20">
+    <span id="artist-tag-icon" class="material-symbols-outlined text-xl transition-all duration-700">auto_awesome</span>
+  </div>
+  <!-- Text Content -->
+  <div id="artist-tag-content" class="max-w-0 opacity-0 overflow-hidden whitespace-nowrap z-10">
+    <span class="font-handwritten text-base pr-8 pl-1">Handcrafted by Yaaazz Co. ✨</span>
+  </div>
+</button>
+
+<!-- Site Credits Modal -->
+<div id="credits-modal" class="fixed inset-0 z-[10000] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+  <div class="absolute inset-0 bg-[#100e05]/60 backdrop-blur-md" id="credits-overlay"></div>
+  <div class="relative bg-surface-container-low/95 backdrop-blur-xl w-full max-w-sm rounded-[2.5rem] p-10 shadow-2xl border-2 border-surface-variant/50 transform scale-90 transition-transform duration-300 overflow-hidden" id="credits-card">
+    <div class="absolute top-6 right-8 text-primary/10 select-none"><span class="material-symbols-outlined text-6xl">auto_awesome</span></div>
+    <div class="absolute bottom-6 left-8 text-secondary/10 select-none rotate-12"><span class="material-symbols-outlined text-5xl">auto_awesome</span></div>
+    <div class="relative z-10 text-center space-y-8">
+      <header class="space-y-2">
+        <div class="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-[10px] font-headline font-bold uppercase tracking-wider">Digital Craft Studio ✨</div>
+        <h3 class="font-headline font-black text-3xl text-primary tracking-tight">Site Credits</h3>
+      </header>
+      <div class="space-y-6">
+        <div class="space-y-2">
+          <p class="font-body text-on-surface-variant/60 text-xs uppercase tracking-widest font-bold">Created by</p>
+          <p class="font-headline font-black text-2xl text-primary">Yaaazz Creative Co.</p>
+        </div>
+        <p class="text-sm italic text-on-surface-variant font-body px-2 leading-relaxed">"I specialize in building creative, high-performing websites for makers and dreamers."</p>
+        <p class="text-[9px] font-headline font-bold text-on-surface-variant/40 uppercase tracking-[0.2em]">Static Websites • Creative Add-ons</p>
+      </div>
+      <div class="pt-4">
+        <a href="{{ '/contact/' | url }}?subject=Website%20Builder%20Inquiry&message=Hi%20Yaaazz%20Creative%20Co!%20I'm%20absolutely%20in%20love%20with%20the%20vibe%20of%20this%20website.%20I'm%20interested%20in%20building%20a%20creative%20space%20like%20this%20for%20my%20own%20project.%20Could%20we%20chat%20about%20how%20to%20get%20started%20with%20a%20static%20site%20and%20some%20magic%20add-ons%3F" class="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-primary-dim text-on-primary font-headline font-extrabold text-lg px-8 py-4 rounded-full shadow-lg hover:scale-[1.03] active:scale-95 transition-all group w-full justify-center">
+          Build your magic!<span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+    <button id="close-credits" class="absolute top-6 left-6 text-on-surface-variant/30 hover:text-primary transition-colors cursor-pointer group"><span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform">close</span></button>
+  </div>
+</div>
+
+<style>
+  #artist-tag {
+    /* Initial 'Ball' State */
+    width: 48px;
+    height: 48px;
+    clip-path: polygon(45% 5%, 65% 10%, 85% 25%, 95% 45%, 90% 70%, 75% 85%, 55% 95%, 35% 90%, 15% 75%, 5% 50%, 10% 25%, 25% 10%);
+    background: radial-gradient(circle at 35% 35%, #fad3fd 0%, #ebc5ef 60%, #ce95d2 100%);
+    transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                clip-path 0.6s ease-in-out, 
+                transform 0.5s ease;
+  }
+  
+  #artist-tag.unrolled {
+    width: 250px;
+    clip-path: polygon(0% 0%, 50% 0%, 100% 0%, 100% 0%, 100% 50%, 100% 100%, 100% 100%, 50% 100%, 0% 100%, 0% 100%, 0% 50%, 0% 0%);
+    mask-image: url("data:image/svg+xml,%3Csvg width='200' height='40' viewBox='0 0 200 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 5 L10 0 L20 5 L30 2 L40 6 L50 1 L60 5 L70 0 L80 4 L90 1 L100 5 L110 0 L120 4 L130 1 L140 5 L150 0 L160 4 L170 1 L180 5 L190 0 L200 5 V35 L190 40 L180 35 L170 38 L160 34 L150 39 L140 35 L130 40 L120 36 L110 40 L100 35 L90 39 L80 35 L70 40 L60 36 L50 40 L40 35 L30 38 L20 34 L10 39 L0 35 Z' fill='black'/%3E%3C/svg%3E");
+    mask-size: 100% 100%;
+    background: #fad3fd; /* Solid color for masked strip */
+  }
+
+  #artist-tag-content {
+    transition: max-width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease-in-out;
+  }
+
+  @keyframes artist-hint-shake {
+    0% { transform: rotate(0deg) scale(1.1); }
+    20% { transform: rotate(2deg) scale(1.1); }
+    40% { transform: rotate(-2deg) scale(1.1); }
+    60% { transform: rotate(2deg) scale(1.1); }
+    80% { transform: rotate(-2deg) scale(1.1); }
+    100% { transform: rotate(0deg) scale(1.1); }
+  }
+
+  /* Only shake when both unrolled AND hovered */
+  #artist-tag.unrolled:hover {
+    animation: artist-hint-shake 0.5s infinite ease-in-out;
+  }
+</style>
+
+<script>
+  (function() {
+    const tag = document.getElementById('artist-tag');
+    const icon = document.getElementById('artist-tag-icon');
+    const content = document.getElementById('artist-tag-content');
+    const modal = document.getElementById('credits-modal');
+    const card = document.getElementById('credits-card');
+    const closeBtn = document.getElementById('close-credits');
+    const overlay = document.getElementById('credits-overlay');
+
+    if (!tag) return;
+
+    let isPeriodic = false;
+    let isHovered = false;
+
+    // 1. Intelligent Hiding (Scroll)
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const bodyHeight = document.body.offsetHeight;
+      const isAtTop = scrollY < 120;
+      const isAtBottom = (windowHeight + scrollY) > (bodyHeight - 500);
+
+      if (isAtTop || isAtBottom) {
+        tag.style.transform = 'translateY(0)';
+        tag.style.opacity = '1';
+        tag.style.pointerEvents = 'auto';
+      } else {
+        tag.style.transform = 'translateY(150%)';
+        tag.style.opacity = '0';
+        tag.style.pointerEvents = 'none';
+        isPeriodic = false;
+        updateUI();
+      }
+    }, { passive: true });
+
+    // 2. UI State Management
+    function updateUI() {
+      const active = isPeriodic || isHovered;
+      if (active) {
+        tag.classList.add('unrolled');
+        content.style.maxWidth = '300px';
+        content.style.opacity = '1';
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        tag.classList.remove('unrolled');
+        content.style.maxWidth = '0';
+        content.style.opacity = '0';
+        icon.style.transform = 'rotate(0deg)';
+      }
+    }
+
+    // Hover Listeners
+    tag.addEventListener('mouseenter', () => {
+      isHovered = true;
+      updateUI();
+    });
+    tag.addEventListener('mouseleave', () => {
+      isHovered = false;
+      updateUI();
+    });
+
+    // Periodic Reveal
+    setInterval(() => {
+      if (tag.style.opacity === '1' && !isHovered) {
+        isPeriodic = true;
+        updateUI();
+        setTimeout(() => {
+          isPeriodic = false;
+          updateUI();
+        }, 4500);
+      }
+    }, 15000);
+
+    // Initial check
+    setTimeout(() => window.dispatchEvent(new Event('scroll')), 500);
+
+    // 3. Modal Controls
+    tag.addEventListener('click', () => {
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      card.classList.remove('scale-90');
+      document.body.style.overflow = 'hidden';
+    });
+
+    const closeModal = () => {
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      card.classList.add('scale-90');
+      document.body.style.overflow = '';
+    };
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (overlay) overlay.addEventListener('click', closeModal);
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('opacity-0')) closeModal();
+    });
+  })();
+</script>
