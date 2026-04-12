@@ -195,14 +195,19 @@
       }
     }
 
-    // Hover Listeners
+    // Hover Listeners with Debounce to prevent 'rebounce' flickering
+    let leaveTimeout;
     tag.addEventListener('mouseenter', () => {
+      clearTimeout(leaveTimeout);
       isHovered = true;
       updateUI();
     });
     tag.addEventListener('mouseleave', () => {
-      isHovered = false;
-      updateUI();
+      // Small delay ensures we don't 'jitter' if the mouse is on the edge
+      leaveTimeout = setTimeout(() => {
+        isHovered = false;
+        updateUI();
+      }, 200); 
     });
 
     // Periodic Reveal
