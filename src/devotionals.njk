@@ -171,8 +171,6 @@ activeNav: devotionals
       <h2 class="font-headline text-4xl md:text-5xl font-black text-primary mb-6 leading-tight">Join our creative <br/>prayer community</h2>
       <p class="text-lg text-on-surface-variant mb-8">Get weekly prompts, free phone wallpapers, and early access to new journal drops.</p>
       <form id="community-form" class="flex flex-col sm:flex-row gap-4" action="{{ '/contact/' | url }}" method="GET" autocomplete="off">
-        <input name="subject" type="hidden" value="Prayer Community"/>
-        <input name="message" type="hidden" value="I'm falling in love with this creative community! ✨ I'd be so honored to join the prayer circle. Please count me in for all the prompts and inspiration!"/>
         <input id="community-email" class="flex-1 px-6 py-4 rounded-full border-none bg-surface-container-high text-on-surface focus:ring-2 focus:ring-primary-container transition-all" placeholder="your-email@creative.com" type="email" required name="email" autocomplete="new-password"/>
         <button type="submit" class="bg-primary-dim text-on-primary px-10 py-4 rounded-full font-headline font-black uppercase tracking-widest text-sm shadow-xl hover:scale-105 transition-all text-center inline-flex items-center justify-center border-none cursor-pointer">Join with Love ✨</button>
       </form>
@@ -220,6 +218,9 @@ activeNav: devotionals
             emailField.classList.remove('pulse-effect');
             form.classList.remove('animate-shake');
           }, 800);
+        } else {
+          sessionStorage.setItem('prefill_subject', 'Prayer Community');
+          sessionStorage.setItem('prefill_message', "I'm falling in love with this creative community! ✨ I'd be so honored to join the prayer circle. Please count me in for all the prompts and inspiration!");
         }
       });
 

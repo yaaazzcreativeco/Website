@@ -219,8 +219,13 @@ bodyClass: page-contact-dots
     // 1. Auto-populate from URL AND dynamic Subject
     const params = new URLSearchParams(window.location.search);
     const email = params.get('email');
-    const messageParam = params.get('message');
-    const subjectParam = params.get('subject');
+    
+    // Check sessionStorage FIRST before falling back to URL params
+    const sessionSubject = sessionStorage.getItem('prefill_subject');
+    const sessionMessage = sessionStorage.getItem('prefill_message');
+    
+    const messageParam = sessionMessage || params.get('message');
+    const subjectParam = sessionSubject || params.get('subject');
     const returnMsgId = params.get('return_msg');
 
     const RETURN_REASON_PRESETS = {
@@ -352,6 +357,8 @@ bodyClass: page-contact-dots
             return data;
           })
           .then(function () {
+            sessionStorage.removeItem('prefill_subject');
+            sessionStorage.removeItem('prefill_message');
             form.innerHTML = `
               <div class="text-center pt-16 pb-12 animate-fade-in">
                 <div class="inline-flex items-center justify-center w-20 h-20 bg-primary-container rounded-full mb-6 relative">

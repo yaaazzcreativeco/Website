@@ -148,21 +148,22 @@ bodyClass: page-contact-dots
   (function () {
     var contactPath = {{ '/contact/' | url | dump | safe }};
     var RETURN_SUBJECT = "Return & Exchange Request";
+    var RETURN_REASON_PRESETS = {
+      "1": "I'm starting a return: my item arrived damaged or defective.\n\nOrder / tracking (if any):\n\n",
+      "2": "I'm requesting an exchange for a different product or variant.\n\nWhat I ordered vs what I need:\n\n",
+      "3": "I'd like to return an unused item in original condition.\n\nReason:\n\n",
+      "4": "My package never arrived. Please help with a lost parcel or reship.\n\nLast known tracking:\n\n",
+      "5": "I received the wrong item and need a return or exchange.\n\nWhat I got vs what I ordered:\n\n"
+    };
     var sel = document.getElementById("return-reason-select");
     var link = document.getElementById("shipping-return-link");
     if (!sel || !link) return;
-    function buildHref() {
+
+    link.setAttribute("href", contactPath);
+    link.addEventListener("click", function() {
       var id = sel.value || "1";
-      var q = new URLSearchParams();
-      q.set("subject", RETURN_SUBJECT);
-      q.set("return_msg", id);
-      var sep = contactPath.indexOf("?") >= 0 ? "&" : "?";
-      return contactPath + sep + q.toString();
-    }
-    function sync() {
-      link.setAttribute("href", buildHref());
-    }
-    sel.addEventListener("change", sync);
-    sync();
+      sessionStorage.setItem('prefill_subject', RETURN_SUBJECT);
+      sessionStorage.setItem('prefill_message', RETURN_REASON_PRESETS[id]);
+    });
   })();
 </script>
