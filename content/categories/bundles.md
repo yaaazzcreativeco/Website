@@ -1,7 +1,7 @@
 ---
 name: Bundles
 slug: bundle
-icon: inventory_2
+icon: home_storage
 order: 2
 is_page_active: true
 page_title: Devotional Bundles
