@@ -3,7 +3,24 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>{% if title %}{{ title }} | {% endif %}{{ settings.site_name | default("Yaaazz Creative Co.") }}</title>
+  
+  {% set currentTitle = title + " | " + settings.site_name if title else settings.site_name %}
+  {% set currentDescription = description | default(settings.site_description) %}
+  {% set currentUrl = settings.site_url + page.url %}
+  {% set currentImage = main_image | default(settings.logo_url) | sitePath %}
+  {% if not currentImage.startsWith('http') %}{% set currentImage = settings.site_url + currentImage %}{% endif %}
+
+  <title>{{ currentTitle }}</title>
+  <meta name="description" content="{{ currentDescription }}">
+  <link rel="canonical" href="{{ currentUrl }}">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ currentUrl }}">
+  <meta property="og:title" content="{{ currentTitle }}">
+  <meta property="og:description" content="{{ currentDescription }}">
+  <meta property="og:image" content="{{ currentImage }}">
+
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;family=Caveat:wght@400;700&amp;family=Gochi+Hand&amp;display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
