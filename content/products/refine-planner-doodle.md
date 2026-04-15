@@ -5,7 +5,7 @@ price: 250
 sale_price: 199
 subtitle: Your companion for personal growth and transformation
 image: /static/img/uploads/0b8945d0-e784-49e0-9438-25e37f817054.jpg
-category: slam_notebook
+category: planner-doodle
 stock_status: pre_order
 sales_badge: sale
 promo_badge: none
