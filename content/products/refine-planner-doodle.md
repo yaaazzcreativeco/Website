@@ -1,6 +1,6 @@
 ---
-title: REFINE - Planner & Doodle
-slug: daily-planner-doodle
+title: Planner & Doodle - Refine Edition
+slug: planner-doodle-refine
 price: 250
 sale_price: 199
 subtitle: Your companion for personal growth and transformation
