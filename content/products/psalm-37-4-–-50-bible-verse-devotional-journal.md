@@ -3,7 +3,7 @@ title: Psalm 37:4 – 50 Bible Verse Devotional Journal
 slug: psalm-37-4-bible-verse-devotional-journal
 price: 199
 sale_price: 149
-subtitle: "Delight yourself in the Lord: 50 days of scripture, prayer, and reflection."
+subtitle: "Delight yourself in the Lord: prayer, and reflection."
 image: /static/img/uploads/1648a995-1592-48b3-9ce5-cb7c1b2741a2.png
 category: devotional
 stock_status: in_stock
