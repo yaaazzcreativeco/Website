@@ -4,6 +4,7 @@ slug: planner-doodle-60-day-creative-organizer
 price: 250
 sale_price: 199
 subtitle: 60 Days of Planning with 180 Pages to Create.
+image: /static/img/uploads/04e9b3cb-504a-4a5e-a088-d63bc6b6f6c0.jpg
 category: planner-doodle
 stock_status: in_stock
 sales_badge: sale
