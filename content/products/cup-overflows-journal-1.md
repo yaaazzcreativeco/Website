@@ -1,10 +1,10 @@
 ---
-title: Cup Overflows Journal
-slug: cup-overflow
+title: Cup Overflows - 50 Day Christian Devotional Journal
+slug: christian-devotional-journal
 price: 199
 sale_price: 149
-subtitle: 50-Day Bible Verse Journey
-image: /static/img/uploads/gemini_generated_image_vbnlbpvbnlbpvbnl.png
+subtitle: ""
+image: /static/img/uploads/92c20e10-87a3-42de-b46c-b34552e29a96.jpg
 category: devotional
 stock_status: pre_order
 sales_badge: sale
@@ -15,10 +15,11 @@ is_new_arrival: true
 show_in_shop: true
 order: 0
 tags:
-  - 50 Days 50 Verses
-  - Space & Prayer
-  - Grow in Faith
+  - 50-Day Bible Verse & Prayer Journal
+  - Encouragement & Clarity
+  - Christian Devotional Journal
 thumbnails:
   - image: /static/img/uploads/gemini_generated_image_a0ywsda0ywsda0yw.png
 ---
-Find daily peace and inspiration with the Daily Inspiration: 50 Bible Verses for 50 Days Journal. Each page offers a Bible verse, a gentle morning prayer, and space for reflection.
+
+Daily Inspiration Journal: 50 Bible verses, prayers, and reflections to nurture faith, peace, and gratitude.
