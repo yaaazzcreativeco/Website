@@ -1,6 +1,4 @@
 {
-  "site_url": "https://yaaazzcreative.com",
-  "site_description": "Yaaazz Creative Co. offers hand-crafted slam notebooks, devotionals, and journaling supplies for makers and dreamers.",
   "instagram_url": "https://www.instagram.com/yaaazzcreativeco?igsh=ZTZiZmxzemxkdTd6",
   "site_name": "Yaaazz Creative Co.",
   "nav_items": [
@@ -12,9 +10,9 @@
     },
     {
       "href": "slam_notebook",
-      "label": "Slam Notebooks",
+      "label": "Planners & Doodles",
       "custom_href": "/slam_notebook/",
-      "id": "slam_notebook"
+      "id": "planner-doodle"
     },
     {
       "label": "Devotionals",
@@ -47,6 +45,7 @@
       "id": "contact"
     }
   ],
+  "site_description": "Yaaazz Creative Co. offers hand-crafted slam notebooks, devotionals, and journaling supplies for makers and dreamers.",
   "shopee_url": "https://shopee.ph",
   "tawk_property_id": "69cdfb264cdcf71c377f4e74",
   "lazada_url": "https://www.lazada.com.ph/",
@@ -55,6 +54,7 @@
   "youtube_url": "https://youtube.com/@yaaazzcreative?si=wFawJq9NvN8aRVOq",
   "copyright_year": "2026",
   "facebook_url": "https://www.facebook.com/profile.php?id=61585656467065",
+  "site_url": "https://yaaazzcreative.com",
   "tawk_widget_id": "1jl69q4c9",
   "logo_url": "/static/img/uploads/3d-version-logo.png"
 }
