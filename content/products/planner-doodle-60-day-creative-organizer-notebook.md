@@ -1,9 +1,9 @@
 ---
-title: Planner & Doodle | 60-Day Creative Organizer Notebook
-slug: planner-doodle-60-day-creative-organizer
+title: Planner & Doodle – Trust Edition
+slug: planner-doodle-trust-edition
 price: 250
 sale_price: 199
-subtitle: 60 Days of Planning with 180 Pages to Create.
+subtitle: Organize your days with faith and creativity.
 image: /static/img/uploads/ecbadec2-492d-4ea7-a09e-94dad7426536.png
 category: planner-doodle
 stock_status: in_stock
@@ -15,9 +15,9 @@ is_new_arrival: true
 show_in_shop: true
 order: 0
 tags:
-  - Plan Smarter
-  - Space to Imagine
-  - Productivity and Creativity
+  - Trust God’s Plan
+  - Organize Tasks
+  - 60 Days of Planning
 ---
 
-60-day planner with 180 doodle pages to balance productivity and creativity every day.
+Faith-inspired 60-day planner with 180 doodle pages, guided by Psalm 56:3 to trust God’s plan.
