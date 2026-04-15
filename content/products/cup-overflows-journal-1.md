@@ -19,7 +19,7 @@ tags:
   - Encouragement & Clarity
   - Christian Devotional Journal
 thumbnails:
-  - image: /static/img/uploads/gemini_generated_image_a0ywsda0ywsda0yw.png
+  - image: /static/img/uploads/d5f1d0a3-08f4-4c12-b542-9625acd1844c.jpg
 ---
 
 Daily Inspiration Journal: 50 Bible verses, prayers, and reflections to nurture faith, peace, and gratitude.
