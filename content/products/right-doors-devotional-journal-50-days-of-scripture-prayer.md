@@ -5,7 +5,7 @@ price: 199
 sale_price: 147
 subtitle: Trust God’s Timing Every Day
 image: /static/img/uploads/85e3759e-5590-4307-b698-ad974aa32c28.jpg
-category: planner-doodle
+category: devotional
 stock_status: in_stock
 sales_badge: pre_order
 promo_badge: new_arrival
