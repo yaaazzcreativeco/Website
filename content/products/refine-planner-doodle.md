@@ -1,9 +1,9 @@
 ---
 title: REFINE - Planner & Doodle
-slug: refine-planner
+slug: daily-planner-doodle
 price: 250
 sale_price: 199
-subtitle: Planner & Doodle Notebook
+subtitle: Your companion for personal growth and transformation
 image: /static/img/uploads/0b8945d0-e784-49e0-9438-25e37f817054.jpg
 category: bundle
 stock_status: pre_order
@@ -15,9 +15,10 @@ is_new_arrival: true
 show_in_shop: true
 order: 0
 tags:
-  - 90 Days Planner
-  - Doodle Notes
-  - Plan & Create
+  - Daily Planning and Doodles.
+  - Refine your Journey
+  - Dreamers and Doers.
 thumbnails: []
 ---
-This set includes a colorful planner with 90 days of guided planning and a doodle notebook with 160 pages. Its cover reads ‘A Beautiful Transformation in Progress’, a gentle affirmation of your journey.
+
+Refine Planner & Doodle: organize tasks, sketch ideas, and embrace transformation with creativity and growth.
