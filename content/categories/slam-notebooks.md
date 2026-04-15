@@ -1,11 +1,11 @@
 ---
-name: Slam Notebooks
-slug: slam_notebook
+name: Planners & Doodles
+slug: planner-doodle
 icon: auto_stories
 order: 0
 is_page_active: true
-page_title: Slam Notebooks
-page_headline: Write Your Story
-page_description: Handcrafted slam books and journals designed to capture your
-  memories, reflections, and creative spark.
+page_title: Planners & Doodles
+page_headline: Organize Life with Imagination
+page_description: Handcrafted planners and doodle notebooks designed to balance
+  organization and creative expression.
 ---
