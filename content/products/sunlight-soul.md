@@ -12,7 +12,7 @@ promo_badge: none
 is_curator_pick: false
 is_best_seller: false
 is_new_arrival: false
-show_in_shop: false
+show_in_shop: true
 order: 10
 tags:
   - Devotional
