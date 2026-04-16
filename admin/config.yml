@@ -92,7 +92,26 @@ collections:
             { label: "Leaf / Eco", value: "eco" },
             { label: "Store", value: "storefront" },
             { label: "Squares / Grid", value: "category" },
-            { label: "Storage", value: "home_storage" }
+            { label: "Storage", value: "home_storage" },
+            { label: "Book Ribbon", value: "book_2" },
+            { label: "Article", value: "article" },
+            { label: "Auto Stories", value: "auto_stories" },
+            { label: "Book 4", value: "book_4" },
+            { label: "Book 5", value: "book_5" },
+            { label: "Cards Stack", value: "cards" },
+            { label: "Change History", value: "change_history" },
+            { label: "Chronic", value: "chronic" },
+            { label: "Clinical Notes", value: "clinical_notes" },
+            { label: "Event Note", value: "event_note" },
+            { label: "Export Notes", value: "export_notes" },
+            { label: "History 2", value: "history" },
+            { label: "Import Contacts", value: "import_contacts" },
+            { label: "Menu Book 2", value: "menu_book" },
+            { label: "News", value: "news" },
+            { label: "Notes", value: "notes" },
+            { label: "Source Notes", value: "source_notes" },
+            { label: "Work History", value: "work_history" },
+            { label: "Newspaper", value: "newspaper" }
           ]
         }
       - { label: Sort Order, name: order, widget: number, default: 0, value_type: int }
