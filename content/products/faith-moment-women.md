@@ -5,7 +5,7 @@ price: 299
 sale_price: 250
 subtitle: Renewal through scripture, prayer, and reflection.
 image: /static/img/uploads/5487beb2-8114-480c-807f-0f1f2f4f21b2.jpg
-category: devotional
+category: devotional-journal
 stock_status: in_stock
 sales_badge: sale
 promo_badge: new_arrival
