@@ -1,6 +1,6 @@
 ---
 title: Planner & Doodle – Serene Edition
-slug: planner-doodle-serene-edition
+slug: planner-serene-edition
 price: 250
 sale_price: 199
 subtitle: Made of quiet magic, worthy of your dreams.

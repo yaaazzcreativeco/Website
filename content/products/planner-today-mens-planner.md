@@ -1,6 +1,6 @@
 ---
 title: Planner & Doodle – Today Edition | Men’s  Planner
-slug: planner-doodle-today-edition-mens-planner
+slug: planner-today-mens-planner
 price: 250
 sale_price: 199
 subtitle: Plan with discipline, act with purpose.
