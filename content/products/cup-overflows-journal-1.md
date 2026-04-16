@@ -5,7 +5,7 @@ price: 199
 sale_price: 149
 subtitle: Daily Bible Verses to Strengthen Your Faith.
 image: /static/img/uploads/92c20e10-87a3-42de-b46c-b34552e29a96.jpg
-category: devotional
+category: devotional-journal
 stock_status: pre_order
 sales_badge: sale
 promo_badge: new_arrival
