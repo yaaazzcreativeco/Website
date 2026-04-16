@@ -5,7 +5,7 @@ price: 149
 sale_price: 99
 subtitle: Spiral Bound
 image: /static/img/uploads/4.png
-category: slam_notebook
+category: planners-doodles
 is_curator_pick: true
 is_best_seller: true
 is_new_arrival: true

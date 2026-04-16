@@ -5,7 +5,7 @@ price: 149
 sale_price: 99
 subtitle: Hardbound Matte
 image: /static/img/uploads/2.png
-category: slam_notebook
+category: planners-doodles
 stock_status: in_stock
 sales_badge: sale
 promo_badge: none

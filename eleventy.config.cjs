@@ -235,6 +235,26 @@ module.exports = function (eleventyConfig) {
     return o;
   });
 
+  eleventyConfig.addFilter("resolveNav", (item, categoryList) => {
+    // 1. If custom_href is set, use it (highest priority)
+    if (item.custom_href) return item.custom_href;
+
+    // 2. No category list? Fallback to the slug
+    if (!categoryList || !Array.isArray(categoryList)) return item.href;
+
+    // 3. Try to find the category by SLUG (href)
+    const categoryBySlug = categoryList.find(c => c.slug === item.href);
+    if (categoryBySlug) return `/${categoryBySlug.slug}/`;
+
+    // 4. SELF-HEALING: If slug doesn't match, fall back to matching by Label/Name
+    // This handles cases where the client changed the slug but kept the name.
+    const categoryByName = categoryList.find(c => c.name === item.label);
+    if (categoryByName) return `/${categoryByName.slug}/`;
+
+    // 5. Final fallback: use the slug as is
+    return item.href || "/";
+  });
+
   eleventyConfig.addFilter("moneyPHP", (value) => {
     const n = Number(value);
     if (Number.isNaN(n)) return "₱0";

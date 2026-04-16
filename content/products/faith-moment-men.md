@@ -1,6 +1,6 @@
 ---
 title: Faith for Every Moment | 30-Day Devotional Journal for Men
-slug: faith-for-every-moment-30-day-devotional-journal-men
+slug: faith-moment-men
 price: 299
 sale_price: 250
 subtitle: Strength for today through prayer, scripture, and reflection.

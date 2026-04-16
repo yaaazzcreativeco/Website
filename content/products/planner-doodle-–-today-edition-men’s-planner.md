@@ -5,7 +5,7 @@ price: 250
 sale_price: 199
 subtitle: Plan with discipline, act with purpose.
 image: /static/img/uploads/14422589-8a44-4956-b9f9-71ecb8888628.png
-category: planner-doodle
+category: planners-doodles
 stock_status: in_stock
 sales_badge: sale
 promo_badge: new_arrival

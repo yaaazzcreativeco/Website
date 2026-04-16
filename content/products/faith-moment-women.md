@@ -1,6 +1,6 @@
 ---
 title: Faith for Every Moment | 30-Day Devotional Journal for Women
-slug: faith-for-every-moment-30-day-devotional-journal-women
+slug: faith-moment-women
 price: 299
 sale_price: 250
 subtitle: Renewal through scripture, prayer, and reflection.

@@ -9,10 +9,10 @@
       "id": "shop"
     },
     {
-      "href": "planner-doodle",
+      "href": "planners-doodles",
       "label": "Planners & Doodles",
-      "custom_href": "/slam_notebook/",
-      "id": "planner-doodle"
+      "custom_href": "",
+      "id": "planners-doodles"
     },
     {
       "label": "Devotionals",

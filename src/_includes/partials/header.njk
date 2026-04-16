@@ -19,7 +19,7 @@
         {% for item in nav %}
           <a
             class="text-[#7d4d5f]{% if activeNav and activeNav == item.id %} border-b-4 border-[#b2f2bb] pb-1 rotate-3{% else %}/70 hover:text-[#7d4d5f]{% endif %} transition-all hover:scale-105 hover:rotate-3"
-            href="{{ (item.custom_href or item.href) | sitePath | url }}"
+            href="{{ item | resolveNav(categoryList) | sitePath | url }}"
           >{{ item.label }}</a>
         {% endfor %}
     </div>
@@ -38,7 +38,7 @@
   <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[#fcf6e3]/95 backdrop-blur-xl border-t border-[#e3ddc5] shadow-lg origin-top transition-all duration-300">
     <nav class="flex flex-col px-6 py-4 font-headline font-bold text-lg" aria-label="Mobile">
       {% for item in nav %}
-        <a class="py-3 border-b border-[#e3ddc5]/50 text-[#7d4d5f] hover:pl-2 transition-all{% if activeNav and activeNav == item.id %} text-[#2c673c] bg-secondary-container/20{% endif %}" href="{{ (item.custom_href or item.href) | sitePath | url }}">
+        <a class="py-3 border-b border-[#e3ddc5]/50 text-[#7d4d5f] hover:pl-2 transition-all{% if activeNav and activeNav == item.id %} text-[#2c673c] bg-secondary-container/20{% endif %}" href="{{ item | resolveNav(categoryList) | sitePath | url }}">
           {{ item.label }}
         </a>
       {% endfor %}

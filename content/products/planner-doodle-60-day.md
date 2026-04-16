@@ -1,11 +1,11 @@
 ---
 title: Planner & Doodle – Trust Edition
-slug: planner-doodle-trust-edition
+slug: planner-doodle-60-day
 price: 250
 sale_price: 199
 subtitle: Organize your days with faith and creativity.
 image: /static/img/uploads/ecbadec2-492d-4ea7-a09e-94dad7426536.png
-category: planner-doodle
+category: planners-doodles
 stock_status: in_stock
 sales_badge: sale
 promo_badge: new_arrival

@@ -1,6 +1,6 @@
 ---
 name: Planners & Doodles
-slug: planner-doodle
+slug: planners-doodles
 icon: auto_stories
 order: 0
 is_page_active: true
