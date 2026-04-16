@@ -5,7 +5,7 @@ price: 299
 sale_price: 250
 subtitle: Strength for today through prayer, scripture, and reflection.
 image: /static/img/uploads/d0a8b720-2625-48d0-8ef0-92b90d175635.jpg
-category: devotional
+category: devotional-journal
 stock_status: in_stock
 sales_badge: pre_order
 promo_badge: new_arrival
