@@ -1,0 +1,67 @@
+{# src/_includes/seo.njk #}
+{# --------------------------------------------------------------
+   Centralised SEO meta‑tag block.
+   Uses front‑matter variables:
+     - title (page title)
+     - description (page description)
+     - image (social preview image)
+     - keywords (comma‑separated list)
+   Falls back to global site settings when a variable is missing.
+   -------------------------------------------------------------- #}
+{% if title %}
+  {% set seoTitle = title + " | " + settings.site_name %}
+{% else %}
+  {% set seoTitle = settings.site_name %}
+{% endif %}
+{% set seoDesc = description | default(settings.site_description) %}
+{% set seoUrl = settings.site_url + page.url %}
+{% set seoImg = image | default(settings.logo_url) | sitePath %}
+{% if not seoImg.startsWith('http') %}{% set seoImg = settings.site_url + seoImg %}{% endif %}
+
+<title>{{ seoTitle }}</title>
+<meta name="description" content="{{ seoDesc }}">
+{% if keywords %}
+<meta name="keywords" content="{{ keywords | join(', ') }}">
+{% endif %}
+<link rel="canonical" href="{{ seoUrl }}">
+
+{# Open Graph #}
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ seoUrl }}">
+<meta property="og:title" content="{{ seoTitle }}">
+<meta property="og:description" content="{{ seoDesc }}">
+<meta property="og:image" content="{{ seoImg }}">
+
+{# Twitter Card #}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ seoTitle }}">
+<meta name="twitter:description" content="{{ seoDesc }}">
+<meta name="twitter:image" content="{{ seoImg }}">
+
+{# JSON‑LD Structured Data – Organization & WebSite #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ settings.site_name }}",
+  "url": "{{ settings.site_url }}",
+  "logo": "{{ settings.logo_url }}",
+  "sameAs": [
+    "https://www.facebook.com/yaaazzcreative",
+    "https://www.instagram.com/yaaazzcreative",
+    "https://twitter.com/yaaazzcreative"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "{{ settings.site_url }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ settings.site_url }}/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
