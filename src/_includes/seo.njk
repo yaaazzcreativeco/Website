@@ -20,8 +20,19 @@
 
 <title>{{ seoTitle }}</title>
 <meta name="description" content="{{ seoDesc }}">
+{% set allKeywords = "" %}
+{% if settings.seo_global_keywords %}
+  {% set allKeywords = settings.seo_global_keywords %}
+{% endif %}
 {% if keywords %}
-<meta name="keywords" content="{{ keywords | join(', ') }}">
+  {% if allKeywords %}
+    {% set allKeywords = keywords | join(', ') + ", " + allKeywords %}
+  {% else %}
+    {% set allKeywords = keywords | join(', ') %}
+  {% endif %}
+{% endif %}
+{% if allKeywords %}
+<meta name="keywords" content="{{ allKeywords }}">
 {% endif %}
 <link rel="canonical" href="{{ seoUrl }}">
 
