@@ -5,7 +5,7 @@ price: 149
 sale_price: 99
 subtitle: 120 Die-cut Scraps
 image: /static/img/uploads/3.png
-category: planners-doodles
+category: slam-notebooks
 stock_status: pre_order
 sales_badge: none
 promo_badge: none
