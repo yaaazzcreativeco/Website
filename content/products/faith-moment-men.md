@@ -8,10 +8,10 @@ image: /static/img/uploads/d0a8b720-2625-48d0-8ef0-92b90d175635.jpg
 category: devotional-journal
 stock_status: in_stock
 sales_badge: pre_order
-promo_badge: new_arrival
+promo_badge: none
 is_curator_pick: true
 is_best_seller: false
-is_new_arrival: true
+is_new_arrival: false
 show_in_shop: true
 order: 0
 tags:
