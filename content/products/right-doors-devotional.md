@@ -1,17 +1,17 @@
 ---
 title: Right Doors Devotional Journal | 50 Days of Scripture & Prayer
 slug: right-doors-devotional
-price: 199
-sale_price: 149
+price: 155
+sale_price: ""
 subtitle: Trust God’s Timing Every Day
 image: /static/img/uploads/85e3759e-5590-4307-b698-ad974aa32c28.jpg
 category: devotional-journal
 stock_status: in_stock
-sales_badge: pre_order
-promo_badge: new_arrival
+sales_badge: none
+promo_badge: best_seller
 is_curator_pick: true
-is_best_seller: false
-is_new_arrival: true
+is_best_seller: true
+is_new_arrival: false
 show_in_shop: true
 order: 0
 tags:
