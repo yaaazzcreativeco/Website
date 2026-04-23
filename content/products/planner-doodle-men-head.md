@@ -1,7 +1,7 @@
 ---
 title: Planner & Doodle – Things in My Head (Men’s Planner)
 slug: planner-doodle-men-head
-price: 294
+price: 295
 sale_price: ""
 subtitle: Organize your thoughts, plan your next move.
 image: /static/img/uploads/copilot_20260416_044637.png
