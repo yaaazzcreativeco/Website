@@ -5,7 +5,7 @@ price: 149
 sale_price: 99
 subtitle: 60 Custom Layouts
 image: /static/img/uploads/1.png
-category: planners-doodles
+category: slam-notebooks
 stock_status: in_stock
 sales_badge: sale
 promo_badge: none
