@@ -7,7 +7,7 @@ subtitle: Organize your thoughts, plan your next move.
 image: /static/img/uploads/copilot_20260416_044637.png
 category: planners-doodles
 stock_status: in_stock
-sales_badge: pre_order
+sales_badge: none
 promo_badge: new_arrival
 is_curator_pick: true
 is_best_seller: false
