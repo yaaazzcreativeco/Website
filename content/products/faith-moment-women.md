@@ -7,11 +7,11 @@ subtitle: Renewal through scripture, prayer, and reflection.
 image: /static/img/uploads/5487beb2-8114-480c-807f-0f1f2f4f21b2.jpg
 category: devotional-journal
 stock_status: in_stock
-sales_badge: sale
-promo_badge: new_arrival
+sales_badge: pre_order
+promo_badge: none
 is_curator_pick: true
 is_best_seller: false
-is_new_arrival: true
+is_new_arrival: false
 show_in_shop: true
 order: 0
 tags:
