@@ -7,7 +7,7 @@ subtitle: Organize your days with faith and creativity.
 image: /static/img/uploads/ecbadec2-492d-4ea7-a09e-94dad7426536.png
 category: planners-doodles
 stock_status: in_stock
-sales_badge: pre_order
+sales_badge: none
 promo_badge: new_arrival
 is_curator_pick: true
 is_best_seller: false
