@@ -1,8 +1,8 @@
 ---
 title: Cup Overflows - 50 Day Christian Devotional Journal
 slug: christian-devotional-journal
-price: 199
-sale_price: 149
+price: 155
+sale_price: ""
 subtitle: Daily Bible Verses to Strengthen Your Faith.
 image: /static/img/uploads/92c20e10-87a3-42de-b46c-b34552e29a96.jpg
 category: devotional-journal
