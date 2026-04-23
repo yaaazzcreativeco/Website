@@ -2,7 +2,7 @@
 name: Bundles
 slug: bundle
 icon: home_storage
-order: 2
+order: 7
 is_page_active: true
 page_title: Devotional Bundles
 page_headline: Bundle & Save
