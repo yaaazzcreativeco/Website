@@ -1,17 +1,17 @@
 ---
 title: Planner & Doodle - Refine Edition
 slug: planner-doodle-refine
-price: 250
-sale_price: 199
+price: 295
+sale_price: ""
 subtitle: Your companion for personal growth and transformation
 image: /static/img/uploads/0b8945d0-e784-49e0-9438-25e37f817054.jpg
 category: planners-doodles
-stock_status: pre_order
-sales_badge: sale
-promo_badge: none
+stock_status: in_stock
+sales_badge: none
+promo_badge: best_seller
 is_curator_pick: true
-is_best_seller: false
-is_new_arrival: true
+is_best_seller: true
+is_new_arrival: false
 show_in_shop: true
 order: 0
 tags:
