@@ -7,11 +7,11 @@ subtitle: Daily Bible Verses to Strengthen Your Faith.
 image: /static/img/uploads/92c20e10-87a3-42de-b46c-b34552e29a96.jpg
 category: devotional-journal
 stock_status: pre_order
-sales_badge: sale
-promo_badge: new_arrival
+sales_badge: pre_order
+promo_badge: best_seller
 is_curator_pick: true
-is_best_seller: false
-is_new_arrival: true
+is_best_seller: true
+is_new_arrival: false
 show_in_shop: true
 order: 0
 tags:
