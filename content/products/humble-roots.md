@@ -6,7 +6,7 @@ sale_price: null
 subtitle: Grounded in faith, growing in grace.
 image: /static/img/products/humble-roots.webp
 category: devotional
-stock_status: pre_order
+stock_status: out_of_stock
 sales_badge: none
 promo_badge: none
 is_curator_pick: false

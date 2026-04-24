@@ -6,7 +6,7 @@ sale_price: 450
 subtitle: Let your light shine through.
 image: /static/img/products/sunlight-soul.webp
 category: devotional
-stock_status: in_stock
+stock_status: out_of_stock
 sales_badge: none
 promo_badge: none
 is_curator_pick: false

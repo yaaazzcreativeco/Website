@@ -117,13 +117,20 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addWatchTarget("./content/");
   eleventyConfig.addWatchTarget("./static/img/uploads/");
 
+  // Windows stability: ignore output, cache, and sync folders to prevent loops
+  eleventyConfig.watchIgnores.add("./_site/**");
+  eleventyConfig.watchIgnores.add("./.cache/**");
+  eleventyConfig.watchIgnores.add("**/*.terabox.uploading.cfg");
+  eleventyConfig.watchIgnores.add("**/*.tmp");
+
   // Prevent Eleventy's dev server from reloading the CMS admin page
   // when content files change (the CMS manages its own state)
   eleventyConfig.setServerOptions({
     middleware: [],
     domDiff: true,
-    // BrowserSync-compatible snippet that skips reload on /admin/ pages
+    // Only reload when actual site files change, ignore images/assets for reload speed
     watch: ["_site/**/*.html", "_site/**/*.css", "_site/**/*.js"],
+    showAllHosts: false,
   });
   eleventyConfig.setBrowserSyncConfig && eleventyConfig.setBrowserSyncConfig({
     snippetOptions: {
@@ -156,6 +163,11 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addNunjucksAsyncShortcode("image", async (src, alt, className = "", sizes = "100vw", widths = [400, 800, 1200]) => {
     if (!src) return "";
+    
+    // FAST DEV MODE: Skip heavy optimization locally to prevent flickering/loops
+    if (process.env.ELEVENTY_RUN_MODE === 'serve') {
+      return `<img src="${src}" alt="${alt}" class="${className}" loading="lazy">`;
+    }
     
     let fullSrc = src.startsWith('/') ? `.${src}` : src;
     
@@ -191,6 +203,12 @@ module.exports = function (eleventyConfig) {
   
   eleventyConfig.addNunjucksAsyncShortcode("logo", async (src, alt, width = 180, className = "") => {
     if (!src) return "";
+
+    // FAST DEV MODE: Skip heavy logo processing locally
+    if (process.env.ELEVENTY_RUN_MODE === 'serve') {
+      return `<img src="${src}" alt="${alt}" width="${width}" class="${className}" style="mix-blend-mode: multiply;">`;
+    }
+
     let fullSrc = src.startsWith('/') ? `.${src}` : src;
     
     if (src.startsWith('http')) {
