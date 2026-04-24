@@ -233,28 +233,38 @@
 
     async function checkBuildStatus() {
       try {
-        // We try to fetch the latest workflow runs
-        const response = await fetch(`https://api.github.com/repos/${REPO}/actions/runs?per_page=1`);
+        // Use the CMS token to avoid rate limits
+        const user = JSON.parse(localStorage.getItem('decap-cms-user') || '{}');
+        const token = user?.token;
+        const headers = token ? { 'Authorization': `token ${token}` } : {};
+
+        const response = await fetch(`https://api.github.com/repos/${REPO}/actions/runs?per_page=1`, { headers });
         const data = await response.json();
         
         if (data.workflow_runs && data.workflow_runs.length > 0) {
           const lastRun = data.workflow_runs[0];
-          const status = lastRun.status; // in_progress, completed, etc.
-          const conclusion = lastRun.conclusion; // success, failure, etc.
+          const status = lastRun.status; 
+          const conclusion = lastRun.conclusion;
 
-          if (status === 'in_progress' || status === 'queued') {
-            statusEl.innerHTML = '<div class="status-dot"></div> Site is updating... (Changes will appear in 1-2 mins)';
+          // If it's running, queued, or just started (waiting)
+          if (status === 'in_progress' || status === 'queued' || status === 'waiting' || status === 'requested') {
+            statusEl.innerHTML = '<div class="status-dot"></div> Building & Deploying... (1-2 mins)';
             statusEl.className = 'visible building';
           } else if (status === 'completed' && conclusion === 'success') {
-            // Show success for a few minutes after completion
             const completedAt = new Date(lastRun.updated_at).getTime();
             const now = new Date().getTime();
-            if (now - completedAt < 120000) { // 2 minutes
-              statusEl.innerHTML = '<div class="status-dot"></div> Changes are now LIVE!';
+            // Show Green for 3 minutes after completion
+            if (now - completedAt < 180000) { 
+              statusEl.innerHTML = '<div class="status-dot"></div> Changes are now LIVE! ✨';
               statusEl.className = 'visible success';
             } else {
               statusEl.className = '';
             }
+          } else if (status === 'completed' && conclusion === 'failure') {
+            statusEl.innerHTML = '<div class="status-dot"></div> Build Failed ⚠️ Check GitHub Actions';
+            statusEl.style.background = '#fde8e8';
+            statusEl.style.color = '#9b1c1c';
+            statusEl.className = 'visible';
           } else {
             statusEl.className = '';
           }
@@ -264,8 +274,8 @@
       }
     }
 
-    // Poll every 15 seconds
-    setInterval(checkBuildStatus, 15000);
+    // Poll every 5 seconds for snappier feedback
+    setInterval(checkBuildStatus, 5000);
     checkBuildStatus();
   </script>
 </body>
