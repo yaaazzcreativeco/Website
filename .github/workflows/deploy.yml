@@ -33,7 +33,15 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Cache optimized images
+        uses: actions/cache@v4
+        with:
+          path: .cache/eleventy-img
+          key: ${{ runner.os }}-eleventy-img-${{ hashFiles('**/*.{jpg,png,webp,md}') }}
+          restore-keys: |
+            ${{ runner.os }}-eleventy-img-
 
       # Default: project Pages URL https://<user>.github.io/<repo>/
       # For a custom domain at the site root, set repo variable PATH_PREFIX to /

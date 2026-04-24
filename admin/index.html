@@ -39,6 +39,50 @@
     .cms-product-price { font-size: 20px; font-weight: 700; color: #2c673c; margin-bottom: 20px; }
     .cms-product-body { color: #312f23; line-height: 1.6; }
     .cms-empty { color: #a19d8c; font-style: italic; }
+    
+    /* Build Status Banner */
+    #build-status {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      transform: translateY(-100%);
+      pointer-events: none;
+    }
+    #build-status.visible {
+      transform: translateY(0);
+    }
+    #build-status.building {
+      background: #fdf6b2; /* Yellow */
+      color: #723b10;
+      border-bottom: 1px solid #fce96a;
+    }
+    #build-status.success {
+      background: #def7ec; /* Green */
+      color: #03543f;
+      border-bottom: 1px solid #84e1bc;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    .building .status-dot { background: #e3a008; animation: pulse 1.5s infinite; }
+    .success .status-dot { background: #31c48d; }
+    @keyframes pulse { 
+      0% { opacity: 1; } 
+      50% { opacity: 0.4; } 
+      100% { opacity: 1; } 
+    }
   </style>
 
   <script>
@@ -87,6 +131,49 @@
     });
 
     CMS.registerPreviewTemplate("shop-products", ProductPreview);
+
+    // BUILD STATUS TRACKER
+    const REPO = "yaaazzcreativeco/Website";
+    const statusEl = document.createElement('div');
+    statusEl.id = 'build-status';
+    document.body.appendChild(statusEl);
+
+    async function checkBuildStatus() {
+      try {
+        // We try to fetch the latest workflow runs
+        const response = await fetch(`https://api.github.com/repos/${REPO}/actions/runs?per_page=1`);
+        const data = await response.json();
+        
+        if (data.workflow_runs && data.workflow_runs.length > 0) {
+          const lastRun = data.workflow_runs[0];
+          const status = lastRun.status; // in_progress, completed, etc.
+          const conclusion = lastRun.conclusion; // success, failure, etc.
+
+          if (status === 'in_progress' || status === 'queued') {
+            statusEl.innerHTML = '<div class="status-dot"></div> Site is updating... (Changes will appear in 1-2 mins)';
+            statusEl.className = 'visible building';
+          } else if (status === 'completed' && conclusion === 'success') {
+            // Show success for a few minutes after completion
+            const completedAt = new Date(lastRun.updated_at).getTime();
+            const now = new Date().getTime();
+            if (now - completedAt < 120000) { // 2 minutes
+              statusEl.innerHTML = '<div class="status-dot"></div> Changes are now LIVE!';
+              statusEl.className = 'visible success';
+            } else {
+              statusEl.className = '';
+            }
+          } else {
+            statusEl.className = '';
+          }
+        }
+      } catch (e) {
+        console.error("Build status check failed", e);
+      }
+    }
+
+    // Poll every 15 seconds
+    setInterval(checkBuildStatus, 15000);
+    checkBuildStatus();
   </script>
 </body>
 </html>

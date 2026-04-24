@@ -40,6 +40,11 @@ async function imageShortcode(src, alt, className = "", sizes = "100vw", widths 
     urlPath: "/img/optimized/",
     sharpOptions: {
       trim: true,
+    },
+    cacheOptions: {
+      duration: "30d",
+      directory: ".cache/eleventy-img",
+      removeFinishedPlugins: false
     }
   });
 
@@ -165,6 +170,11 @@ module.exports = function (eleventyConfig) {
       urlPath: "/img/optimized/",
       sharpOptions: {
         trim: true,
+      },
+      cacheOptions: {
+        duration: "30d",
+        directory: ".cache/eleventy-img",
+        removeFinishedPlugins: false
       }
     });
 
@@ -210,6 +220,11 @@ module.exports = function (eleventyConfig) {
       formats: ["webp", "png"],
       outputDir: "./_site/img/logo/",
       urlPath: "/img/logo/",
+      cacheOptions: {
+        duration: "30d",
+        directory: ".cache/eleventy-img",
+        removeFinishedPlugins: false
+      }
     });
 
     let imageAttributes = {
