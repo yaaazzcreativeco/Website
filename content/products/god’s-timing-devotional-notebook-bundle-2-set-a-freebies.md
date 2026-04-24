@@ -13,7 +13,7 @@ is_curator_pick: false
 is_best_seller: true
 is_new_arrival: true
 show_in_shop: true
-order: 0
+order: 1
 tags:
   - Bible Verse Stationery
   - Christian Notebooks
