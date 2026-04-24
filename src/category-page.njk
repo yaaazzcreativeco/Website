@@ -8,6 +8,8 @@ permalink: "/{{ cat.slug }}/index.html"
 layout: base.njk
 eleventyComputed:
   activeNav: "{{ cat.slug }}"
+  title: "{{ cat.page_title or cat.name }}"
+  description: "{{ cat.page_description | truncate(160) }}"
 ---
 {% import "macros.njk" as macros %}
 <section class="max-w-7xl mx-auto px-6 pt-8 pb-24">
@@ -78,10 +80,16 @@ eleventyComputed:
   </div>
   
   {% if cat_products.length == 0 %}
-    <div class="text-center py-24 bg-surface-container-low rounded-xl border-4 border-dashed border-outline-variant/20">
-      <span class="material-symbols-outlined text-6xl text-primary/30 mb-4">inventory_2</span>
-      <h3 class="font-headline text-2xl font-bold text-on-surface-variant">More items coming soon!</h3>
-      <p class="mt-2 text-on-surface-variant/70">Check back later for fresh {{ cat.name }} drops.</p>
+    <div class="py-24 text-center">
+      <div class="inline-flex items-center justify-center w-20 h-20 bg-[#f7f1dc] text-primary rounded-full mb-6">
+        <span class="material-symbols-outlined text-4xl" style="font-variation-settings:'FILL' 1">auto_awesome</span>
+      </div>
+      <h2 class="font-headline text-3xl font-black text-on-surface mb-2">Something special is in the works! ✨</h2>
+      <p class="text-on-surface-variant max-w-sm mx-auto mb-10 font-medium">We're currently handpicking and preparing the best items for this {{ cat.name }} collection. Check back soon!</p>
+      <a href="/shop/" class="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-full font-headline font-black text-lg shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all">
+        Explore All Products
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </a>
     </div>
   {% endif %}
 </section>

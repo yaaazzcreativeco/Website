@@ -6,7 +6,9 @@ pagination:
   addAllPagesToCollections: true
 permalink: "/product/{{ product.slug }}/"
 layout: base.njk
-title: Product
+eleventyComputed:
+  title: "{{ product.title }}"
+  description: "{{ product.subtitle or product.body | truncate(160) }}"
 ---
 
 {% import "macros.njk" as macros %}

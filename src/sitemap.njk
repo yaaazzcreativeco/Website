@@ -4,12 +4,24 @@ eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{%- for page in collections.all %}
-  {%- if page.url and page.url !== '/admin/' and page.url !== '/sitemap.xml' %}
+{%- for item in collections.all %}
+  {%- if item.url and item.url !== '/admin/' and item.url !== '/sitemap.xml' %}
   <url>
-    <loc>{{ settings.site_url }}{{ page.url | url }}</loc>
-    <lastmod>{{ page.date.toISOString() }}</lastmod>
+    <loc>{{ settings.site_url }}{{ item.url | sitePath }}</loc>
+    <lastmod>{{ item.date.toISOString() if item.date else "2024-04-24T00:00:00Z" }}</lastmod>
   </url>
   {%- endif %}
+{%- endfor %}
+{%- for p in products %}
+  <url>
+    <loc>{{ settings.site_url }}/product/{{ p.slug }}/</loc>
+    <lastmod>2024-04-24T00:00:00Z</lastmod>
+  </url>
+{%- endfor %}
+{%- for c in categoryList %}
+  <url>
+    <loc>{{ settings.site_url }}/{{ c.slug }}/</loc>
+    <lastmod>2024-04-24T00:00:00Z</lastmod>
+  </url>
 {%- endfor %}
 </urlset>
