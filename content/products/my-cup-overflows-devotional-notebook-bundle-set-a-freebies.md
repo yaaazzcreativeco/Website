@@ -1,5 +1,5 @@
 ---
-title: My Cup Overflows Devotional Notebook Bundle | Set A Freebies
+title: My Cup Overflows Devotional Notebook Bundle 1 | Set A Freebies
 slug: devotional-bundle-freebies
 price: 500
 subtitle: Faith-inspired stationery set with notebook, notepad, bookmark, and
