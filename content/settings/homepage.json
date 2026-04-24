@@ -2,7 +2,7 @@
   "banner_text": "New Arrival: The 90s C!ollection",
   "spotted_posts": [
     {
-      "image": "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=800&q=80",
+      "image": "/static/img/uploads/1.jpg",
       "quote": "Finally a book that handles my chaotic energy! 💖",
       "author": "@ria_journaling"
     },
@@ -12,7 +12,7 @@
       "author": "@juju_b"
     },
     {
-      "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=800&q=80",
+      "image": "/static/img/uploads/3.jpg",
       "quote": "Sunday mornings just got better with Yaaazz Co.",
       "author": "@the_morning_paper"
     }

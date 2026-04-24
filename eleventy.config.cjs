@@ -125,10 +125,53 @@ module.exports = function (eleventyConfig) {
 
   // Prevent Eleventy's dev server from reloading the CMS admin page
   // when content files change (the CMS manages its own state)
+  // ============================================================
+  // ⚠️  CRITICAL FIX — CMS IMAGE PREVIEW (DO NOT REMOVE)
+  // ============================================================
+  // ROOT CAUSE: decap-server saves uploads to static/img/uploads/
+  // on disk, but Eleventy's dev server only serves from _site/.
+  // The passthrough copy hasn't run yet → the CMS preview URL
+  // gets a 404 → the image widget shows a broken/empty thumbnail.
+  //
+  // FIX: This middleware intercepts /static/img/uploads/ requests
+  // and serves files DIRECTLY from disk, making newly uploaded
+  // images immediately visible in the CMS form without waiting
+  // for Eleventy to copy them.
+  //
+  // 🤖 AI INSTRUCTION: If you edit setServerOptions below,
+  //    you MUST keep the serveUploadsDirectly middleware intact.
+  //    Removing it will break CMS image previews for all uploads.
+  // ============================================================
   eleventyConfig.setServerOptions({
-    middleware: [],
+    middleware: [
+      function serveUploadsDirectly(req, res, next) {
+        // Strip query parameters (e.g. ?v=123) which CMS appends to bypass cache
+        const urlPath = req.url ? req.url.split('?')[0] : '';
+        if (urlPath && urlPath.startsWith('/static/img/uploads/')) {
+          const filePath = path.join(__dirname, urlPath.slice(1));
+          console.log(`[Middleware] Image request intercepted: ${req.url}`);
+          console.log(`[Middleware] Resolved file path: ${filePath}`);
+          if (fs.existsSync(filePath)) {
+            console.log(`[Middleware] File EXISTS, serving directly.`);
+            const ext = path.extname(filePath).toLowerCase();
+            const mimeMap = {
+              '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+              '.png': 'image/png', '.gif': 'image/gif',
+              '.webp': 'image/webp', '.avif': 'image/avif',
+              '.svg': 'image/svg+xml', '.bmp': 'image/bmp',
+            };
+            res.setHeader('Content-Type', mimeMap[ext] || 'application/octet-stream');
+            res.setHeader('Cache-Control', 'no-cache');
+            fs.createReadStream(filePath).pipe(res);
+            return;
+          } else {
+            console.log(`[Middleware] File does NOT exist on disk yet: ${filePath}`);
+          }
+        }
+        next();
+      }
+    ],
     domDiff: true,
-    // Only reload when actual site files change, ignore images/assets for reload speed
     watch: ["_site/**/*.html", "_site/**/*.css", "_site/**/*.js"],
     showAllHosts: false,
   });

@@ -123,6 +123,59 @@
      *   3. Both rules apply to ALL sections of this file.
      * ============================================================
      */
+    // ====================================================================
+    // CRITICAL FIX: Decap CMS Draft Image Thumbnail Auto-Healer
+    // Decap CMS (local_backend) holds entry media uploads in memory as Drafts
+    // and doesn't write them to disk until "Save" is clicked. It incorrectly 
+    // tries to load the public path (/static/img/uploads/file.jpg) which 404s.
+    // This script intercepts file uploads to grab the real Blob URL, and seamlessly
+    // replaces broken thumbnails so they preview instantly.
+    // ====================================================================
+    window.__draftImages = {};
+
+    // 1. Capture the raw file when the user selects it in the upload modal
+    document.addEventListener('change', function(e) {
+      if (e.target && e.target.type === 'file' && e.target.files) {
+        Array.from(e.target.files).forEach(file => {
+          // Store the Blob URL using the filename as the key
+          window.__draftImages[file.name] = URL.createObjectURL(file);
+        });
+      }
+    }, true);
+
+    // 2. Catch broken images and swap them with the captured Blob URL
+    document.addEventListener('error', function(e) {
+      if (e.target && e.target.tagName === 'IMG') {
+        const src = e.target.getAttribute('src') || '';
+        if (src.includes('/static/img/uploads/')) {
+          // Extract the filename from the broken path
+          const filename = src.split('/').pop().split('?')[0];
+          
+          if (window.__draftImages[filename]) {
+            // We have the Blob URL! Swap it in.
+            e.target.src = window.__draftImages[filename];
+            
+            // Remove the error styling if any was applied
+            e.target.style.background = 'none';
+            e.target.style.border = 'none';
+          } else {
+            // Fallback placeholder if we didn't catch the file
+            const placeholderSvg = `
+              <svg width="400" height="300" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100%" height="100%" fill="#f7f1dc"/>
+                <text x="50%" y="45%" font-family="system-ui, sans-serif" font-size="18" fill="#7d4d5f" text-anchor="middle" font-weight="bold">Draft Image Uploaded</text>
+                <text x="50%" y="55%" font-family="system-ui, sans-serif" font-size="14" fill="#5f5c4d" text-anchor="middle">Thumbnail will appear after saving</text>
+              </svg>
+            `;
+            e.target.src = 'data:image/svg+xml;base64,' + btoa(placeholderSvg);
+            e.target.style.objectFit = 'contain';
+            e.target.style.background = '#f7f1dc';
+            e.target.style.border = '1px dashed #ccc';
+          }
+        }
+      }
+    }, true);
+
     if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
       window.CMS_ENV = "development";
       window.localStorage.setItem("netlifySiteId", "local");
