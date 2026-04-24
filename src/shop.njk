@@ -53,6 +53,18 @@ activeNav: shop
       </a>
     {% endfor %}
   </div>
+
+  <div id="empty-state" class="hidden py-24 text-center">
+    <div class="inline-flex items-center justify-center w-20 h-20 bg-[#f7f1dc] text-primary rounded-full mb-6">
+      <span class="material-symbols-outlined text-4xl" style="font-variation-settings:'FILL' 1">auto_awesome</span>
+    </div>
+    <h2 class="font-headline text-3xl font-black text-on-surface mb-2">Something special is in the works! ✨</h2>
+    <p class="text-on-surface-variant max-w-sm mx-auto mb-10 font-medium">We're currently handpicking and preparing the best items for this collection. Check back soon!</p>
+    <button id="reset-filter" class="inline-flex items-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-full font-headline font-black text-lg shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all">
+      Explore All Products
+      <span class="material-symbols-outlined">arrow_forward</span>
+    </button>
+  </div>
 </section>
 
 <script>
@@ -69,14 +81,31 @@ activeNav: shop
         btn.classList.remove('bg-surface-container-highest', 'text-on-surface-variant');
         
         var cat = btn.getAttribute('data-category');
+        var visibleCount = 0;
         cards.forEach(function (card) {
           if (cat === 'all' || card.getAttribute('data-category') === cat) {
             card.style.display = 'block';
+            visibleCount++;
           } else {
             card.style.display = 'none';
           }
         });
+
+        var emptyState = document.getElementById('empty-state');
+        var grid = document.getElementById('shop-grid');
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+          grid.classList.add('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+          grid.classList.remove('hidden');
+        }
       });
+    });
+
+    document.getElementById('reset-filter').addEventListener('click', function() {
+      var allBtn = document.querySelector('[data-category="all"]');
+      if (allBtn) allBtn.click();
     });
     var activeBtn = document.querySelector('.category-btn.active');
     if (activeBtn) {
