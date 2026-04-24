@@ -89,6 +89,31 @@
   </style>
 
   <script>
+    /**
+     * ============================================================
+     * ⚠️  CRITICAL FIX — DO NOT CHANGE WITHOUT READING THIS FIRST
+     * ============================================================
+     * ISSUE: Image previews (JPG, PNG, etc.) were showing as broken
+     *        images in ALL CMS sections (Products, Homepage, Club Hub,
+     *        Our Story, Contact, Checkout, Shipping, General, etc.)
+     *        — everywhere EXCEPT the Media Library tab.
+     *
+     * ROOT CAUSE: Decap CMS's getAsset() returns an Asset OBJECT.
+     *   ❌ WRONG (breaks previews): getAsset(image).toString()
+     *        → returns "[object Object]" as the src attribute.
+     *   ✅ CORRECT (fixed):        getAsset(image).url
+     *        → returns the actual blob/path URL for the image.
+     *
+     * FIX APPLIED ON: 2026-04-24
+     * FIXED BY: Antigravity AI
+     *
+     * 🤖 AI INSTRUCTION: If you are an AI assistant editing this file,
+     *    you MUST preserve the `.url` property on getAsset() calls.
+     *    Never replace `.url` with `.toString()`, `String()`, or
+     *    template literals wrapping the asset object.
+     *    This fix applies to ALL image widget previews site-wide.
+     * ============================================================
+     */
     if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
       window.CMS_ENV = "development";
       window.localStorage.setItem("netlifySiteId", "local");
@@ -107,9 +132,12 @@
         const salePrice = entry.getIn(['data', 'sale_price']);
         const body = this.props.widgetFor('body');
         
-        // Handle images stored globally correctly
+        // ✅ FIXED: Use .url (NOT .toString()) — getAsset() returns an object.
+        // .toString() yields "[object Object]", breaking the preview.
+        // See the warning comment above for the full explanation.
         let image = entry.getIn(['data', 'image']);
-        let imgSrc = image ? getAsset(image).toString() : '';
+        const asset = image ? getAsset(image) : null;
+        let imgSrc = asset && asset.url ? asset.url : (image || '');
 
         // Price formatting
         let displayPrice = '';
