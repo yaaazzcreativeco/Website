@@ -43,32 +43,34 @@
     /* Build Status Banner */
     #build-status {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 40px;
-      z-index: 1000;
+      top: 20px;
+      right: 20px;
+      height: auto;
+      padding: 10px 20px;
+      border-radius: 30px;
+      z-index: 10000;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 13px;
       font-weight: 600;
-      transition: all 0.3s ease;
-      transform: translateY(-100%);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform: translateX(120%);
       pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     #build-status.visible {
-      transform: translateY(0);
+      transform: translateX(0);
     }
     #build-status.building {
       background: #fdf6b2; /* Yellow */
       color: #723b10;
-      border-bottom: 1px solid #fce96a;
+      border: 1px solid #fce96a;
     }
     #build-status.success {
       background: #def7ec; /* Green */
       color: #03543f;
-      border-bottom: 1px solid #84e1bc;
+      border: 1px solid #84e1bc;
     }
     .status-dot {
       width: 8px;
