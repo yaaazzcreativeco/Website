@@ -46,7 +46,7 @@ collections:
               { label: Description, name: description, widget: text, required: false },
               { label: Size, name: size, widget: select, options: [{ label: "Large (spans 2x2)", value: "large" }, { label: "Small", value: "small" }], default: "small" }
             ] }
-          - { label: "Spotted in the Wild — Posts", name: spotted_posts, widget: list, hint: "Fan posts to display", fields: [
+          - { label: "Spotted in the Wild — Posts", name: spotted_posts, widget: list, required: true, min: 1, hint: "Fan posts to display", fields: [
               { label: Quote/Testimonial, name: quote, widget: text },
               { label: Author/Handle, name: author, widget: string },
               { label: Image, name: image, widget: image }

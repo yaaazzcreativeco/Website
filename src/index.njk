@@ -162,31 +162,43 @@ permalink: /
 <section class="py-24 px-6 bg-surface overflow-hidden">
   <div class="max-w-7xl mx-auto flex flex-col items-center">
     <h2 class="font-handwritten text-5xl text-primary mb-12 text-center">Spotted in the Wild</h2>
-    <div class="relative w-full h-[500px] flex items-center justify-center">
+    <div class="relative w-full h-[650px] flex items-center justify-center">
+      <!-- Decorative Background Hearts -->
       <div class="absolute inset-0 opacity-10 pointer-events-none">
-        <span class="material-symbols-outlined absolute top-10 left-10 text-6xl text-primary rotate-[-15deg]" data-icon="favorite">favorite</span>
-        <span class="material-symbols-outlined absolute bottom-20 right-20 text-8xl text-secondary rotate-12" data-icon="brush">brush</span>
+        <span class="material-symbols-outlined absolute top-10 left-[15%] text-7xl text-primary rotate-[-15deg]" style="font-variation-settings:'FILL' 1">favorite</span>
+        <span class="material-symbols-outlined absolute bottom-20 right-[15%] text-8xl text-secondary rotate-12" style="font-variation-settings:'FILL' 1">favorite</span>
+        <span class="material-symbols-outlined absolute top-1/2 right-[10%] text-6xl text-primary-dim rotate-[20deg]">favorite</span>
       </div>
+
       <div class="relative w-full h-full">
         {% for post in homepageSettings.spotted_posts %}
-        {% set topPos = "top-[10%]" if loop.index == 1 else "top-[20%]" %}
-        {% set horizPos = "left-[5%]" if loop.index == 1 else "right-[10%]" %}
-        {% set width = "w-64" if loop.index == 1 else "w-72" %}
-        {% set padding = "p-3" if loop.index == 1 else "p-4" %}
-        {% set rotation = "rotate-[-8deg]" if loop.index == 1 else "rotate-[5deg]" %}
-        {% set imgHeight = "h-48" if loop.index == 1 else "h-56" %}
-        <div class="absolute {{ topPos }} {{ horizPos }} {{ width }} {{ padding }} bg-white shadow-lg {{ rotation }} hover:scale-105 hover:z-50 transition-all{% if loop.index == 2 %} border border-outline-variant/5{% endif %}">
-          <img alt="Customer post" class="w-full {{ imgHeight }} object-cover rounded-sm mb-3" src="{{ post.image }}" loading="lazy"/>
-          <p class="font-handwritten text-xl text-on-surface">{{ post.quote }}</p>
-          <p class="text-xs text-on-surface-variant font-bold text-right">- {{ post.author }}</p>
-          {% if loop.index == 2 %}
-          <div class="absolute -top-4 right-1/2 translate-x-1/2 w-20 h-8 bg-primary-container/50 washi-tape"></div>
+        {% set topPos = "top-[5%]" if loop.index == 1 else ("top-[25%]" if loop.index == 2 else "top-[12%]") %}
+        {% set horizPos = "left-[4%]" if loop.index == 1 else ("left-1/2 -translate-x-1/2" if loop.index == 2 else "right-[8%]") %}
+        {% set width = "w-64" if loop.index == 1 else ("w-80" if loop.index == 2 else "w-72") %}
+        {% set padding = "p-3" if loop.index == 1 else "p-5" %}
+        {% set rotation = "rotate-[-8deg]" if loop.index == 1 else ("rotate-[2deg]" if loop.index == 2 else "rotate-[6deg]") %}
+        {% set imgHeight = "h-48" if loop.index == 1 else ("h-64" if loop.index == 2 else "h-56") %}
+        {% set tapeColor = "bg-[#b2f2bb]/70" if loop.index == 1 else ("bg-[#fbcfe8]/70" if loop.index == 2 else "bg-[#fef08a]/70") %}
+        {% set tapeRotate = "rotate-[-15deg]" if loop.index == 1 else ("rotate-[-2deg]" if loop.index == 2 else "rotate-[10deg]") %}
+        {% set tapePos = "-left-4" if loop.index == 1 else ("left-1/2 -translate-x-1/2" if loop.index == 2 else "-right-4") %}
+
+        <div class="absolute {{ topPos }} {{ horizPos }} {{ width }} {{ padding }} bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] {{ rotation }} hover:scale-105 hover:z-50 transition-all border border-outline-variant/10">
+          <img alt="Customer post" class="w-full {{ imgHeight }} object-cover rounded-sm mb-4 shadow-inner" src="{{ post.image }}" loading="lazy"/>
+          <p class="font-handwritten text-xl text-on-surface leading-tight mb-2">{{ post.quote }}</p>
+          <p class="text-xs text-on-surface-variant font-bold text-right tracking-widest uppercase">— {{ post.author }}</p>
+          
+          <!-- Decorative Washi Tape -->
+          <div class="absolute -top-4 {{ tapePos }} w-24 h-9 {{ tapeColor }} {{ tapeRotate }} washi-tape mix-blend-multiply" aria-hidden="true"></div>
+          
+          {% if loop.index == 1 %}
+            <!-- Doodle Brush below the first card -->
+            <span class="absolute -bottom-24 -left-12 material-symbols-outlined text-secondary/10 text-8xl rotate-12" style="font-variation-settings:'FILL' 1">brush</span>
           {% endif %}
         </div>
         {% endfor %}
       </div>
     </div>
-    <a class="mt-12 px-10 py-5 bg-secondary-container text-on-secondary-container rounded-full font-bold text-xl shadow-md hover:scale-105 transition-all rotate-[-1deg]" href="{{ '/journaling-tips/' | url }}">
+    <a class="mt-8 px-10 py-5 bg-secondary-container text-on-secondary-container rounded-full font-bold text-xl shadow-md hover:scale-105 transition-all rotate-[-1deg] z-50" href="{{ '/journaling-tips/' | url }}">
       Join the Community
     </a>
   </div>
