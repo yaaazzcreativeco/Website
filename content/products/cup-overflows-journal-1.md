@@ -13,7 +13,7 @@ is_curator_pick: true
 is_best_seller: true
 is_new_arrival: false
 show_in_shop: true
-order: 0
+order: 1
 tags:
   - 50-Day Bible Verse & Prayer Journal
   - Encouragement & Clarity
