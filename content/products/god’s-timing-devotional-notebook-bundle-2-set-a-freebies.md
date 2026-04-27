@@ -1,7 +1,7 @@
 ---
 title: God’s Timing Devotional Notebook Bundle 2 | Set A - Freebies
 slug: devotional-bundle-50-verses
-price: 500
+price: 350
 subtitle: Faith-filled stationery set with notebook, notepad, bookmark, and
   surprise gifts
 image: /static/img/uploads/bundle-2.jpg
