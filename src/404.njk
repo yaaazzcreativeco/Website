@@ -1,0 +1,45 @@
+---
+layout: base.njk
+title: Page Not Found
+permalink: /404.html
+eleventyExcludeFromCollections: true
+---
+
+<section class="max-w-4xl mx-auto px-6 py-32 text-center relative overflow-hidden">
+  <!-- Decorative Elements -->
+  <div class="absolute top-10 left-10 w-32 h-32 bg-primary-container/20 rounded-full blur-3xl -z-10 animate-pulse"></div>
+  <div class="absolute bottom-10 right-10 w-48 h-48 bg-secondary-container/20 rounded-full blur-3xl -z-10"></div>
+  
+  <div class="relative z-10">
+    <div class="inline-block relative mb-8">
+      <h1 class="font-headline text-9xl font-black text-primary/10 tracking-tighter">404</h1>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <span class="material-symbols-outlined text-7xl text-primary animate-bounce">search_off</span>
+      </div>
+    </div>
+    
+    <h2 class="font-headline text-4xl md:text-5xl font-black text-primary mb-6">
+      Whoops! This page is playing <br/>
+      <span class="text-secondary scrapbook-rotate-1 inline-block mt-2">hide and seek.</span>
+    </h2>
+    
+    <p class="text-xl text-on-surface-variant max-w-lg mx-auto mb-12 font-medium leading-relaxed">
+      We couldn't find what you were looking for. Maybe it's hidden under a pile of washi tape?
+    </p>
+    
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+      <a href="/" class="px-10 py-4 bg-primary text-on-primary rounded-full font-headline font-black text-lg shadow-xl hover:scale-105 active:scale-95 transition-all">
+        Back to Home
+      </a>
+      <a href="/shop/" class="px-10 py-4 bg-surface-container-highest text-primary rounded-full font-headline font-bold text-lg hover:bg-surface-variant transition-all rotate-1">
+        Go to Shop
+      </a>
+    </div>
+    
+    <!-- Washi Tape Decoration -->
+    <div class="mt-20 relative h-12 w-48 mx-auto">
+      <div class="absolute inset-0 bg-tertiary-container/40 washi-tape rotate-[-3deg]"></div>
+      <p class="absolute inset-0 flex items-center justify-center font-handwritten text-xl text-on-tertiary-container font-bold">Try again, lovely! ✨</p>
+    </div>
+  </div>
+</section>

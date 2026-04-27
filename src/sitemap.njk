@@ -12,16 +12,4 @@ eleventyExcludeFromCollections: true
   </url>
   {%- endif %}
 {%- endfor %}
-{%- for p in products %}
-  <url>
-    <loc>{{ settings.site_url }}/product/{{ p.slug }}/</loc>
-    <lastmod>2024-04-24T00:00:00Z</lastmod>
-  </url>
-{%- endfor %}
-{%- for c in categoryList %}
-  <url>
-    <loc>{{ settings.site_url }}/{{ c.slug }}/</loc>
-    <lastmod>2024-04-24T00:00:00Z</lastmod>
-  </url>
-{%- endfor %}
 </urlset>
