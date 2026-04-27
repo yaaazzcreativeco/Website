@@ -13,7 +13,7 @@ is_curator_pick: true
 is_best_seller: false
 is_new_arrival: false
 show_in_shop: true
-order: 0
+order: 4
 tags:
   - Inspire Women’s Faith Journey
   - Renewal for Women
