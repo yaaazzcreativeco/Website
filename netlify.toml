@@ -6,6 +6,21 @@
 [build.environment]
   NODE_VERSION = "20"
 
+[[redirects]]
+  from = "/product/refine-planner/"
+  to = "/product/planner-doodle-refine/"
+  status = 301
+
+[[redirects]]
+  from = "/product/cup-overflow/"
+  to = "/product/christian-devotional-journal/"
+  status = 301
+
+[[redirects]]
+  from = "/devotional/"
+  to = "/devotionals/"
+  status = 301
+
 [[headers]]
   for = "/static/img/*"
   [headers.values]
