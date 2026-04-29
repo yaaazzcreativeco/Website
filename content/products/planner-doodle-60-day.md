@@ -9,7 +9,7 @@ category: planners-doodles
 stock_status: in_stock
 sales_badge: none
 promo_badge: new_arrival
-is_curator_pick: true
+is_curator_pick: false
 is_best_seller: false
 is_new_arrival: true
 show_in_shop: true
