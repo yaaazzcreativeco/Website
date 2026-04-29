@@ -45,7 +45,7 @@ activeNav: journal
           {% if clubHubSettings.monthly_image %}
           {% image clubHubSettings.monthly_image, clubHubSettings.monthly_title | default("Monthly prompt"), "w-full aspect-square object-cover mb-4 grayscale-[0.2]" %}
           {% else %}
-          <img alt="Open notebook flat lay" class="w-full aspect-square object-cover mb-4 grayscale-[0.2]" src="/static/img/pages/journal-notebook-flatlay.webp" width="400" height="400" loading="lazy" decoding="async"/>
+          {% image "/static/img/pages/journal-notebook-flatlay.webp", "Open notebook flat lay", "w-full aspect-square object-cover mb-4 grayscale-[0.2]", "400px" %}
           {% endif %}
           {% if clubHubSettings.monthly_prompt %}
           <p class="text-sm italic text-on-surface/60 text-center font-body">&ldquo;{{ clubHubSettings.monthly_prompt }}&rdquo;</p>
@@ -94,7 +94,7 @@ activeNav: journal
       </div>
       <div class="grid md:grid-cols-2 gap-8 items-center">
         <div class="bg-white p-4 pb-12 rounded-sm polaroid-shadow rotate-2 group-hover:rotate-1 transition-transform duration-500">
-          <img alt="Open notebook flat lay" class="w-full aspect-square object-cover mb-4 grayscale-[0.2]" src="/static/img/pages/journal-notebook-flatlay.webp" width="400" height="400" loading="lazy" decoding="async"/>
+          {% image "/static/img/pages/journal-notebook-flatlay.webp", "Open notebook flat lay", "w-full aspect-square object-cover mb-4 grayscale-[0.2]", "400px" %}
           <p class="text-sm italic text-on-surface/60 text-center font-body">&ldquo;Capture the quietest moment of your day…&rdquo;</p>
         </div>
         <div class="space-y-4">
@@ -176,7 +176,7 @@ activeNav: journal
         <div class="flex-none w-80 group">
           <div class="bg-surface-container-highest rounded-xl p-4 transition-all group-hover:-translate-y-2 border-b-4 border-primary/10">
             <div class="relative rounded-lg overflow-hidden mb-4">
-              <img alt="" class="w-full h-48 object-cover" src="/static/img/pages/journal-tip1.webp" width="320" height="192" loading="lazy" decoding="async"/>
+              {% image "/static/img/pages/journal-tip1.webp", "", "w-full h-48 object-cover", "320px" %}
               <div class="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-[10px] font-bold">TRAVEL THEME</div>
             </div>
             <h4 class="font-bold text-on-surface mb-2">The &lsquo;Memory Map&rsquo; Spread</h4>
@@ -186,7 +186,7 @@ activeNav: journal
         <div class="flex-none w-80 group">
           <div class="bg-surface-container-highest rounded-xl p-4 transition-all group-hover:-translate-y-2 border-b-4 border-primary/10 rotate-1">
             <div class="relative rounded-lg overflow-hidden mb-4">
-              <img alt="" class="w-full h-48 object-cover" src="/static/img/pages/journal-tip2.webp" width="320" height="192" loading="lazy" decoding="async"/>
+              {% image "/static/img/pages/journal-tip2.webp", "", "w-full h-48 object-cover", "320px" %}
               <div class="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-[10px] font-bold">MINIMALIST</div>
             </div>
             <h4 class="font-bold text-on-surface mb-2">Negative Space Magic</h4>
@@ -196,7 +196,7 @@ activeNav: journal
         <div class="flex-none w-80 group">
           <div class="bg-surface-container-highest rounded-xl p-4 transition-all group-hover:-translate-y-2 border-b-4 border-primary/10 -rotate-1">
             <div class="relative rounded-lg overflow-hidden mb-4">
-              <img alt="" class="w-full h-48 object-cover" src="/static/img/pages/journal-tip3.webp" width="320" height="192" loading="lazy" decoding="async"/>
+              {% image "/static/img/pages/journal-tip3.webp", "", "w-full h-48 object-cover", "320px" %}
               <div class="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-[10px] font-bold">TEXTURES</div>
             </div>
             <h4 class="font-bold text-on-surface mb-2">Mixed Media Layers</h4>
@@ -206,7 +206,7 @@ activeNav: journal
         <div class="flex-none w-80 group">
           <div class="bg-surface-container-highest rounded-xl p-4 transition-all group-hover:-translate-y-2 border-b-4 border-primary/10">
             <div class="relative rounded-lg overflow-hidden mb-4">
-              <img alt="" class="w-full h-48 object-cover" src="/static/img/pages/journal-tip4.webp" width="320" height="192" loading="lazy" decoding="async"/>
+              {% image "/static/img/pages/journal-tip4.webp", "", "w-full h-48 object-cover", "320px" %}
               <div class="absolute top-2 right-2 bg-white/90 px-2 py-1 rounded text-[10px] font-bold">COLOR PLAY</div>
             </div>
             <h4 class="font-bold text-on-surface mb-2">Rainbow Gratitude</h4>
@@ -258,12 +258,12 @@ activeNav: journal
         <div class="absolute inset-0 bg-secondary-container rounded-full blur-3xl opacity-20 -z-10"></div>
         <div class="grid grid-cols-2 gap-4">
           <div class="space-y-4">
-            <img alt="" class="w-full aspect-[4/5] object-cover rounded-lg rotate-[-2deg] polaroid-shadow" src="/static/img/pages/journal-gallery1.webp" width="280" height="350" loading="lazy" decoding="async"/>
-            <img alt="" class="w-full aspect-square object-cover rounded-lg rotate-[3deg] polaroid-shadow" src="/static/img/pages/journal-gallery2.webp" width="280" height="280" loading="lazy" decoding="async"/>
+            {% image "/static/img/pages/journal-gallery1.webp", "", "w-full aspect-[4/5] object-cover rounded-lg rotate-[-2deg] polaroid-shadow", "280px" %}
+            {% image "/static/img/pages/journal-gallery2.webp", "", "w-full aspect-square object-cover rounded-lg rotate-[3deg] polaroid-shadow", "280px" %}
           </div>
           <div class="space-y-4 pt-8">
-            <img alt="" class="w-full aspect-square object-cover rounded-lg rotate-[1deg] polaroid-shadow" src="/static/img/pages/journal-gallery3.webp" width="280" height="280" loading="lazy" decoding="async"/>
-            <img alt="" class="w-full aspect-[4/5] object-cover rounded-lg rotate-[-1deg] polaroid-shadow" src="/static/img/pages/journal-gallery4.webp" width="280" height="350" loading="lazy" decoding="async"/>
+            {% image "/static/img/pages/journal-gallery3.webp", "", "w-full aspect-square object-cover rounded-lg rotate-[1deg] polaroid-shadow", "280px" %}
+            {% image "/static/img/pages/journal-gallery4.webp", "", "w-full aspect-[4/5] object-cover rounded-lg rotate-[-1deg] polaroid-shadow", "280px" %}
           </div>
         </div>
       </div>

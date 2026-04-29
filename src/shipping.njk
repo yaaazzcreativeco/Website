@@ -114,7 +114,7 @@ bodyClass: page-contact-dots
         {% if shippingSettings.shipping_flatlay_image %}
         {% image shippingSettings.shipping_flatlay_image, "Packaged stationery flat lay", "absolute inset-0 w-full h-full object-cover" %}
         {% else %}
-        <img class="absolute inset-0 w-full h-full object-cover" alt="Packaged stationery flat lay" src="/static/img/pages/shipping-flatlay.webp" width="800" height="600" loading="lazy" decoding="async"/>
+        {% image "/static/img/pages/shipping-flatlay.webp", "Packaged stationery flat lay", "absolute inset-0 w-full h-full object-cover", "(max-width: 768px) 100vw, 800px" %}
         {% endif %}
         <div class="absolute inset-0 bg-primary/10 mix-blend-multiply pointer-events-none"></div>
       </div>

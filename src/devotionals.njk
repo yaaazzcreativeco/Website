@@ -21,14 +21,14 @@ activeNav: devotionals
   </p>
   <div class="grid grid-cols-12 gap-6 h-[320px] md:h-[500px] mb-12 max-w-6xl mx-auto">
     <div class="col-span-12 md:col-span-8 relative overflow-hidden rounded-xl scrapbook-rotate-neg-1 shadow-xl h-full min-h-[200px]">
-      <img class="w-full h-full object-cover" alt="" src="/static/img/pages/devo-hero-main.webp" width="900" height="600" loading="lazy" decoding="async"/>
+      {% image "/static/img/pages/devo-hero-main.webp", "", "w-full h-full object-cover", "(max-width: 768px) 100vw, 800px" %}
     </div>
     <div class="col-span-12 md:col-span-4 flex flex-row md:flex-col gap-4 md:gap-6 h-auto md:h-full">
       <div class="flex-1 md:h-1/2 relative overflow-hidden rounded-xl scrapbook-rotate-1 shadow-lg min-h-[140px]">
-        <img class="w-full h-full object-cover" alt="" src="/static/img/pages/devo-hero-side1.webp" width="400" height="280" loading="lazy" decoding="async"/>
+        {% image "/static/img/pages/devo-hero-side1.webp", "", "w-full h-full object-cover", "400px" %}
       </div>
       <div class="flex-1 md:h-1/2 relative overflow-hidden rounded-xl scrapbook-rotate-neg-1 shadow-lg min-h-[140px]">
-        <img class="w-full h-full object-cover" alt="" src="/static/img/pages/devo-hero-side2.webp" width="400" height="280" loading="lazy" decoding="async"/>
+        {% image "/static/img/pages/devo-hero-side2.webp", "", "w-full h-full object-cover", "400px" %}
       </div>
     </div>
   </div>
