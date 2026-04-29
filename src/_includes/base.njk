@@ -24,13 +24,15 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;family=Caveat:wght@400;700&amp;family=Gochi+Hand&amp;display=swap" rel="stylesheet"/>
+  
+  {# Subsetted Material Symbols - only includes used icons to reduce weight from 1.1MB to ~10KB #}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;icon_names=edit_note,edit_calendar,auto_awesome,warning,shopping_bag,menu,thumb_up,photo_camera,music_note,alternate_email,play_circle,storefront,arrow_forward,close,shopping_cart,local_shipping,schedule,assignment_return,check_circle,verified,science,thermostat,eco,shield_person,cancel,favorite,star,sell,folder_shared,grid_4x4,description&amp;display=block" media="print" onload="this.media='all'">
+  
+  {# Main Fonts - Non-render blocking #}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;family=Caveat:wght@400;700&amp;family=Gochi+Hand&amp;display=swap" media="print" onload="this.media='all'">
+  
   <link rel="preload" href="/static/css/main.css" as="style">
   <link rel="stylesheet" href="/static/css/main.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" media="print" onload="this.media='all'">
-  <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet">
-  </noscript>
 </head>
 <body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen{% if bodyClass %} {{ bodyClass }}{% endif %}">
   <script src="/js/cart.js" defer></script>

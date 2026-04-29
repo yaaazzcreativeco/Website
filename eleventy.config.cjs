@@ -204,18 +204,18 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addGlobalData("privacySettings", () => readSettings("privacy.json"));
   eleventyConfig.addGlobalData("products", () => readProducts());
 
-  eleventyConfig.addNunjucksAsyncShortcode("image", async (src, alt, className = "", sizes = "100vw", widths = [400, 800, 1200]) => {
+  eleventyConfig.addNunjucksAsyncShortcode("image", async (src, alt, className = "", sizes = "100vw", widths = [400, 800, 1200], loading = "lazy", fetchpriority = "auto") => {
     if (!src) return "";
     
     // FAST DEV MODE: Skip heavy optimization locally to prevent flickering/loops
     if (process.env.ELEVENTY_RUN_MODE === 'serve') {
-      return `<img src="${src}" alt="${alt}" class="${className}" loading="lazy">`;
+      return `<img src="${src}" alt="${alt}" class="${className}" loading="${loading}" fetchpriority="${fetchpriority}">`;
     }
     
     let fullSrc = src.startsWith('/') ? `.${src}` : src;
     
     if (src.startsWith('http')) {
-       return `<img src="${src}" alt="${alt}" class="${className}" loading="lazy" decoding="async">`;
+       return `<img src="${src}" alt="${alt}" class="${className}" loading="${loading}" decoding="async" fetchpriority="${fetchpriority}">`;
     }
 
     let metadata = await Image(fullSrc, {
@@ -237,8 +237,9 @@ module.exports = function (eleventyConfig) {
       alt,
       class: className,
       sizes,
-      loading: "lazy",
+      loading,
       decoding: "async",
+      fetchpriority
     };
 
     return Image.generateHTML(metadata, imageAttributes);
