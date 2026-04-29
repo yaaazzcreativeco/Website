@@ -36,10 +36,10 @@ permalink: /
       <div class="absolute inset-0 bg-tertiary-container/30 rounded-xl rotate-3 -z-10"></div>
       <div class="relative w-full h-full flex items-center justify-center">
         <div class="absolute top-0 right-0 w-1/2 rotate-12 hover:rotate-6 transition-all duration-500 z-20">
-          <img alt="Slam notebook" class="rounded-lg shadow-xl border-8 border-white" src="{{ homepageSettings.hero_image_1 | default('/static/img/pages/hero-slam-notebook.webp') }}" width="600" height="720" loading="lazy" decoding="async"/>
+          {% image homepageSettings.hero_image_1 | default('/static/img/pages/hero-slam-notebook.webp'), "Slam notebook", "rounded-lg shadow-xl border-8 border-white", "(max-width: 1024px) 50vw, 30vw" %}
         </div>
         <div class="absolute bottom-10 left-0 w-1/2 -rotate-6 hover:rotate-0 transition-all duration-500 z-10">
-          <img alt="Journal layout" class="rounded-lg shadow-lg border-8 border-white" src="{{ homepageSettings.hero_image_2 | default('/static/img/pages/hero-journal-layout.webp') }}" width="600" height="720" loading="lazy" decoding="async"/>
+          {% image homepageSettings.hero_image_2 | default('/static/img/pages/hero-journal-layout.webp'), "Journal layout", "rounded-lg shadow-lg border-8 border-white", "(max-width: 1024px) 50vw, 30vw" %}
           <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-24 h-8 bg-secondary-container/80 washi-tape rotate-[-5deg]" aria-hidden="true"></div>
         </div>
         {% if homepageSettings.floating_text %}
@@ -183,7 +183,7 @@ permalink: /
         {% set tapePos = "-left-4" if loop.index == 1 else ("left-1/2 -translate-x-1/2" if loop.index == 2 else "-right-4") %}
 
         <div class="absolute {{ topPos }} {{ horizPos }} {{ width }} {{ padding }} bg-white shadow-[0_20px_50px_rgba(0,0,0,0.15)] {{ rotation }} hover:scale-105 hover:z-50 transition-all border border-outline-variant/10">
-          <img alt="Customer post" class="w-full {{ imgHeight }} object-cover rounded-sm mb-4 shadow-inner" src="{{ post.image }}" loading="lazy"/>
+          {% image post.image, "Customer post", "w-full " ~ imgHeight ~ " object-cover rounded-sm mb-4 shadow-inner", "300px" %}
           <p class="font-handwritten text-xl text-on-surface leading-tight mb-2">{{ post.quote }}</p>
           <p class="text-xs text-on-surface-variant font-bold text-right tracking-widest uppercase">— {{ post.author }}</p>
           
