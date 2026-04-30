@@ -1,7 +1,7 @@
 ---
 title: "Mother’s Day Devotional Notebook Bundle with Surprise Freebies | Gift Set  "
 slug: mothers-day-faith-stationery-bundle
-price: 500
+price: 450
 subtitle: Celebrate Mom with inspiring Bible verses and elegant floral designs.
 image: /static/img/uploads/copilot_20260428_040753.png
 category: bundle
