@@ -21,5 +21,7 @@ keywords:
   - Christian gift set for moms
   - scripture stationery bundle
   - Bible verse notebook and bookmark
+thumbnails:
+  - image: /static/img/uploads/512cbb74-b10e-4acb-89ee-b0218c9b21fd.png
 ---
 Honor the beauty of motherhood with this faith-inspired stationery bundle. Each piece floral notebook, notepad, and bookmark is adorned with uplifting Bible verses like Ephesians 2:10 and Isaiah 43:1. Perfect for journaling, devotionals, or heartfelt gifting, this set blends spiritual encouragement with timeless floral artistry.
