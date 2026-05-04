@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         "primary-dim": "#6f4253",
+        "nav-purple": "#8e5a6d",
         "on-secondary-fixed-variant": "#2c673c",
         "primary-fixed": "#f8bbd0",
         "surface-container-high": "#e9e3cc",

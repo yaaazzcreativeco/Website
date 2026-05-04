@@ -3221,6 +3221,11 @@ input:where([type='file']):focus {
   color: rgb(202 138 4 / 0.4);
 }
 
+.text-nav-purple {
+  --tw-text-opacity: 1;
+  color: rgb(142 90 109 / var(--tw-text-opacity, 1));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -3888,11 +3893,6 @@ input:where([type='file']):focus {
 .hover\:text-\[\#7d4d5f\]:hover {
   --tw-text-opacity: 1;
   color: rgb(125 77 95 / var(--tw-text-opacity, 1));
-}
-
-.hover\:text-\[\#8e5a6d\]:hover {
-  --tw-text-opacity: 1;
-  color: rgb(142 90 109 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-primary:hover {

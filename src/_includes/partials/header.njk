@@ -18,13 +18,13 @@
     <div class="hidden md:flex items-center gap-6 font-headline font-bold text-xl tracking-tight">
         {% for item in nav %}
           <a
-            class="text-[#8e5a6d]{% if activeNav and activeNav == item.id %} border-b-4 border-[#b2f2bb] pb-1 rotate-3{% else %} opacity-85 hover:opacity-100{% endif %} transition-all hover:scale-105 hover:rotate-3"
+            class="text-nav-purple{% if activeNav and activeNav == item.id %} border-b-4 border-[#b2f2bb] pb-1 rotate-3{% else %} opacity-85 hover:opacity-100{% endif %} transition-all hover:scale-105 hover:rotate-3"
             href="{{ item | resolveNav(categoryList) | sitePath | url }}"
           >{{ item.label }}</a>
         {% endfor %}
     </div>
     <div class="flex items-center gap-3">
-      <a href="{{ '/checkout/' | url }}" class="relative p-2 text-[#8e5a6d] hover:scale-110 transition-transform active:scale-95" aria-label="Cart and checkout">
+      <a href="{{ '/checkout/' | url }}" class="relative p-2 text-nav-purple hover:scale-110 transition-transform active:scale-95" aria-label="Cart and checkout">
         <span class="material-symbols-outlined text-2xl">shopping_bag</span>
         <span id="cart-badge" class="absolute -top-0.5 -right-0.5 min-w-[1.25rem] h-5 px-1 rounded-full bg-secondary text-on-secondary text-[10px] font-bold flex items-center justify-center hidden" aria-hidden="true">0</span>
       </a>
@@ -38,7 +38,7 @@
   <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[#fcf6e3]/95 backdrop-blur-xl border-t border-[#e3ddc5] shadow-lg origin-top transition-all duration-300">
     <nav class="flex flex-col px-6 py-4 font-headline font-bold text-lg" aria-label="Mobile">
       {% for item in nav %}
-        <a class="py-3 border-b border-[#e3ddc5]/50 text-[#8e5a6d] hover:pl-2 transition-all{% if activeNav and activeNav == item.id %} text-[#2c673c] bg-secondary-container/20{% endif %}" href="{{ item | resolveNav(categoryList) | sitePath | url }}">
+        <a class="py-3 border-b border-[#e3ddc5]/50 text-nav-purple hover:pl-2 transition-all{% if activeNav and activeNav == item.id %} text-[#2c673c] bg-secondary-container/20{% endif %}" href="{{ item | resolveNav(categoryList) | sitePath | url }}">
           {{ item.label }}
         </a>
       {% endfor %}
