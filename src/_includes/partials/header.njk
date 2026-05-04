@@ -15,10 +15,10 @@
         {% logo settings.logo_url, (settings.site_name | default('Yaaazz Creative Co.')) + " Logo", 200, "logo-mark h-20 md:h-24 w-auto max-w-[200px] md:max-w-[240px] shadow-none object-contain object-center transition-all duration-300 ease-out" %}
       </a>
     </div>
-    <div class="hidden md:flex items-center gap-6 font-headline font-bold text-xl tracking-tight">
+    <div class="hidden md:flex items-center gap-8 font-headline font-bold text-lg tracking-tight">
         {% for item in nav %}
           <a
-            class="nav-link-purple{% if activeNav and activeNav == item.id %} border-b-4 border-[#b2f2bb] pb-1 rotate-3{% else %} opacity-85{% endif %} transition-all hover:scale-105 hover:rotate-3"
+            class="nav-link-purple{% if activeNav and activeNav == item.id %} border-b-4 border-[#b2f2bb] pb-1 rotate-3{% else %} opacity-70{% endif %} transition-all hover:scale-105 hover:rotate-3"
             href="{{ item | resolveNav(categoryList) | sitePath | url }}"
           >{{ item.label }}</a>
         {% endfor %}
