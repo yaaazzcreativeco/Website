@@ -3012,6 +3012,11 @@ input:where([type='file']):focus {
   color: rgb(125 77 95 / 0.6);
 }
 
+.text-\[\#8e5a6d\] {
+  --tw-text-opacity: 1;
+  color: rgb(142 90 109 / var(--tw-text-opacity, 1));
+}
+
 .text-amber-700 {
   --tw-text-opacity: 1;
   color: rgb(180 83 9 / var(--tw-text-opacity, 1));
@@ -3274,6 +3279,10 @@ input:where([type='file']):focus {
 
 .opacity-80 {
   opacity: 0.8;
+}
+
+.opacity-85 {
+  opacity: 0.85;
 }
 
 .mix-blend-multiply {
@@ -3879,6 +3888,11 @@ input:where([type='file']):focus {
 .hover\:text-\[\#7d4d5f\]:hover {
   --tw-text-opacity: 1;
   color: rgb(125 77 95 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-\[\#8e5a6d\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(142 90 109 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-primary:hover {
