@@ -5,12 +5,13 @@
   "intl_timeline": "7 – 15 business days",
   "intl_label": "International",
   "intl_sublabel": "Worldwide shipping to your studio",
-  "processing_note": "Orders are usually processed within 24–48 hours. You'll get tracking by email when your package ships. Flat local rate is set in /admin site settings.",
+  "processing_note": "Orders are typically processed within 1–2 business days. You will receive a tracking link via email once your package is dispatched.",
   "return_policy_items": [
-    "30-day window for unopened journals and unused stickers.",
-    "Refund to original payment or store credit — message us on Messenger with photos.",
-    "Digital products are non-refundable once downloaded."
+    "Defective or wrong items? Report within 7 days for a full refund or replacement.",
+    "Change of mind or incorrect variants are not eligible for return.",
+    "Digital products are final sale once downloaded."
   ],
+  "unboxing_note": "✨ Pro-Tip: For your protection, please film a quick unboxing video showing the waybill before opening your package. This helps us solve any issues faster!",
   "custom_order_note": "Personalized notebooks may need an extra 3–5 days.",
   "lost_parcel_note": "We help track stalled shipments — reach out with your order ref.",
   "bulk_shipping_note": "Events & workshops — special rates for 20+ items.",

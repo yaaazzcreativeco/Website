@@ -64,7 +64,7 @@ bodyClass: page-contact-dots
         Not feeling the vibe? We want you to love your stationery as much as we loved making it.
       </p>
       {% if shippingSettings.return_policy_items and shippingSettings.return_policy_items.length %}
-      <ul class="space-y-4 mb-8">
+      <ul class="space-y-4 mb-6">
         {% for item in shippingSettings.return_policy_items %}
         <li class="flex items-start gap-3">
           <span class="material-symbols-outlined text-secondary mt-1">check_circle</span>
@@ -73,13 +73,19 @@ bodyClass: page-contact-dots
         {% endfor %}
       </ul>
       {% endif %}
+
+      {% if shippingSettings.unboxing_note %}
+      <div class="mb-8 p-4 bg-primary-container/30 border border-primary/10 rounded-lg text-sm italic text-on-surface-variant flex gap-3 items-start sticker-rotate-neg">
+        <span class="material-symbols-outlined text-primary text-xl">videocam</span>
+        <p>{{ shippingSettings.unboxing_note }}</p>
+      </div>
+      {% endif %}
       <p class="text-sm font-bold text-on-surface-variant mb-2">Choose a reason (we&apos;ll open the contact form for you)</p>
       <select id="return-reason-select" class="w-full mb-4 rounded-full bg-surface-container-highest border-none px-5 py-3 text-on-surface focus:ring-2 focus:ring-primary-container text-sm font-medium">
-        <option value="1">My item arrived damaged or defective.</option>
-        <option value="2">I want to exchange for a different product or variant.</option>
-        <option value="3">I changed my mind — unused item, original condition.</option>
-        <option value="4">My package never arrived (lost parcel).</option>
-        <option value="5">I received the wrong item and need a return or exchange.</option>
+        <option value="1">My item is defective or arrived damaged.</option>
+        <option value="2">I received the wrong item.</option>
+        <option value="3">My package is lost or has not arrived.</option>
+        <option value="4">Other inquiry (Exchange, general question, etc.)</option>
       </select>
       <a id="shipping-return-link" href="#" class="block w-full text-center bg-primary text-on-primary py-4 rounded-full font-headline font-bold text-lg hover:scale-[1.02] active:scale-95 transition-all shadow-md">
         Start a return
@@ -149,11 +155,10 @@ bodyClass: page-contact-dots
     var contactPath = {{ '/contact/' | url | dump | safe }};
     var RETURN_SUBJECT = "Return & Exchange Request";
     var RETURN_REASON_PRESETS = {
-      "1": "I'm starting a return: my item arrived damaged or defective.\n\nOrder / tracking (if any):\n\n",
-      "2": "I'm requesting an exchange for a different product or variant.\n\nWhat I ordered vs what I need:\n\n",
-      "3": "I'd like to return an unused item in original condition.\n\nReason:\n\n",
-      "4": "My package never arrived. Please help with a lost parcel or reship.\n\nLast known tracking:\n\n",
-      "5": "I received the wrong item and need a return or exchange.\n\nWhat I got vs what I ordered:\n\n"
+      "1": "I'm reporting a defective or damaged item.\n\nOrder / Tracking Details:\n\n(Note: I have my unboxing video ready ✨)\n\n",
+      "2": "I received the wrong item. Here is what I got vs what I ordered:\n\n",
+      "3": "My package has not arrived. Please help with a lost parcel check.\n\nLast known tracking:\n\n",
+      "4": "I have an inquiry regarding my order (Exchange or general question):\n\n"
     };
     var sel = document.getElementById("return-reason-select");
     var link = document.getElementById("shipping-return-link");
