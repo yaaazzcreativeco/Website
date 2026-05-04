@@ -492,3 +492,4 @@ module.exports = function (eleventyConfig) {
     }
   };
 };
+// Restoration commit to fix the build failure.
