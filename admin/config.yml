@@ -282,21 +282,6 @@ collections:
           - { label: Contact email, name: contact_email, widget: string, required: false, hint: "Email address shown on contact page" }
 
   # ============================================
-  # 7. CART / CHECKOUT SETTINGS
-  # ============================================
-  - name: checkout
-    label: "🛒 Cart Settings"
-    files:
-      - label: GCash, Shipping & Messenger
-        name: checkout
-        file: content/settings/checkout.json
-        fields:
-          - { label: GCash account display name, name: gcash_account_name, widget: string }
-          - { label: GCash QR image, name: gcash_qr_image, widget: image, required: false }
-          - { label: Flat shipping rate (PHP), name: flat_rate_shipping_php, widget: number, value_type: int, default: 120 }
-          - { label: Ordering email, name: ordering_email, widget: string, required: false, hint: "Email to receive order notifications" }
-
-  # ============================================
   # 8. SHIPPING SETTINGS
   # ============================================
   - name: shipping

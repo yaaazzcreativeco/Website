@@ -6,7 +6,7 @@ permalink: /checkout/index.html
 <section class="max-w-7xl mx-auto px-6 pt-8 pb-16">
   <header class="mb-10 relative">
     <h1 class="font-headline font-black text-4xl md:text-5xl text-primary mb-2">Complete your order!</h1>
-    <p class="text-on-surface font-medium opacity-80">Send your order to us via Live Chat for confirmation and exact shipping calculation.</p>
+    <p class="text-on-surface font-medium opacity-80">Fill in your shipping details and submit — we'll take it from there! 🎀</p>
   </header>
 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
@@ -60,7 +60,7 @@ permalink: /checkout/index.html
 
         <section class="bg-primary-container/25 rounded-2xl p-6 md:p-8 border border-primary/10">
           <div class="flex justify-between items-start mb-3">
-            <h2 class="font-headline font-bold text-xl text-on-surface">Live Chat Confirmation</h2>
+            <h2 class="font-headline font-bold text-xl text-on-surface">Chat With Us</h2>
             <div id="live-status-pill" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-500 shadow-sm border">
               <span class="relative flex h-3 w-3" id="status-indicator-dots">
                 <span id="status-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-green-400"></span>
@@ -70,23 +70,46 @@ permalink: /checkout/index.html
             </div>
           </div>
           <p class="text-on-surface-variant text-sm mb-4 leading-relaxed">
-            Fill in your details and click below to open our Live Chat. 
-            <strong>Your order details will be copied automatically</strong>—just paste them into the chat bubble and our team will calculate the shipping fee for you!
+            Have a question about your order or shipping? Our team is happy to help!
+            Click the button below to open our Live Chat.
           </p>
-          <div class="flex items-center gap-2 mb-6 text-xs font-medium text-on-surface-variant bg-surface-container-low/50 w-fit px-3 py-2 rounded-lg border border-outline-variant/10">
-            <span class="material-symbols-outlined text-sm text-primary">schedule</span>
-            <span><strong>Chat Schedule:</strong> 8:00 AM – 5:00 PM, Monday to Saturday</span>
-          </div>
-          <div class="flex flex-col gap-4">
-            <button type="button" id="btn-submit-order" class="w-full inline-flex items-center justify-center gap-3 bg-primary text-on-primary font-headline font-black py-4 px-8 rounded-full shadow-lg hover:opacity-95 transition-all hover:scale-[1.02] active:scale-95 text-lg">
-              <span class="material-symbols-outlined">send_and_archive</span>
-              SUBMIT ORDER & OPEN CHAT
+          <div class="flex flex-wrap items-center gap-3 mb-8">
+            <div class="flex items-center gap-2 text-xs font-medium text-on-surface-variant bg-surface-container-low/50 w-fit px-3 py-2 rounded-lg border border-outline-variant/10">
+              <span class="material-symbols-outlined text-sm text-primary">schedule</span>
+              <span><strong>Chat Schedule:</strong> 8:00 AM – 5:00 PM, Monday to Saturday</span>
+            </div>
+            <button type="button" id="btn-open-chat" class="inline-flex items-center justify-center gap-2 bg-surface-container-low/50 text-on-surface-variant font-bold py-2 px-3 rounded-lg border border-outline-variant/10 hover:bg-primary-container/40 transition-all hover:scale-[1.02] active:scale-95 text-xs">
+              <div class="relative flex h-2 w-2" id="chat-status-indicator">
+                <span id="chat-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span id="chat-dot" class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </div>
+              <span class="material-symbols-outlined text-primary text-sm">chat</span>
+              Chat with Our Team
             </button>
           </div>
-          <div id="copy-toast" class="mt-6 p-5 rounded-2xl bg-secondary-container text-on-secondary-container text-sm font-bold hidden border border-secondary/20 shadow-inner flex items-center justify-center gap-3 animate-fade-in">
-              <span class="material-symbols-outlined text-2xl">check_circle</span>
-              <p>ORDER DETAILS COPIED! Please paste the message into the chat bubble to finalize your order.</p>
+          <button type="button" id="btn-submit-order" class="w-full inline-flex items-center justify-center gap-3 bg-primary text-on-primary font-headline font-black py-4 px-8 rounded-full shadow-lg hover:opacity-95 transition-all hover:scale-[1.02] active:scale-95 text-lg">
+            <span class="material-symbols-outlined">send_and_archive</span>
+            SUBMIT ORDER
+          </button>
+          
+          <div id="order-success" class="hidden">
+            <div class="relative overflow-hidden p-8 rounded-[2rem] bg-gradient-to-br from-[#2c673c] to-[#1e4a2a] text-white text-center shadow-xl transform transition-all duration-700 animate-[slideUp_0.6s_cubic-bezier(0.34,1.56,0.64,1)]">
+              <div class="inline-flex items-center justify-center w-20 h-20 bg-white/10 rounded-full mb-6 relative">
+                <div class="absolute inset-0 bg-white/20 rounded-full animate-ping" style="animation-duration: 2s;"></div>
+                <span class="material-symbols-outlined text-white text-4xl relative z-10" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+              </div>
+              <h3 class="font-headline font-black text-3xl mb-4 tracking-tight">Order Received! 🎀</h3>
+              <p class="text-white/90 text-base leading-relaxed mb-4 max-w-md mx-auto">
+                Thank you! Your order has been securely sent. Please <strong>check your email inbox</strong> for your order confirmation and summary. 📧
+              </p>
+              <div class="bg-black/15 rounded-xl p-4 mt-6 backdrop-blur-sm border border-white/10">
+                <p class="text-white/95 text-sm leading-relaxed">
+                  Our team will contact you <strong>shortly</strong> with your exact delivery fee and payment details. We can't wait to prepare this for you! ✨
+                </p>
+              </div>
+            </div>
           </div>
+
         </section>
       </div>
     </div>
@@ -109,7 +132,7 @@ permalink: /checkout/index.html
             <span>Items Subtotal</span>
             <span id="sum-sub">₱0</span>
           </div>
-          <p class="text-xs text-on-surface-variant font-medium text-right">*Shipping calculated in chat</p>
+          <p class="text-xs text-on-surface-variant font-medium text-right">*Shipping fee confirmed by our team</p>
         </div>
       </div>
     </aside>
@@ -208,146 +231,126 @@ permalink: /checkout/index.html
     }
 
     var submitBtn = document.getElementById("btn-submit-order");
-    var submitBtnDefaultHtml = submitBtn ? submitBtn.innerHTML : "";
 
-    function setSubmitSuccessState(active) {
-      var toast = document.getElementById("copy-toast");
+    function buildOrderSummary(buyer) {
+      var cart = window.YaaazzCart.get();
+      var subtotal = window.YaaazzCart.subtotal();
+      var lines = ["=== YAAAZZ ORDER ==="];
+      cart.forEach(function(l) {
+        var line = "• " + l.qty + " x " + l.title + " — " + money(l.price) + " (line total: " + money(l.price * l.qty) + ")";
+        if (l.isPreOrder) line += " [PRE-ORDER]";
+        lines.push(line);
+      });
+      lines.push("");
+      lines.push("Items Subtotal: " + money(subtotal));
+      lines.push("Shipping Fee: To be confirmed by our team");
+      lines.push("");
+      lines.push("--- Shipping Details ---");
+      lines.push("Name: " + (buyer.name || ""));
+      lines.push("Phone: " + (buyer.phone || ""));
+      lines.push("Email: " + (buyer.email || ""));
+      lines.push("Address: " + [buyer.address, buyer.barangay, buyer.city, buyer.province, buyer.postal].filter(Boolean).join(", "));
+      return lines.join("\n");
+    }
+
+    function setSubmitting(active) {
       if (!submitBtn) return;
       if (active) {
         submitBtn.disabled = true;
-        submitBtn.classList.add("checkout-submit-done", "scale-105");
-        submitBtn.innerHTML = '<span class="material-symbols-outlined">check_circle</span><span>ORDER COPIED — OPENING CHAT…</span>';
-        submitBtn.style.opacity = "1";
-        if (toast) {
-          toast.classList.remove("hidden");
-          toast.classList.add("flex");
-        }
+        submitBtn.innerHTML = '<span class="material-symbols-outlined" style="animation:spin 1s linear infinite;">refresh</span><span>Sending your order…</span>';
+        submitBtn.style.opacity = "0.75";
       } else {
         submitBtn.disabled = false;
-        submitBtn.classList.remove("checkout-submit-done", "scale-105");
-        submitBtn.innerHTML = submitBtnDefaultHtml;
-        if (toast) {
-          toast.classList.add("hidden");
-          toast.classList.remove("flex");
-        }
+        submitBtn.innerHTML = '<span class="material-symbols-outlined">send_and_archive</span>SUBMIT ORDER';
+        submitBtn.style.opacity = "1";
       }
     }
 
-    submitBtn.addEventListener("click", function (e) {
-      e.preventDefault();
+    function showSuccessScreen() {
+      if (submitBtn) {
+        submitBtn.style.display = "none";
+      }
+      var success = document.getElementById("order-success");
+      if (success) {
+        success.classList.remove("hidden");
+        setTimeout(function() {
+          success.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 100);
+      }
+    }
 
-      // Manual HTML5 validation since we removed the form wrapper
-      var requiredFields = document.getElementById("checkout-form").querySelectorAll("input[required]");
-      for (var i = 0; i < requiredFields.length; i++) {
-        if (!requiredFields[i].value.trim()) {
-          requiredFields[i].reportValidity();
+    if (submitBtn) {
+      submitBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // Validate required fields
+        var requiredFields = document.getElementById("checkout-form").querySelectorAll("input[required]");
+        for (var i = 0; i < requiredFields.length; i++) {
+          if (!requiredFields[i].value.trim()) {
+            requiredFields[i].reportValidity();
+            return;
+          }
+        }
+
+        if (!window.YaaazzCart.get().length) {
+          alert("Your cart is empty.");
           return;
         }
-      }
 
-      if (!window.YaaazzCart.get().length) {
-        alert("Your cart is empty.");
-        return;
-      }
+        var buyer = buyerFromForm();
+        var orderSummary = buildOrderSummary(buyer);
+        var shortId = Math.random().toString(36).substring(2, 6).toUpperCase();
+        var dateStr = new Date().toLocaleDateString("en-PH", { month: "short", day: "numeric", year: "numeric" });
+        var subject = "Yaaazz Order - " + buyer.name + " [" + dateStr + " #" + shortId + "]";
 
-      var buyer = buyerFromForm();
-      var text = window.YaaazzOrderText.compose(buyer);
+        setSubmitting(true);
 
-      // --- 1. Copy order to clipboard ---
-      navigator.clipboard.writeText(text).then(function () {
-        setSubmitSuccessState(true);
-        // --- 2. Show the floating instruction overlay ---
-        showPasteOverlay(text);
+        var formData = new FormData();
+        formData.append("_subject", subject);
+        formData.append("_replyto", buyer.email);
+        formData.append("_captcha", "false");
+        formData.append("_template", "table");
+        formData.append("_honey", "");
+        formData.append("name", buyer.name);
+        formData.append("email", buyer.email);
+        formData.append("phone", buyer.phone);
+        formData.append("address", buyer.address);
+        formData.append("barangay", buyer.barangay);
+        formData.append("city", buyer.city);
+        formData.append("province", buyer.province);
+        formData.append("postal", buyer.postal);
+        formData.append("order_summary", orderSummary);
 
-        // --- 3. Set visitor name/email (only these 2 actually work) ---
-        if (typeof Tawk_API !== "undefined") {
-          if (Tawk_API.setAttributes) {
-            Tawk_API.setAttributes({
-              'name': buyer.name,
-              'email': buyer.email
-            }, function(error){});
+        fetch("https://formsubmit.co/ajax/yaaazz.creativeco@gmail.com", {
+          method: "POST",
+          body: formData,
+          headers: { "Accept": "application/json" }
+        })
+        .then(function(response) { return response.json(); })
+        .then(function(data) {
+          if (data.success === "true" || data.success === true) {
+            showSuccessScreen();
+            window.YaaazzCart.clear();
+          } else {
+            throw new Error(data.message || "Could not send order.");
           }
-        }
+        })
+        .catch(function(err) {
+          setSubmitting(false);
+          alert("Sorry, there was a problem sending your order. Please try again or reach us via Live Chat.\n\n" + (err.message || ""));
+        });
+      });
+    }
 
-        // --- 4. Open the chat ---
-        setTimeout(function() {
-          if (typeof Tawk_API !== "undefined") {
-            if (Tawk_API.maximize) Tawk_API.maximize();
-            else if (Tawk_API.toggle) Tawk_API.toggle();
-          }
-        }, 500);
-
-      }).catch(function(err) {
-        setSubmitSuccessState(true);
-        // Fallback if clipboard fails
-        showPasteOverlay(text);
+    // Open chat button (optional, for inquiries only)
+    var chatBtn = document.getElementById("btn-open-chat");
+    if (chatBtn) {
+      chatBtn.addEventListener("click", function() {
         if (typeof Tawk_API !== "undefined") {
           if (Tawk_API.maximize) Tawk_API.maximize();
           else if (Tawk_API.toggle) Tawk_API.toggle();
         }
       });
-    });
-
-    // --- Floating overlay that guides the customer ---
-    function showPasteOverlay(orderText) {
-      // Remove old overlay if exists
-      var old = document.getElementById("paste-overlay");
-      if (old) old.remove();
-
-      var overlay = document.createElement("div");
-      overlay.id = "paste-overlay";
-      // We moved the styling to the CSS block at the bottom so it can be responsive
-
-      overlay.innerHTML =
-        '<div style="padding:20px 20px 12px;border-bottom:1px solid rgba(255,255,255,0.15);">' +
-          '<div style="display:flex;justify-content:space-between;align-items:center;">' +
-            '<h3 style="margin:0;font-size:18px;font-weight:900;">✅ Order Copied!</h3>' +
-            '<button id="close-paste-overlay" style="background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;" title="Close">✕</button>' +
-          '</div>' +
-          '<p style="margin:8px 0 0;font-size:13px;opacity:0.85;">Follow these 2 simple steps:</p>' +
-        '</div>' +
-        '<div style="padding:16px 20px;">' +
-          '<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:14px;">' +
-            '<span style="background:#fbcfe8;color:#7d4d5f;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0;">1</span>' +
-            '<p style="margin:0;font-size:14px;line-height:1.5;">Click inside the <strong>chat box</strong> at the bottom right 👇</p>' +
-          '</div>' +
-          '<div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;">' +
-            '<span style="background:#fbcfe8;color:#7d4d5f;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex-shrink:0;">2</span>' +
-            '<p style="margin:0;font-size:14px;line-height:1.5;">Press <kbd style="background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:6px;font-size:12px;font-weight:700;">Ctrl+V</kbd> to paste, then press <kbd style="background:rgba(255,255,255,0.2);padding:2px 8px;border-radius:6px;font-size:12px;font-weight:700;">Enter</kbd> to send!</p>' +
-          '</div>' +
-          '<button id="btn-recopy" style="width:100%;padding:10px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:12px;color:#fff;font-weight:700;font-size:13px;cursor:pointer;transition:background 0.2s;">📋 Copy Again</button>' +
-          '<details style="margin:0;">' +
-            '<summary style="font-size:12px;opacity:0.7;cursor:pointer;">Preview what was copied</summary>' +
-            '<pre id="order-preview" style="margin:8px 0 0;padding:10px;background:rgba(0,0,0,0.3);border-radius:10px;font-size:11px;white-space:pre-wrap;word-break:break-word;max-height:200px;overflow-y:auto;line-height:1.4;"></pre>' +
-          '</details>' +
-        '</div>';
-
-      document.body.appendChild(overlay);
-
-      // Set the preview text safely
-      document.getElementById("order-preview").textContent = orderText;
-
-      // Close button
-      document.getElementById("close-paste-overlay").addEventListener("click", function() {
-        overlay.remove();
-      });
-
-      // Re-copy button
-      document.getElementById("btn-recopy").addEventListener("click", function() {
-        navigator.clipboard.writeText(orderText).then(function() {
-          document.getElementById("btn-recopy").textContent = "✅ Copied!";
-          setTimeout(function() {
-            document.getElementById("btn-recopy").textContent = "📋 Copy Again";
-          }, 2000);
-        });
-      });
-
-      // Auto-dismiss after 60 seconds
-      setTimeout(function() {
-        if (document.getElementById("paste-overlay")) {
-          overlay.remove();
-        }
-      }, 60000);
     }
 
     function updateLiveStatus() {
@@ -355,14 +358,17 @@ permalink: /checkout/index.html
       var text = document.getElementById("live-status-text");
       var dot = document.getElementById("status-dot");
       var ping = document.getElementById("status-ping");
+      
+      var chatBtn = document.getElementById("btn-open-chat");
+      var chatDot = document.getElementById("chat-dot");
+      var chatPing = document.getElementById("chat-ping");
+
       if (!pill || !text) return;
 
       var now = new Date();
       var day = now.getDay();
       var hour = now.getHours();
 
-      // Monday (1) to Saturday (6)
-      // 8:00 AM (8) to 5:00 PM (17)
       var isOpen = day >= 1 && day <= 6 && hour >= 8 && hour < 17;
 
       if (isOpen) {
@@ -370,11 +376,23 @@ permalink: /checkout/index.html
         text.textContent = "LIVE NOW";
         dot.className = "relative inline-flex rounded-full h-3 w-3 bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)]";
         ping.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75";
+        
+        if (chatBtn) {
+          chatBtn.classList.add("chat-btn-live");
+          if (chatDot) chatDot.className = "relative inline-flex rounded-full h-2 w-2 bg-green-500";
+          if (chatPing) chatPing.className = "animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75";
+        }
       } else {
         pill.className = "inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-500 border border-outline-variant/30 bg-surface-container-highest text-on-surface-variant/60";
         text.textContent = "OFFLINE";
         dot.className = "relative inline-flex rounded-full h-3 w-3 bg-on-surface-variant/40";
         ping.className = "hidden";
+        
+        if (chatBtn) {
+          chatBtn.classList.remove("chat-btn-live");
+          if (chatDot) chatDot.className = "relative inline-flex rounded-full h-2 w-2 bg-on-surface-variant/30";
+          if (chatPing) chatPing.className = "hidden";
+        }
       }
     }
 
@@ -436,33 +454,21 @@ permalink: /checkout/index.html
     50% { transform: scale(1.06); }
     100% { transform: scale(1.05); }
   }
-
-  #paste-overlay {
-    position: fixed;
-    bottom: 90px;
-    right: 380px;
-    z-index: 9999;
-    width: 380px;
-    max-width: calc(100vw - 40px);
-    max-height: 85vh;
-    background: linear-gradient(135deg, #1a472a, #2c673c);
-    color: #fff;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-    padding: 0;
-    font-family: inherit;
-    overflow-y: auto;
-    animation: slideUp 0.4s ease;
+  @keyframes spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
 
-  /* On smaller screens, show it at the center top so it doesn't overlap mobile chat */
-  @media (max-width: 768px) {
-    #paste-overlay {
-      right: 20px;
-      bottom: auto;
-      top: 20px;
-    }
+  .chat-btn-live {
+    border-color: rgba(34, 197, 94, 0.4) !important;
+    background-color: rgba(34, 197, 94, 0.08) !important;
+    animation: chatGlowPulse 2s infinite alternate;
   }
+  @keyframes chatGlowPulse {
+    from { box-shadow: 0 0 0px rgba(34, 197, 94, 0); }
+    to { box-shadow: 0 0 12px rgba(34, 197, 94, 0.25); }
+  }
+
 
   /* Custom Confirmation Modal */
   #clear-cart-modal {

@@ -34,7 +34,7 @@
   <link rel="preload" href="/static/css/main.css" as="style">
   <link rel="stylesheet" href="/static/css/main.css">
 </head>
-<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen{% if bodyClass %} {{ bodyClass }}{% endif %}">
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container min-h-screen overflow-x-hidden{% if bodyClass %} {{ bodyClass }}{% endif %}">
   <script src="/js/cart.js" defer></script>
   <div class="grainy-overlay" aria-hidden="true"></div>
   {% include "partials/header.njk" %}
