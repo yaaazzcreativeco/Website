@@ -16,32 +16,61 @@ permalink: /privacy/index.html
       <h1 class="font-headline text-4xl md:text-5xl font-black text-primary">{{ privacySettings.page_title | default("Privacy & Trust") }}</h1>
     </div>
     
-    <div class="space-y-6 text-on-surface-variant text-lg leading-relaxed font-body">
+    <div class="prose prose-lg prose-primary max-w-none text-on-surface-variant leading-relaxed font-body text-justify">
       {% if privacySettings.body %}
-      {{ privacySettings.body | markdownToHtml | safe }}
+      <div class="privacy-content-wrapper">
+        {{ privacySettings.body | markdownToHtml | safe }}
+      </div>
       {% else %}
-      <p class="font-medium text-primary-dim">Your creative journey is safe with us. We believe in total transparency about how our website works.</p>
+      <p class="font-medium text-primary-dim text-xl mb-10">Your creative journey is safe with us. We believe in total transparency about how our website works.</p>
       
-      <div class="bg-surface-container-highest p-6 rounded-2xl border-l-4 border-tertiary">
-        <h3 class="font-headline font-bold text-tertiary mb-2">1. Secure Messaging (Formsubmit)</h3>
-        <p class="text-sm">When you send an inquiry, join a community, or request a bulk order, your messages are securely routed directly to our inbox via <strong>Formsubmit.co</strong>. We do not sell or store this data on a public database—it goes straight to our team to help you.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-surface-container-highest p-8 rounded-2xl border-t-4 border-tertiary shadow-sm transition-transform hover:scale-[1.01]">
+          <h3 class="font-headline font-black text-tertiary mb-3 flex items-center gap-2">
+            <span class="material-symbols-outlined">mail_lock</span>
+            Secure Messaging
+          </h3>
+          <p class="text-sm">When you send an inquiry or join our community, your messages are securely routed directly to our inbox. We do not sell or store this data on a public database—it goes straight to our team to help you.</p>
+        </div>
+
+        <div class="bg-surface-container-highest p-8 rounded-2xl border-t-4 border-secondary shadow-sm transition-transform hover:scale-[1.01]">
+          <h3 class="font-headline font-black text-secondary mb-3 flex items-center gap-2">
+            <span class="material-symbols-outlined">shopping_cart_checkout</span>
+            Your Shopping Cart
+          </h3>
+          <p class="text-sm">We don't use tracking cookies to follow you across the internet. Instead, your shopping cart is saved securely and locally on your own device. Your cart belongs to you.</p>
+        </div>
+
+        <div class="bg-surface-container-highest p-8 rounded-2xl border-t-4 border-primary shadow-sm transition-transform hover:scale-[1.01] md:col-span-2">
+          <h3 class="font-headline font-black text-primary mb-3 flex items-center gap-2">
+            <span class="material-symbols-outlined">payments</span>
+            Payments & Security
+          </h3>
+          <p class="text-sm">We process orders manually to ensure a personal touch. We will never ask for your private PINs or passwords on this site. Your security is our priority.</p>
+        </div>
       </div>
 
-      <div class="bg-surface-container-highest p-6 rounded-2xl border-l-4 border-secondary">
-        <h3 class="font-headline font-bold text-secondary mb-2">2. Your Shopping Cart (Local Storage)</h3>
-        <p class="text-sm">We don't use creepy tracking cookies to follow you across the internet. Instead, your shopping cart is saved securely and locally on <strong>your own device</strong> using Browser LocalStorage. Your cart belongs to you.</p>
-      </div>
-
-      <div class="bg-surface-container-highest p-6 rounded-2xl border-l-4 border-primary">
-        <h3 class="font-headline font-bold text-primary mb-2">3. Payments & Live Chat (Tawk.to)</h3>
-        <p class="text-sm">We process orders manually via GCash to ensure a personal touch. We will <strong>never</strong> ask for your GCash MPIN on this site. You can chat with us live using <strong>Tawk.to</strong>, which provides our secure on-site chat experience.</p>
-      </div>
-
-      <p class="text-sm opacity-60 italic mt-8 border-t border-outline-variant/20 pt-6">Update this page with your shop's official legal policy inside the CMS at <strong>/admin</strong> → Privacy Settings.</p>
+      <p class="text-sm opacity-40 italic mt-12 text-center">Update this policy in your shop settings.</p>
       {% endif %}
     </div>
   </div>
 </section>
+
+<style>
+  .privacy-content-wrapper p {
+    margin-bottom: 1.5rem;
+  }
+  .privacy-content-wrapper strong {
+    color: var(--md-sys-color-primary);
+    font-weight: 800;
+  }
+  /* Ensuring justified text looks good on mobile */
+  @media (max-width: 640px) {
+    .text-justify {
+      text-align: left;
+    }
+  }
+</style>
 
 <style>
   @keyframes blob {

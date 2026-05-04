@@ -399,6 +399,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("markdownToHtml", (text) => {
     if (!text) return "";
     return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
       .split(/\n\n+/)
       .map((p) => `<p>${p.replace(/\n/g, "<br/>")}</p>`)
       .join("");
