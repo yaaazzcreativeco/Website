@@ -18,6 +18,10 @@ tags:
   - Serenity and Self-worth
   - Plan with Peace
   - Organize your Days
+thumbnails:
+  - image: /static/img/uploads/serene-1.png
+  - image: /static/img/uploads/serene-2.png
+  - image: /static/img/uploads/serene-3.png
 ---
 
 Serene planner with 60 days of organization and 180 doodle pages, designed to inspire calm, creativity, and self-worth.
