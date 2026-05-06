@@ -18,6 +18,10 @@ tags:
   - Trust God’s Plan
   - Organize Tasks
   - 60 Days of Planning
+thumbnails:
+  - image: /static/img/uploads/trust-1.png
+  - image: /static/img/uploads/trust-2.png
+  - image: /static/img/uploads/trust-3.png
 ---
 
 Faith-inspired 60-day planner with 180 doodle pages, guided by Psalm 56:3 to trust God’s plan.
