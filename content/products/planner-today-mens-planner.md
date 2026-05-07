@@ -18,6 +18,10 @@ tags:
   - Structure your Goals
   - Motivation and Productivity
   - Organize Tasks
+thumbnails:
+  - image: /static/img/uploads/today-1.png
+  - image: /static/img/uploads/today-2.png
+  - image: /static/img/uploads/today-3.png
 ---
 
 Men’s 60-day planner with 180 doodle pages, motivating you to act today and stay consistent.
