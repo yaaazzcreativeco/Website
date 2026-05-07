@@ -21,5 +21,9 @@ keywords:
   - doodle notebooks
   - kawaii planner notebooks
   - creative doodle journals
+thumbnails:
+  - image: /static/img/uploads/glow-1.png
+  - image: /static/img/uploads/glow-2.png
+  - image: /static/img/uploads/glow-3.png
 ---
 Glow pastel planner notebooks with cheerful doodle pages. Stay inspired while planning your day and sketching ideas in kawaii style.
