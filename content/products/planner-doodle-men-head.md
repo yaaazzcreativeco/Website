@@ -18,6 +18,10 @@ tags:
   - Planner for Men
   - Make it Happen
   - Structure your Day
+thumbnails:
+  - image: /static/img/uploads/things-1.png
+  - image: /static/img/uploads/things-2.png
+  - image: /static/img/uploads/things-3.png
 ---
 
 Men’s 60-day planner with 180 doodle pages to organize thoughts, goals, and creative ideas.
