@@ -6,13 +6,13 @@ subtitle: A floral faith-inspired notebook celebrating moms with scripture and
   encouragement
 image: /static/img/uploads/7d4134b7-bd80-4773-a26e-4121ea8000ff.jpg
 category: devotional-journal
-stock_status: in_stock
-sales_badge: pre_order
-promo_badge: limited
-is_curator_pick: true
+stock_status: out_of_stock
+sales_badge: sale
+promo_badge: none
+is_curator_pick: false
 is_best_seller: false
-is_new_arrival: true
-show_in_shop: true
+is_new_arrival: false
+show_in_shop: false
 order: 0
 tags:
   - Mother’s Day Notebook
