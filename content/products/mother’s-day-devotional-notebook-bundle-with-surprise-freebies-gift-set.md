@@ -5,13 +5,13 @@ price: 450
 subtitle: Celebrate Mom with inspiring Bible verses and elegant floral designs.
 image: /static/img/uploads/copilot_20260428_040753.png
 category: bundle
-stock_status: in_stock
+stock_status: out_of_stock
 sales_badge: pre_order
-promo_badge: limited
-is_curator_pick: true
+promo_badge: none
+is_curator_pick: false
 is_best_seller: false
-is_new_arrival: true
-show_in_shop: true
+is_new_arrival: false
+show_in_shop: false
 order: 0
 tags:
   - Mother’s Day Gift
