@@ -21,7 +21,7 @@ function scanAllInboxes() {
 function scanYaaazzOrders() {
   Logger.log("--- Starting Yaaazz Order Scan ---");
 
-  var searchQuery = 'from:submissions@formsubmit.co subject:"Yaaazz Order" is:unread -label:AUTO-REPLIED';
+  var searchQuery = '(from:submissions@formsubmit.co OR from:notify@web3forms.com) subject:"Yaaazz Order" is:unread -label:AUTO-REPLIED';
   var threads = GmailApp.search(searchQuery);
 
   if (threads.length === 0) {
@@ -155,7 +155,7 @@ function sendYaaazzOrderAutoReply(name, email, rawBody) {
 function scanPrayerInbox() {
   Logger.log("Starting Prayer Scan...");
   
-  var searchQuery = 'from:submissions@formsubmit.co "Prayer Community" is:unread -label:AUTO-REPLIED';
+  var searchQuery = '(from:submissions@formsubmit.co OR from:notify@web3forms.com) "Prayer Community" is:unread -label:AUTO-REPLIED';
   var threads = GmailApp.search(searchQuery);
   
   if (threads.length === 0) return;
@@ -202,7 +202,7 @@ function scanPrayerInbox() {
 function scanWebsiteBuilderInbox() {
   Logger.log("Starting Website Builder Scan...");
   
-  var searchQuery = 'from:submissions@formsubmit.co "Website Builder Inquiry" is:unread -label:AUTO-REPLIED';
+  var searchQuery = '(from:submissions@formsubmit.co OR from:notify@web3forms.com) "Website Builder Inquiry" is:unread -label:AUTO-REPLIED';
   var threads = GmailApp.search(searchQuery);
   
   if (threads.length === 0) return;
@@ -367,17 +367,17 @@ function extractOrderSummary(body) {
   var startMarker = "=== YAAAZZ ORDER ===";
   var startIndex = body.indexOf(startMarker);
   if (startIndex !== -1) {
-    // End before the footer starts
-    var endMarker = "Submitted at";
-    var endIndex = body.indexOf(endMarker, startIndex);
+    // End before the footer or next fields start
+    var endMarkers = ["Submitted at", "Sponsor <https://formsubmit.co", "Powered by Web3Forms", "Sent via Web3Forms", "Submit Time", "IP Address"];
+    var endIndex = -1;
+    for (var j = 0; j < endMarkers.length; j++) {
+      var idx = body.indexOf(endMarkers[j], startIndex);
+      if (idx !== -1 && (endIndex === -1 || idx < endIndex)) {
+        endIndex = idx;
+      }
+    }
     if (endIndex !== -1) {
       return body.substring(startIndex, endIndex).trim();
-    }
-    // Final boundary: Sponsor link
-    var sponsorMarker = "Sponsor <https://formsubmit.co";
-    var sponsorIndex = body.indexOf(sponsorMarker, startIndex);
-    if (sponsorIndex !== -1) {
-      return body.substring(startIndex, sponsorIndex).trim();
     }
     return body.substring(startIndex, startIndex + 1200).trim();
   }

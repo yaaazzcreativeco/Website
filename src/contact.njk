@@ -27,16 +27,15 @@ bodyClass: page-contact-dots
       <div class="absolute -top-4 -right-4 bg-secondary-container shadow-[2px_2px_5px_rgba(0,0,0,0.05)] px-8 py-2 text-on-secondary-container font-headline font-bold -rotate-12 z-20 rounded-sm">
         Snail Mail? No, Digital!
       </div>
-      <!-- FormSubmit: first time, open the activation link they email you for this address. AJAX errors often mean the form is not activated yet. -->
-      <form name="contact" action="https://formsubmit.co/ajax/yaaazz.creativeco@gmail.com" method="POST" autocomplete="off" class="space-y-8" id="contact-form">
-        <!-- FormSubmit Config -->
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_subject" id="dynamic-subject" value="Inquiry" />
-        <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_replyto" id="contact-replyto" value="" />
+      <!-- Web3Forms Integration -->
+      <form name="contact" action="https://api.web3forms.com/submit" method="POST" autocomplete="off" class="space-y-8" id="contact-form">
+        <!-- Web3Forms Config -->
+        <input type="hidden" name="access_key" value="d7a2a015-babe-4b35-95bc-f92acf1060e8" />
+        <input type="hidden" name="subject" id="dynamic-subject" value="Inquiry" />
+        <input type="hidden" name="replyto" id="contact-replyto" value="" />
         
         <!-- Honeypot -->
-        <input type="text" name="_honey" style="display:none" autocomplete="off" />
+        <input type="text" name="botcheck" style="display:none" autocomplete="off" />
         
         <div class="space-y-2">
           <label class="block text-sm font-bold text-on-surface-variant font-headline ml-1" for="c-name">What&apos;s your name?</label>
@@ -77,14 +76,13 @@ bodyClass: page-contact-dots
           <p class="text-on-tertiary-container/80 mb-6 italic">
             Planning a school event or a creative workshop? We love helping communities grow. Get special rates for 20+ journals!
           </p>
-          <form id="bulk-order-form" name="bulk_order" action="https://formsubmit.co/ajax/yaaazz.creativeco@gmail.com" method="POST" autocomplete="off" class="space-y-4 text-left">
-            <!-- FormSubmit Config -->
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_subject" value="Bulk Order Request" />
-            <input type="hidden" name="_template" value="table" />
+          <form id="bulk-order-form" name="bulk_order" action="https://api.web3forms.com/submit" method="POST" autocomplete="off" class="space-y-4 text-left">
+            <!-- Web3Forms Config -->
+            <input type="hidden" name="access_key" value="d7a2a015-babe-4b35-95bc-f92acf1060e8" />
+            <input type="hidden" name="subject" value="Bulk Order Request" />
             
             <!-- Honeypot -->
-            <input type="text" name="_honey" style="display:none" autocomplete="off" />
+            <input type="text" name="botcheck" style="display:none" autocomplete="off" />
 
             <div>
               <label class="block text-xs font-bold text-on-tertiary-container/90 mb-1" for="bulk-org">Organization / school</label>
@@ -331,9 +329,9 @@ bodyClass: page-contact-dots
           const baseSubj = document.getElementById('dynamic-subject').value || 'Inquiry';
           const shortId = Math.random().toString(36).substring(2,6).toUpperCase();
           const dateStr = new Date().toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
-          outData.set('_subject', `${baseSubj} - ${nameVal} [${dateStr} #${shortId}]`);
+          outData.set('subject', `${baseSubj} - ${nameVal} [${dateStr} #${shortId}]`);
           if (emailVal) {
-            outData.set('_replyto', emailVal);
+            outData.set('replyto', emailVal);
             const rt = document.getElementById('contact-replyto');
             if (rt) rt.value = emailVal;
           }
@@ -437,7 +435,11 @@ bodyClass: page-contact-dots
           const orgVal = bulkData.get('organization') || 'Organization';
           const shortId = Math.random().toString(36).substring(2,6).toUpperCase();
           const dateStr = new Date().toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
-          bulkData.set('_subject', `Bulk Order - ${orgVal} [${dateStr} #${shortId}]`);
+          bulkData.set('subject', `Bulk Order - ${orgVal} [${dateStr} #${shortId}]`);
+          const bulkEmailVal = bulkData.get('email');
+          if (bulkEmailVal) {
+            bulkData.set('replyto', bulkEmailVal);
+          }
 
           fetch(bulkForm.action, {
             method: 'POST',

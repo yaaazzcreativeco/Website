@@ -1276,10 +1276,6 @@ input:where([type='file']):focus {
   display: inline-flex;
 }
 
-.table {
-  display: table;
-}
-
 .grid {
   display: grid;
 }
@@ -3012,11 +3008,6 @@ input:where([type='file']):focus {
   color: rgb(125 77 95 / 0.6);
 }
 
-.text-\[\#8e5a6d\] {
-  --tw-text-opacity: 1;
-  color: rgb(142 90 109 / var(--tw-text-opacity, 1));
-}
-
 .text-amber-700 {
   --tw-text-opacity: 1;
   color: rgb(180 83 9 / var(--tw-text-opacity, 1));
@@ -3219,11 +3210,6 @@ input:where([type='file']):focus {
 
 .text-yellow-600\/40 {
   color: rgb(202 138 4 / 0.4);
-}
-
-.text-nav-purple {
-  --tw-text-opacity: 1;
-  color: rgb(142 90 109 / var(--tw-text-opacity, 1));
 }
 
 .underline {

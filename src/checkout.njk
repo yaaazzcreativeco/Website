@@ -317,11 +317,10 @@ permalink: /checkout/index.html
         setSubmitting(true);
 
         var formData = new FormData();
-        formData.append("_subject", subject);
-        formData.append("_replyto", buyer.email);
-        formData.append("_captcha", "false");
-        formData.append("_template", "table");
-        formData.append("_honey", "");
+        formData.append("access_key", "d7a2a015-babe-4b35-95bc-f92acf1060e8");
+        formData.append("subject", subject);
+        formData.append("replyto", buyer.email);
+        formData.append("botcheck", "");
         formData.append("name", buyer.name);
         formData.append("email", buyer.email);
         formData.append("phone", buyer.phone);
@@ -332,7 +331,7 @@ permalink: /checkout/index.html
         formData.append("postal", buyer.postal);
         formData.append("order_summary", orderSummary);
 
-        fetch("https://formsubmit.co/ajax/yaaazz.creativeco@gmail.com", {
+        fetch("https://api.web3forms.com/submit", {
           method: "POST",
           body: formData,
           headers: { "Accept": "application/json" }
