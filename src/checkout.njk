@@ -253,6 +253,17 @@ permalink: /checkout/index.html
       return lines.join("\n");
     }
 
+    function showErrorModal(message) {
+      var modal = document.getElementById("error-modal");
+      var text = document.getElementById("error-modal-message");
+      if (modal && text) {
+        text.innerHTML = message;
+        modal.classList.add("show");
+      } else {
+        alert(message.replace(/<br>/g, "\n").replace(/<b>/g, "").replace(/<\/b>/g, ""));
+      }
+    }
+
     function setSubmitting(active) {
       if (!submitBtn) return;
       if (active) {
@@ -337,7 +348,7 @@ permalink: /checkout/index.html
         })
         .catch(function(err) {
           setSubmitting(false);
-          alert("Sorry, there was a problem sending your order. Please try again or reach us via Live Chat.\n\n" + (err.message || ""));
+          showErrorModal("Sorry, there was a problem sending your order. Please try again or reach us via Live Chat.<br><br><b>Error:</b> " + (err.message || "Unknown error"));
         });
       });
     }
@@ -422,6 +433,17 @@ permalink: /checkout/index.html
           if (e.target === modal) modal.classList.remove("show");
         });
       }
+
+      var errModal = document.getElementById("error-modal");
+      var errModalClose = document.getElementById("error-modal-close");
+      if (errModal && errModalClose) {
+        errModalClose.addEventListener("click", function() {
+          errModal.classList.remove("show");
+        });
+        errModal.addEventListener("click", function(e) {
+          if (e.target === errModal) errModal.classList.remove("show");
+        });
+      }
     }
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
     else boot();
@@ -471,7 +493,7 @@ permalink: /checkout/index.html
 
 
   /* Custom Confirmation Modal */
-  #clear-cart-modal {
+  #clear-cart-modal, #error-modal {
     position: fixed;
     inset: 0;
     z-index: 99999;
@@ -481,7 +503,7 @@ permalink: /checkout/index.html
     background: rgba(0,0,0,0.4);
     backdrop-filter: blur(4px);
   }
-  #clear-cart-modal.show {
+  #clear-cart-modal.show, #error-modal.show {
     display: flex;
   }
   .clear-modal-box {
@@ -573,6 +595,20 @@ permalink: /checkout/index.html
     <div class="clear-modal-actions">
       <button class="clear-modal-btn cancel" id="clear-modal-no">Keep Items</button>
       <button class="clear-modal-btn confirm" id="clear-modal-yes">Yes, Clear All</button>
+    </div>
+  </div>
+</div>
+
+<!-- Custom Error Modal -->
+<div id="error-modal">
+  <div class="clear-modal-box">
+    <div class="clear-modal-icon">
+      <span class="material-symbols-outlined">error</span>
+    </div>
+    <h3 class="clear-modal-title">Oops, something went wrong!</h3>
+    <p class="clear-modal-text" id="error-modal-message">An error occurred.</p>
+    <div class="clear-modal-actions">
+      <button class="clear-modal-btn confirm" id="error-modal-close" style="width: 100%;">Close</button>
     </div>
   </div>
 </div>
